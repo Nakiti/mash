@@ -13,7 +13,7 @@ import "./index.css"
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />}/>
+      <Route path="https://mash.herokuapp.com/" element={<Home />}/>
       <Route path="/create" element={<Create />}/>
       <Route path="/profile/:user" element={<Profile />}/>
       <Route path="/search" element={<Search />}/>
