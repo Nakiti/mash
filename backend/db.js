@@ -11,18 +11,30 @@ let config = {
 }
 export const db = new mysql.createConnection(config)
 
-db.connect(
-  function (err) { 
-  if (err) { 
-    console.log("!!! Cannot connect !!! Error:");
-    throw err;
-  }
-  else
-  {
-    console.log("Connection established.");
-  }
-});
+const handleConnect = () => {
+  db.connect(
+    function (err) { 
+    if (err) { 
+      console.log("!!! Cannot connect !!! Error:");
+      throw err;
+    }
+    else
+    {
+      console.log("Connection established.");
+    }
+  });
+}
 
+handleConnect()
+
+db.on("error", (err) => {
+  console.log("db error", err)
+  if (err.code == "PROTOCOL_CONNECTION_LOST") {
+    handleConnect()
+  } else {
+    console.log("ALL GOOD MATE")
+  }
+})
 
 
 
