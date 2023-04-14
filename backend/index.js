@@ -18,6 +18,10 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors(corsOptions))
 
+app.use("/auth", authRoutes)
+app.use("/mashes", mashRoutes)
+app.use("/cards", cardRoutes)
+
 const __dirname = path.resolve()
 
 app.use(express.static(path.join(__dirname, "/frontend/build")));
@@ -25,13 +29,10 @@ app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "/frontend/build", "index.html"));
 });
 
-app.use("/auth", authRoutes)
-app.use("/mashes", mashRoutes)
-app.use("/cards", cardRoutes)
-
 const port = process.env.PORT || 4000
 
 app.listen(port, (req, res) => {
   console.log("woooooo")
   console.log(port)
 })
+
