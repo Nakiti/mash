@@ -18,7 +18,7 @@ const Profile = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(`/mashes/get/${currentUser.id}`)
+        const response = await axios.get(`https://mash.herokuapp.com/mashes/get/${currentUser.id}`)
         setMashes(response.data)
 
         console.log("response", response.data)
