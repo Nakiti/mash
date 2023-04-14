@@ -3,10 +3,10 @@ import fs from "fs"
 import path from "path"
 
 let config = {
-  host: 'us-cdbr-iron-east-02.cleardb.net',
-  user: 'bf3c363a31b9bb',
-  password: '26a3a226',
-  database: 'heroku_49c69f646e08770',
+  HOST: 'us-cdbr-iron-east-02.cleardb.net',
+  USER: 'bf3c363a31b9bb',
+  PASSWORD: '26a3a226',
+  DB: 'heroku_49c69f646e08770',
   // port: 3306,
   // ssl: {ca: fs.readFileSync(path.resolve("../DigiCertGlobalRootCA.crt.pem"))}
 }
