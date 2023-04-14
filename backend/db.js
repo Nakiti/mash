@@ -8,7 +8,7 @@ let config = {
   password: '99Bottles$',
   database: 'mash',
   port: 3306,
-  ssl: {ca: fs.readFileSync(path.resolve(".././DigiCertGlobalRootCA.crt.pem"))}
+  // ssl: {ca: fs.readFileSync(path.resolve(".././DigiCertGlobalRootCA.crt.pem"))}
 }
 export const db = new mysql.createConnection(config)
 
