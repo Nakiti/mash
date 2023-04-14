@@ -29,7 +29,6 @@ const Profile = () => {
 
     getData()
   }, [])
-
   
 
   return ( 

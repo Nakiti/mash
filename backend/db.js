@@ -2,10 +2,10 @@ import mysql from "mysql"
 
 
 let config = {
-  host: 'us-cdbr-east-06.cleardb.net',
-  user: 'bcc2a5413dcff9',
-  password: '005118ee',
-  database: 'heroku_b365f94355ac3f8',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB,
   port: 3306,
   // ssl: {ca: fs.readFileSync(path.resolve("../DigiCertGlobalRootCA.crt.pem"))}
 }
