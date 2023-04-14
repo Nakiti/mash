@@ -24,7 +24,7 @@ const handleDisconnect = () => {
     }
   });
 
-  db.on(err => {
+  db.on("error", (err) => {
     if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
       handleDisconnect();                         
     } else {                                      
