@@ -7,8 +7,8 @@ export const getMashes = (req, res) => {
   console.log(value)
 
   db.query(query, [value], (err, data) => {
-    if (err) return res.json(err)
-    return res.json(data)
+    if (err) return console.log(res.json(err))
+    return console.log(res.json(data))
   })
 }
 
