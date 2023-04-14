@@ -31,5 +31,4 @@ app.use("/cards", cardRoutes)
 
 app.listen(4000, (req, res) => {
   console.log("woooooo")
-  console.log(process.env.HOST)
 })
