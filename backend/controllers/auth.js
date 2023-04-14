@@ -6,7 +6,6 @@ export const register = (req, res) => {
 
   const q = "SELECT * FROM users WHERE username = ? OR email = ?"
 
-  console.log(db)
 
   db.query(q, [req.body.username, req.body.email], (err, data) => {
     if (err) return res.status(500).json(err)
