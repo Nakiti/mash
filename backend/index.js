@@ -16,6 +16,10 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors(corsOptions))
 
+app.use(express.static(path.join(__dirname, ".././fronted/build")));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, ".././frontend/build", "index.html"));
+});
 
 app.use("/auth", authRoutes)
 app.use("/mashes", mashRoutes)
