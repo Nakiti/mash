@@ -1,5 +1,21 @@
 {
   "dependencies": {
     "fs": "^0.0.1-security"
-  }
+  },
+  "name": "mash",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
