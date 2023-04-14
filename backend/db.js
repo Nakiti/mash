@@ -9,21 +9,31 @@ let config = {
   port: 3306,
   // ssl: {ca: fs.readFileSync(path.resolve("../DigiCertGlobalRootCA.crt.pem"))}
 }
-export const db = new mysql.createPool(config)
+export const db = new mysql.createConnection(config)
 
-// db.connect(
-//   function (err) { 
-//   if (err) { 
-//     console.log("!!! Cannot connect !!! Error:");
-//     throw err;
-//   }
-//   else
-//   {
-//     console.log("Connection established.");
-//   }
-// });
+const handleDisconnect = () => {
+  db.connect(
+    function (err) { 
+    if (err) { 
+      console.log("!!! Cannot connect !!! Error:");
+      throw err;
+    }
+    else
+    {
+      console.log("Connection established.");
+    }
+  });
 
+  db.on(err => {
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      handleDisconnect();                         
+    } else {                                      
+      throw err;                                  
+    }
+  })
+}
 
+handleDisconnect()
 
 
 
