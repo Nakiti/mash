@@ -12,7 +12,7 @@ export const AuthContextProvider = ({children}) => {
     const response = await axios.post("https://mash.herokuapp.com/auth/login", inputs)
     setCurrentUser(response.data)
     navigate(`/profile/${response.data.id}`)
-
+    
   }
 
   const logout = async (inputs) => {
