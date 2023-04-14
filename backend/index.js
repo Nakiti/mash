@@ -29,6 +29,8 @@ app.use("/auth", authRoutes)
 app.use("/mashes", mashRoutes)
 app.use("/cards", cardRoutes)
 
-app.listen(process.env.PORT || 4000, (req, res) => {
+const port = process.env.PORT || 4000
+
+app.listen(port, (req, res) => {
   console.log("woooooo")
 })
