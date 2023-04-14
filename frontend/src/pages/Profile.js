@@ -41,14 +41,14 @@ const Profile = () => {
             <button className="profile-modalButton" onClick={() => setShowModal(false)}>Close</button>
           </div>
         </div>}
-        <p className="profile-welcome">Hello {currentUser.username}!</p>
+        {/* <p className="profile-welcome">Hello {currentUser.username}!</p> */}
         <p className="profile-heading1">Create New:</p>
         <button className="profile-create" onClick={() => navigate("/create")}>+</button>
         <p className="profile-heading2">Created Mashes:</p>
         <div className="profile-cards">
-          {mashes && mashes.map((item) => {
+          {/* {mashes && mashes.map((item) => {
             return <Card key={item.id} show={true} setMessage={setMessage} setShowModal={setShowModal} title={item.title} date={item.date} plays={item.plays} id={item.id} mashes={mashes} setMashes={setMashes}/>
-          })}
+          })} */}
         </div>
       </div>
     </div>
