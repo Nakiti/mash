@@ -3,11 +3,11 @@ import fs from "fs"
 import path from "path"
 
 let config = {
-  host: 'us-cdbr-iron-east-02.cleardb.net',
-  user: 'bf3c363a31b9bb',
-  password: '26a3a226',
-  db: 'heroku_49c69f646e08770',
-  // port: 3306,
+  host: 'us-cdbr-east-06.cleardb.net',
+  user: 'bcc2a5413dcff9',
+  password: '005118ee',
+  db: 'heroku_b365f94355ac3f8',
+  port: 3306,
   // ssl: {ca: fs.readFileSync(path.resolve("../DigiCertGlobalRootCA.crt.pem"))}
 }
 export const db = new mysql.createConnection(config)
