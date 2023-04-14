@@ -5,7 +5,7 @@ let config = {
   host: 'us-cdbr-east-06.cleardb.net',
   user: 'bcc2a5413dcff9',
   password: '005118ee',
-  db: 'heroku_b365f94355ac3f8',
+  database: 'heroku_b365f94355ac3f8',
   port: 3306,
   // ssl: {ca: fs.readFileSync(path.resolve("../DigiCertGlobalRootCA.crt.pem"))}
 }
