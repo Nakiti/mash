@@ -1,6 +1,5 @@
 import mysql from "mysql"
-import fs from "fs"
-import path from "path"
+
 
 let config = {
   host: 'us-cdbr-east-06.cleardb.net',
