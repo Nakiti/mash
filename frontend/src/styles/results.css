@@ -1,0 +1,134 @@
+.results-body {
+  display: grid;
+  grid-template-columns: repeat(8, 12.5vw);
+  grid-template-rows: repeat(8, calc((100vh - 71.35px)/8));
+
+  background-color: #F4F4F4;
+
+}
+
+.results-title {
+  grid-column: 2 / 8;
+  text-align: center;
+  grid-row: 1 / 3;
+  align-self: center;
+  font-size: 1.5em;
+  margin-bottom: 60px;
+}
+
+.results-subtitle {
+  grid-column: 2 / 8;
+  font-size: 1.5em;
+  grid-row: 2 / 3;
+  text-align: center;
+}
+
+.results-items {
+  grid-column: 2 / 8;
+  grid-row: 3 / 8;
+
+  justify-self: center;
+  width: 100%;
+  max-height: 100%;
+  overflow-y: scroll;
+  border: solid gray 1px;
+  padding: 10px;
+  /* overflow: hidden; */
+}
+
+.results-container {
+  display: flex;
+  /* border: solid black 2px; */
+  width: 100%;
+  /* height: 50%; */
+  padding: 5px;
+  margin: 0;
+  margin-bottom: 1%;
+  border-bottom: solid grey 1px
+}
+
+.results-text {
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+  width: 10%;
+}
+
+.results-name {
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+
+  width: 100%;
+  font-size: 20px;
+}
+
+.results-image {
+  margin-left: 2%;
+  width: 9vh;
+  height: 12vh;
+  padding: 10px;
+  background-color: white;
+}
+
+.results-btnContainer {
+  display: flex;
+  justify-content: space-around;
+
+  grid-row: 8 / 10;
+  align-items: center;
+  grid-column: 3 / 7;
+}
+
+.results-btn {
+  width: 40%;
+  height: 50%;
+  margin-left: 5%;
+  border: 0;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+}
+
+@media screen and (min-width: 600px) {
+  .results-name {
+    font-size: 3vh;
+  }
+
+  .results-text {
+    font-size: 3vh;
+  }
+
+  .results-title {
+    font-size: 2em;
+  }
+
+  .results-subtitle {
+    font-size: 2em;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .results-items {
+    grid-column: 3 / 7;
+  }
+
+  .results-image {
+    width: 12vh;
+    height: 16vh;
+  }
+
+  .results-title {
+    grid-column: 3 / 7;
+  }
+
+  .results-subtitle {
+    grid-column: 3 / 7;
+  }
+
+  .results-btn {
+    width: 20%;
+    height: 50%;
+    margin-left: 5%;
+  }
+}

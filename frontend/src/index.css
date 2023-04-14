@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+
+  background-color: #F4F4F4;
+
+}
+
+html {
+  background-color: #F4F4F4;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+}

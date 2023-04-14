@@ -1,0 +1,238 @@
+.profile-body {
+  display: grid;
+  grid-template-columns: repeat(8, 12.5vw);
+  grid-template-rows: repeat(8, calc((100vh - 71.35px)/8));
+
+  background-color: #F4F4F4;
+}
+
+html {
+  background-color: #F4F4F4;
+
+}
+
+.profile-content {
+  background-color: #F4F4F4;
+}
+
+.profile-welcome {
+  grid-column: 3 / 7;
+  grid-row: 1 / 3;
+  text-align: center;
+  align-self: center;
+  font-size: 40px;
+}
+
+.profile-heading1 {
+  grid-column: 3 / 7;
+  grid-row: 3 / 4;
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 0;
+}
+
+.profile-heading2 {
+  grid-column: 3 / 7;
+  grid-row: 5 / 6;
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 0;
+  margin: 0;
+  height: 2em;
+}
+
+.profile-cards {
+  grid-column: 2 / 8;
+  grid-row-start: 6;
+
+  display: grid;
+  /* grid-template-columns: repeat(3, 1fr); */
+  gap: 20px;
+}
+
+.profile-create {
+  grid-column: 4 / 6;
+  grid-row: 3 / 5;
+  width: 100%;
+  height: 8vh;
+
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  justify-self: center;
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;  
+  border: 0;
+
+  font-size: 36px;
+}
+
+.profile-create:hover {
+  cursor: pointer;
+}
+
+.profile-modalOverlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  background-color: rgba(128,128,128,0.5); 
+  justify-content: center;
+}
+
+.profile-modal {
+  margin-top: 30px;
+  background-color: white;
+  width: 50%;
+  height: 400px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.profile-modalText {
+  text-align: center;
+  font-size: 20px;
+}
+
+.profile-modalButton {
+  border: 0;
+  width: 100px;
+  height: 40px;
+  margin-top: 50px;
+}
+
+@media screen and (min-width: 600px){ 
+  .profile-body {
+    display: grid;
+    grid-template-columns: repeat(8, 12.5vw);
+    grid-template-rows: repeat(8, calc((100vh - 71.35px)/8));
+  
+    background-color: #F4F4F4;
+  
+  }
+  
+  .profile-welcome {
+    grid-column: 3 / 7;
+    grid-row: 1 / 3;
+    text-align: center;
+    align-self: center;
+    font-size: 40px;
+  }
+  
+  .profile-heading1 {
+    grid-column: 3 / 7;
+    grid-row: 3 / 4;
+    font-size: 2em;
+    text-align: center;
+    margin-top: 0;
+  }
+  
+  .profile-heading2 {
+    grid-column: 3 / 7;
+    grid-row: 4 / 5;
+    font-size: 2em;
+    text-align: center;
+    margin-top: 1vh;
+    align-self: flex-end;
+  }
+  
+  .profile-cards {
+    grid-column: 2 / 8;
+    grid-row-start: 5;
+    margin-top: 1vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 10px;
+  }
+  
+  .profile-create {
+    grid-column: 4 / 6;
+    grid-row: 3 / 5;
+    width: 50%;
+  
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;  
+    border: 0;
+  
+    font-size: 36px;
+  }
+  
+  .profile-create:hover {
+    cursor: pointer;
+  }
+
+  .profile-modal {
+    height: 200px;
+  }
+}
+
+@media screen and (min-width: 1200px){ 
+  .profile-body {
+    display: grid;
+    grid-template-columns: repeat(8, 12.5vw);
+    grid-template-rows: repeat(8, calc((100vh - 71.35px)/8));
+  
+    background-color: #F4F4F4;
+  
+  }
+  
+  .profile-welcome {
+    grid-column: 3 / 7;
+    grid-row: 1 / 3;
+    text-align: center;
+    align-self: center;
+    font-size: 2.5em;
+  }
+  
+  .profile-heading1 {
+    grid-column: 3 / 7;
+    grid-row: 3 / 4;
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 0;
+  }
+  
+  .profile-heading2 {
+    grid-column: 3 / 7;
+    grid-row: 4 / 5;
+    font-size: 1.5em;
+    text-align: center;
+    align-self: end;
+    margin-bottom: 0;
+    padding: 10px;
+  }
+  
+  .profile-cards {
+    grid-column: 2 / 8;
+    grid-row-start: 5;
+    margin-top: 1vh;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .profile-create {
+    grid-column: 4 / 6;
+    grid-row: 3 / 5;
+    width: 25%;
+  
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;  
+    border: 0;
+  
+    font-size: 36px;
+  }
+  
+  .profile-create:hover {
+    cursor: pointer;
+  }
+}

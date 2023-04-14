@@ -1,0 +1,104 @@
+.card-content {
+  height: 180px;
+
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;  
+  background-color: white;
+
+}
+.card-top:hover {
+  cursor: pointer;
+}
+
+.card-middle:hover {
+  cursor: pointer;
+}
+
+.card-top {
+  display: flex;
+  justify-content: end;
+  width: 95%;
+  margin: 2.5%;
+}
+
+.card-middle {
+  width: 95%;
+  text-align: center;
+  font: 32px;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+
+  margin-left: 5%;
+  margin-top: 5%;
+
+}
+
+.card-bottom {
+  width: 90%;
+  text-align: right;
+  margin-top: 10%;
+  margin-right: 5%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5%;
+  height: 15%;
+  border-top: solid grey .5px;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.card-button {
+  background-color: white;
+  border: 0;
+  font-size: 12px;
+  height: 80%;
+}
+
+
+.card-btn {
+  background-color: white;
+  border: none;
+
+}
+
+.card-delete {
+  justify-self: flex-end;
+  align-self: flex-end;
+}
+
+.card-date {
+  margin-right: 20px;
+}
+
+.card-p {
+  margin: 0;
+  font-size: 14px;
+
+}
+
+.card-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media screen and (min-width: 600px) {
+  .card-content {
+    height: 160px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .card-content {
+    height: 175px;
+  }
+
+  .card-button {
+    font-size: 14px;
+  }
+}

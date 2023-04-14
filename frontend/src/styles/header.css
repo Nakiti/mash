@@ -1,0 +1,40 @@
+.header-content {
+  background-color: #1F2C4C;
+  grid-column: 1 / 11;
+  grid-row: 1 / 2;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  height: 71.35px;
+}
+
+.header-text {
+  font-size: 34px;
+  font-weight: bold;
+  margin-left: 5%;
+  color: white
+}
+
+.header-text:hover{
+  cursor: pointer;
+}
+
+.header-button {
+  margin-right: 2.5%;
+  width: 80px;
+  height: 30px;
+  font-size: 16px;
+  border: none;
+  color: white;
+
+  background-color: #1F2C4C;
+  border-bottom: solid 1px white;
+}
+
+.header-button:hover {
+  cursor: pointer;
+}
