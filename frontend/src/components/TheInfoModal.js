@@ -8,7 +8,7 @@ const TheInfoModal = (props) => {
   useEffect(() => {
     const getData = async() => {
       try {
-        const response = await axios.get(`http://localhost:4000/mashes/getmashbyid/${props.id}`)
+        const response = await axios.get(`/mashes/getmashbyid/${props.id}`)
         const temp = response.data[0].info
         setInfo(temp)
       } catch (err) {

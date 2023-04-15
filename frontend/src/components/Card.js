@@ -13,7 +13,7 @@ const Card = (props) => {
       props.setShowModal(true)
 
     } else  {
-      await axios.delete(`http://localhost:4000/mashes/delete/`, {id: props.id})
+      await axios.delete(`/mashes/delete/`, {id: props.id})
 
       const temp = props.mashes.filter(item => item.id !== props.id)
       props.setMashes(temp)
@@ -23,7 +23,7 @@ const Card = (props) => {
 
   const handleClick = async() => {
     const updatedPlays = props.plays + 1
-    // await axios.put(`http://localhost:4000/mashes/update/`, {plays: updatedPlays, id: props.id})
+    await axios.put(`/mashes/update/`, {plays: updatedPlays, id: props.id})
     navigate(`/mash/${props.title}/${props.id}`)
   }
 
