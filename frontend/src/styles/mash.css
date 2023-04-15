@@ -14,6 +14,7 @@
   align-self: center;
   margin: 0;
   margin-bottom: 30px;
+  justify-content: center;
 }
 
 .mash-tile:hover{
