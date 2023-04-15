@@ -177,31 +177,31 @@ const Mash = () => {
   }
 
   useEffect(() => {
-    const getData = async() => {
-      try { 
-      const response = await axios.get(`/cards/get/${id}`)
-      // console.log("response", response)
+    // const getData = async() => {
+    //   try { 
+    //   const response = await axios.get(`/cards/get/${id}`)
+    //   // console.log("response", response)
 
-      setCards(response.data)
-      setMax(response.data.length)
+    //   setCards(response.data)
+    //   setMax(response.data.length)
 
-      let one = Math.floor(Math.random() * response.data.length)
-      let two = Math.floor(Math.random() * response.data.length)
-      while (one === two) {
-        two = Math.floor(Math.random() * response.data.length)
-      }
+    //   let one = Math.floor(Math.random() * response.data.length)
+    //   let two = Math.floor(Math.random() * response.data.length)
+    //   while (one === two) {
+    //     two = Math.floor(Math.random() * response.data.length)
+    //   }
 
-      findPairs(response.data, one, two)
+    //   findPairs(response.data, one, two)
 
-      setCardOne(one)
-      setCardTwo(two)
-      }
-      catch (err) {
-        console.log(err)
-      }
-    }
-    getData()
-    handleUserCards()
+    //   setCardOne(one)
+    //   setCardTwo(two)
+    //   }
+    //   catch (err) {
+    //     console.log(err)
+    //   }
+    // }
+    // getData()
+    // handleUserCards()
   }, [])
 
   return ( 
