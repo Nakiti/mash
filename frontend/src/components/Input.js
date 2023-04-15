@@ -1,7 +1,6 @@
 import "../styles/input.css"
 
 const Input = (props) => {
-
   const handleChange = (e) => {
     const temp = props.inputs
 
@@ -17,25 +16,38 @@ const Input = (props) => {
   }
 
   const handleDelete = (id) => {
-    console.log("click")
-    const filteredArray = props.inputs.filter(item => item.id !== id)
+    const temp = [...props.inputs]
+    console.log(id)
 
+    const index = temp.findIndex(item => item.id == id)
 
-    filteredArray.map((item) => {
-      if (item.id > id) {
-        item.id = item.id - 1
-      }
-    })
+    temp.splice(index, 1)
+    console.log(temp)
 
-    console.log(filteredArray)
+    // temp.map(item => {
+    //   if (item.id > id) {
+    //     item.id -= 1
+    //   }
+    // })
 
-    props.setInputs(filteredArray)
+    // const filtered = temp.filter(item => item.id !== id)
+
+    // console.log(filtered)
+
+    // // const updated = filtered.map(item => {
+    // //   if (item.id > id) {
+    // //     item.id -= 1
+    // //   }
+    // //   return item
+    // // })
+
+    props.setInputs(temp)
   }
 
   return ( 
     <div className="input-content">
       <p className="input-number">{props.id + 1}</p>
-        <button className="input-delete" onClick={() => handleDelete(props.id)}><i class="fa fa-trash"></i></button>
+        {/* <button className="input-delete" onClick={() => props.handleDelete(props.id)}><i class="fa fa-trash"></i></button> */}
         <div className="input-inputs">
           <input type="text" className="input-input input-name" placeholder="Enter Name" name="name" value={props.inputs.name} onChange={handleChange}/>
           <input type="text" className="input-input input-link" placeholder="Enter Image Link" name="image" value={props.inputs.image} onChange={handleChange}/>

@@ -20,6 +20,7 @@ const Mash = () => {
   const [clicks, setClicks] = useState(0)
   const [total, setTotal] = useState(null)
   const [infoModal, setInfoModal] = useState(false)
+  const [length, setLength] = useState(0)
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
@@ -56,7 +57,7 @@ const Mash = () => {
     }
     setCardOne(one)
     setCardTwo(two)
-    console.log(pairs)
+    // console.log(pairs)
   }
   // add code so same card doesn't show up repeatedly, seems to skew results in short sample
 
@@ -70,7 +71,7 @@ const Mash = () => {
     let userExpectedOne = 1/(1 + 10**((userTemp[cardTwo].eloScore - userTemp[cardOne].eloScore)/400)) //set rates
     let userExpectedTwo = 1/(1 + 10**((userTemp[cardOne].eloScore - userTemp[cardTwo].eloScore)/400))
 
-    console.log(expectedOne, expectedTwo)
+    // console.log(expectedOne, expectedTwo)
     setClicks(prev => prev + 1)
 
     try {
@@ -78,9 +79,9 @@ const Mash = () => {
         let scoreOne = temp[cardOne].eloScore + k*(1-expectedOne)
         let scoreTwo = temp[cardTwo].eloScore + k*(0-expectedTwo)
 
-        console.log("first one clicked")
-        console.log(userTemp[cardOne].title, " before: ", userTemp[cardOne].eloScore)
-        console.log(userTemp[cardTwo].title, " before: ", userTemp[cardTwo].eloScore)
+        // console.log("first one clicked")
+        // console.log(userTemp[cardOne].title, " before: ", userTemp[cardOne].eloScore)
+        // console.log(userTemp[cardTwo].title, " before: ", userTemp[cardTwo].eloScore)
         // console.log("scores", scoreOne, scoreTwo)
 
         let userScoreOne = userTemp[cardOne].eloScore + k*(1-userExpectedOne)
@@ -95,16 +96,16 @@ const Mash = () => {
         userTemp[cardOne].eloScore = userScoreOne
         userTemp[cardTwo].eloScore = userScoreTwo
 
-        console.log(userTemp[cardOne].title, " after: ", userTemp[cardOne].eloScore)
-        console.log(userTemp[cardTwo].title, " after: ", userTemp[cardTwo].eloScore)
+        // console.log(userTemp[cardOne].title, " after: ", userTemp[cardOne].eloScore)
+        // console.log(userTemp[cardTwo].title, " after: ", userTemp[cardTwo].eloScore)
       } else if (e.target.alt == temp[cardTwo].title) { //card two clicked
         let scoreOne = temp[cardOne].eloScore + k*(0-expectedOne)
         let scoreTwo = temp[cardTwo].eloScore + k*(1-expectedTwo)
         
-        console.log("second one clicked")
+        // console.log("second one clicked")
 
-        console.log(userTemp[cardOne].title, " before: ", userTemp[cardOne].eloScore)
-        console.log(userTemp[cardTwo].title, " before: ", userTemp[cardTwo].eloScore)
+        // console.log(userTemp[cardOne].title, " before: ", userTemp[cardOne].eloScore)
+        // console.log(userTemp[cardTwo].title, " before: ", userTemp[cardTwo].eloScore)
         
         // console.log("scores", scoreOne, scoreTwo)
 
@@ -120,14 +121,14 @@ const Mash = () => {
         userTemp[cardOne].eloScore = userScoreOne
         userTemp[cardTwo].eloScore = userScoreTwo
 
-        console.log(userTemp[cardOne].title, " after: ", userTemp[cardOne].eloScore)
-        console.log(userTemp[cardTwo].title, " after: ", userTemp[cardTwo].eloScore)
+        // console.log(userTemp[cardOne].title, " after: ", userTemp[cardOne].eloScore)
+        // console.log(userTemp[cardTwo].title, " after: ", userTemp[cardTwo].eloScore)
       }
     } catch (err) {
       console.log(err)
     }
 
-    console.log("userCards:", userCards)
+    // console.log("userCards:", userCards)
     setCards(temp)
     setUserCards(userTemp)
     setTile()
@@ -157,7 +158,7 @@ const Mash = () => {
     temp.splice(pos, 1)
     setPairs(temp)
     setTotal(temp.length + 1)
-    console.log(temp)
+    setLength(temp.length + 1)
   }
 
   const handleUserCards = async() => {
@@ -179,7 +180,7 @@ const Mash = () => {
     const getData = async() => {
       try { 
       const response = await axios.get(`/cards/get/${id}`)
-      console.log("response", response)
+      // console.log("response", response)
 
       setCards(response.data)
       setMax(response.data.length)
@@ -208,7 +209,7 @@ const Mash = () => {
       <Header />
      { cards && userCards && <div className="mash-body">
         {showModal && <Modal className="mash-modal" userCards={userCards} setShowModal={setShowModal} empty={empty} title={title} id={id}/>}
-        {infoModal && <TheInfoModal className="mash-infoModal" length={pairs.length} id={id} setInfoModal={setInfoModal}/>}
+        {infoModal && <TheInfoModal className="mash-infoModal" length={length} id={id} setInfoModal={setInfoModal}/>}
         <p className="mash-title">{title} MASH</p>
         <p className="mash-info">WHICH ONE'S BETTER?</p>
         <button className="mash-infoButton" onClick={handleInfoButton}><i class="fa fa-question"></i></button>

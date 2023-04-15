@@ -21,7 +21,7 @@ const Profile = () => {
         const response = await axios.get(`/mashes/get/${currentUser.id}`)
         setMashes(response.data)
 
-        console.log("response", response.data)
+        // console.log("response", response.data)
       } catch (err) {
         console.log(err)
       }

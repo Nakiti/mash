@@ -18,7 +18,7 @@ const Register = () => {
   }
 
   useEffect(() => {
-    console.log(inputs)
+    // console.log(inputs)
   }, [inputs])
 
   const handleSubmit = async (e) => {
@@ -26,7 +26,7 @@ const Register = () => {
 
     try {
       await axios.post("https://mash.herokuapp.com/auth/register", inputs)
-      console.log("click")
+      // console.log("click")
 
       navigate("/login")
     } catch (e) {

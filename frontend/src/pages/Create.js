@@ -28,19 +28,23 @@ const Create = () => {
   const handleAdd = () => {
     setInputs((prev) => [...prev, {id: prev[prev.length - 1].id + 1, name: "", image: ""}])
 
-    console.log(inputs)
+    // console.log(inputs)
   }
 
   const handleDelete = (id) => {
-    const filteredArray = inputs.filter(item => item.id !== id)
+    const temp = [...inputs]
 
-    filteredArray.map((item) => {
+    const filtered = temp.filter(item => item.id !== id)
+    // console.log(id)
+    // console.log("filtered", filtered)
+    const updated = filtered.map(item => {
       if (item.id > id) {
-        item.id = item.id - 1
+        item.id -= 1
       }
+      return item
     })
 
-    setInputs(filteredArray)
+    setInputs((prev) => {return updated})
   }
 
   const handleModal = () => {
@@ -54,7 +58,7 @@ const Create = () => {
     if (title === "") {
       setError("Enter a Title")
       handleModal()
-      console.log(title)
+      // console.log(title)
 
       return
     } else if (inputs.length < 2) {
@@ -75,13 +79,13 @@ const Create = () => {
     let tempMashId;
     try {
       let temp = await axios.get(`/mashes/get/${userId}`)
-      console.log("temp: ", temp)
+      // console.log("temp: ", temp)
       temp.data.map(item => {
         if (item.title === title) {
-          console.log(item)
+          // console.log(item)
           tempMashId = item.id
           setMashID(item.id)
-          console.log("id: ", tempMashId)
+          // console.log("id: ", tempMashId)
         } 
       })
     } catch (e) {
@@ -91,7 +95,7 @@ const Create = () => {
     try {
       for (var i = 0; i < inputs.length; i++) {
         await axios.post("/cards/post", {title: inputs[i].name, image: inputs[i].image, mashID: String(tempMashId), eloScore: String(1200)})
-        console.log({title: inputs[i].name, image: inputs[i].image, mashID: String(mashID), eloScore: String(1200)})
+        // console.log({title: inputs[i].name, image: inputs[i].image, mashID: String(mashID), eloScore: String(1200)})
       }
     } catch (e) {
       console.log(e)
@@ -114,7 +118,7 @@ const Create = () => {
       {otherModal && <div className="create-otherModalOverlay">
             <div className="create-otherModal">
             <p className="create-otherModalText">Here's the link to your mash: </p>  
-            <a href={`/mash/${title}/${mashID}`} className="create-otherModalLink">http://localhost:3000{`/mash/${title}/${mashID}`}</a>
+            <a href={`/mash/${title}/${mashID}`} className="create-otherModalLink">https://mash.herokuapp.com{`/mash/${title}/${mashID}`}</a>
             <button className="create-otherModalButton" style={{justifySelf: "center"}} onClick={handleOtherModal}>Home</button>
           </div>
         </div>}
@@ -142,7 +146,8 @@ const Create = () => {
               <option value="film">Film</option>
               <option value="music">Music</option>
               <option value="places">Nature</option>
-              <option value="Food">Food</option>
+              <option value="food">Food</option>
+              <option value="places">Places</option>
             </select>
           </div>
           <div className="create-group create-access-group">
@@ -161,10 +166,10 @@ const Create = () => {
         <div className="create-form">
           <div className="create-items">
             {inputs.map((item) => {
-              return <div className="create-wrapper" onFocus={() => setSelectedId(item.id)}> <Input key={item.id} id={item.id} inputs={inputs} selectedId={selectedId} setInputs={setInputs}/> </div>
+              return <div className="create-wrapper" onFocus={() => setSelectedId(item.id)}> <Input key={item.id} id={item.id} inputs={inputs} selectedId={selectedId} setInputs={setInputs} handleDelete={handleDelete}/> </div>
             })}
           </div>
-          <button className="create-add" onClick={handleAdd}>+ Add Card</button>
+          <button className="create-add" onClick={handleAdd}>Add Card</button>
           <button className="create-submit" onClick={handleSubmit}>Create</button>
         </div>
       </div>}

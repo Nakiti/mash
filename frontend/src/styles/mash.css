@@ -139,30 +139,32 @@
 
 @media screen and (min-width: 600px) {
   .mash-image {
-    width: 18vh;
-    height: 24vh;
+    width: 21vh;
+    height: 28vh;
   
     justify-self: center;
   }
   
   .mash-container {
     flex-direction: row;
-    grid-row: 1 / 7;
+    grid-row: 3 / 8;
 
   }
 
   .mash-title {
-    font-size: 2.5em;
+    font-size: 2em;
+    grid-row: 1 / 3;
   }
 
   .mash-info {
-    font-size: 1.75em;
+    font-size: 1.5em;
+    grid-row: 2 / 3;
   }
 
   .mash-endButton {
     width: 50%;
     font-size: 1.5vh;
-    grid-row: 6 / 7;
+    grid-row: 7 / 8;
   }
 
   .mash-infoButton {
@@ -172,11 +174,12 @@
     align-self: center;
     text-decoration: none;
     font-weight: none;
+    grid-row: 3 / 4;
   }
 
   .mash-stats {
     font-size: 2vh;
-    grid-row: 7 / 8;
+    grid-row: 8 / 9;
     align-self: center;
   }
   .mash-clicks {
@@ -230,10 +233,12 @@
     font-size: 2.5em;
     align-self: center;
     margin: 0;
+    grid-row: 1 / 2;
   }
 
   .mash-infoButton {
     align-self: end;
+    grid-row: 2 / 3;
   }
 }
 

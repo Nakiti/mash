@@ -9,12 +9,16 @@ const Results = () => {
   const [data, setData] = useState(null)
   const {title, id} = useParams()
   const navigate = useNavigate()
+  const [plays, setPlays] = useState(null)
 
   useEffect(() => {
     const getData = async() => {
       const response = await axios.get(`/cards/get/${id}`)
       const sortedData = response.data.sort((a, b) => b.eloScore - a.eloScore)
 
+      const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
+
+      setPlays(otherResponse.data[0].plays)
       setData(sortedData)
     }
 
@@ -27,6 +31,7 @@ const Results = () => {
       <div className="results-body">
         <p className="results-title">Rankings:</p>
         <p className="results-subtitle">{title} Mash</p>
+        {plays && <p className="results-plays">Plays: {plays}</p>}
         <div className="results-items">
           {data && data.map((item, index) => {
             return (
