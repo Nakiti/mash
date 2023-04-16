@@ -25,7 +25,7 @@ const Register = () => {
     e.preventDefault()
 
     try {
-      await axios.post("https://mash.herokuapp.com/auth/register", inputs)
+      await axios.post("/auth/register", inputs)
       // console.log("click")
 
       navigate("/login")

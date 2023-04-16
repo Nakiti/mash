@@ -17,7 +17,7 @@ const Header = () => {
 
   useEffect(() => {
     axios.defaults.withCredentials = true
-    console.log(currentUser)
+    // console.log(currentUser)
   }, [])
   
   return ( 

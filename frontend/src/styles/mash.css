@@ -17,6 +17,10 @@
   justify-content: center;
 }
 
+.mash-tile {
+  justify-content: center;
+}
+
 .mash-tile:hover{
   cursor: pointer;
 }
@@ -49,6 +53,7 @@
   justify-self: center;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 15px;
+  align-self: center;
 }
 
 .mash-label {
@@ -130,6 +135,7 @@
     height: 20vh;
   
     justify-self: center;
+    align-self: center;
   }
 
   .mash-stats {

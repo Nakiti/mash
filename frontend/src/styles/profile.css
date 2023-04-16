@@ -123,19 +123,20 @@ html {
   
   .profile-heading1 {
     grid-column: 3 / 7;
-    grid-row: 3 / 4;
+    grid-row: 2 / 4;
     font-size: 2em;
     text-align: center;
     margin-top: 0;
+    align-self: center;
   }
   
   .profile-heading2 {
     grid-column: 3 / 7;
-    grid-row: 4 / 5;
+    grid-row: 4 / 6;
     font-size: 2em;
     text-align: center;
     margin-top: 1vh;
-    align-self: flex-end;
+    align-self: center;
   }
   
   .profile-cards {
@@ -151,7 +152,7 @@ html {
   .profile-create {
     grid-column: 4 / 6;
     grid-row: 3 / 5;
-    width: 50%;
+    width: 40%;
   
     justify-content: center;
     align-items: center;

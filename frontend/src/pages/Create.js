@@ -7,7 +7,7 @@ import axios from "axios";
 import { AuthContext } from "../context/authContext";
 
 const Create = () => {
-  const [inputs, setInputs] = useState([{id: 0, name: "", image: ""}])
+  const [inputs, setInputs] = useState([{id: 0, number: 0, tempId: 0, name: " ", image: " "}])
   const [selectedId, setSelectedId] = useState(0)
   const userId = JSON.parse(sessionStorage.getItem("user")).id
   const [title, setTitle] = useState("")
@@ -22,29 +22,71 @@ const Create = () => {
   const [isMobile, setIsMobile] = useState(false)
   const [otherModal, setOtherModal] = useState(false)
   const [mashID, setMashID] = useState(null)
+  const [pass, setPass] = useState(true)
 
   let n = 0
 
   const handleAdd = () => {
-    setInputs((prev) => [...prev, {id: prev[prev.length - 1].id + 1, name: "", image: ""}])
+    setInputs((prev) => [...prev, {id: prev[prev.length - 1].id + 1, number: prev[prev.length - 1].number + 1, tempId: prev[prev.length - 1].tempId + 1, name: " ", image: " "}])
 
     // console.log(inputs)
   }
 
   const handleDelete = (id) => {
     const temp = [...inputs]
+    const superTemp = [...inputs]
+    const superDuperTemp = []
 
-    const filtered = temp.filter(item => item.id !== id)
-    // console.log(id)
-    // console.log("filtered", filtered)
-    const updated = filtered.map(item => {
-      if (item.id > id) {
-        item.id -= 1
+    superTemp.map(item => {
+      if (item.name !== "" && item.image !== "") {
+        superDuperTemp.push(item)
       }
-      return item
     })
 
-    setInputs((prev) => {return updated})
+    // console.log("temp", superDuperTemp)
+    // if (superDuperTemp.length === 2) {
+    //   setPass(false)
+    // } else {
+    //   setPass(true)
+    // }
+
+    
+    if (pass === true) {
+      const filtered = temp.map(item => {
+        if (item.id === id) {
+          // console.log("before", item)
+          item.name = ""
+          item.image = ""
+          // item.number = 999
+          // console.log("after", item)
+        }
+        return item
+      })
+
+      filtered.filter(item => item.name.length > 0 && item.image.length > 0)
+
+      // console.log(id)
+
+      filtered.map(item => {
+        if (item.id > id) {
+          item.number -= 1
+          item.tempId -= 1
+        }
+      })
+
+      // console.log(id)
+      // console.log("filtered", filtered)
+      // const updated = filtered.map(item => {
+      //   if (item.number > id) {
+      //     item.number -= 1
+      //   }
+      //   return item
+      // })
+
+      // console.log(filtered)
+
+      setInputs((prev) => {return filtered})
+    }
   }
 
   const handleModal = () => {
@@ -94,8 +136,12 @@ const Create = () => {
 
     try {
       for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].name !== "" && inputs[i].image !== "") {
+
+        
         await axios.post("/cards/post", {title: inputs[i].name, image: inputs[i].image, mashID: String(tempMashId), eloScore: String(1200)})
-        // console.log({title: inputs[i].name, image: inputs[i].image, mashID: String(mashID), eloScore: String(1200)})
+        // console.log("boom", {title: inputs[i].name, image: inputs[i].image, mashID: String(mashID), eloScore: String(1200)})
+        }
       }
     } catch (e) {
       console.log(e)
@@ -166,7 +212,7 @@ const Create = () => {
         <div className="create-form">
           <div className="create-items">
             {inputs.map((item) => {
-              return <div className="create-wrapper" onFocus={() => setSelectedId(item.id)}> <Input key={item.id} id={item.id} inputs={inputs} selectedId={selectedId} setInputs={setInputs} handleDelete={handleDelete}/> </div>
+              if (item.name !== "" && item.image !== "") return <div className="create-wrapper" onFocus={() => setSelectedId(item.id)}> <Input key={item.id} id={item.id} number={item.number} inputs={inputs} selectedId={selectedId} setInputs={setInputs} handleDelete={handleDelete}/> </div>
             })}
           </div>
           <button className="create-add" onClick={handleAdd}>Add Card</button>
