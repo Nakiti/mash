@@ -193,7 +193,7 @@ html {
   
   .profile-heading1 {
     grid-column: 3 / 7;
-    grid-row: 3 / 4;
+    grid-row: 2 / 4;
     font-size: 1.5em;
     text-align: center;
     margin-top: 0;
@@ -201,10 +201,10 @@ html {
   
   .profile-heading2 {
     grid-column: 3 / 7;
-    grid-row: 4 / 5;
+    grid-row: 4 / 6;
     font-size: 1.5em;
     text-align: center;
-    align-self: end;
+    align-self: center;
     margin-bottom: 0;
     padding: 10px;
   }

@@ -42,19 +42,19 @@ const Search = () => {
       <Header />
       <div className="search-body">
         <div className="search-bar">
-          <p className="search-label"><b>Find Mashes</b></p>
+          <p className="search-label"><b>FIND MASHES</b></p>
           {/* <input type="text" className="search-input" />
           <button className="search-searchBtn">Go</button> */}
         </div>
         <div className="search-cats">
-          <button className="search-btn" name="all" onClick={handleClick}>All</button>
-          <button className="search-btn" name="sports" onClick={handleClick}>Sports</button>
-          <button className="search-btn" name="people" onClick={handleClick}>People</button>
-          <button className="search-btn" name="film" onClick={handleClick}>Film</button>
-          <button className="search-btn" name="music" onClick={handleClick}>Music</button>
-          <button className="search-btn" name="places" onClick={handleClick}>Places</button>
-          <button className="search-btn" name="food" onClick={handleClick}>Food</button>
-          <button className="search-btn" name="nature" onClick={handleClick}>Nature</button>
+          <button className="search-btn" name="all" onClick={handleClick}>ALL</button>
+          <button className="search-btn" name="sports" onClick={handleClick}>SPORTS</button>
+          <button className="search-btn" name="people" onClick={handleClick}>PEOPLE</button>
+          <button className="search-btn" name="film" onClick={handleClick}>FILM</button>
+          <button className="search-btn" name="music" onClick={handleClick}>MUSIC</button>
+          <button className="search-btn" name="places" onClick={handleClick}>PLACES</button>
+          <button className="search-btn" name="food" onClick={handleClick}>FOOD</button>
+          <button className="search-btn" name="nature" onClick={handleClick}>NATURE</button>
         </div>
         <div className="search-cards">
           {cards && cards.map((item) => {
