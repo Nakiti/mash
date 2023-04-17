@@ -6,16 +6,32 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Search = () => {
-  const [cards, setCards] = useState([{id: 1, title: "sdfs", plays: 4, date: "sdfsdf", }])
+  const [cards, setCards] = useState(null)
+  const [setting, setSetting] = useState("Most Popular")
+  const [og, setOg] = useState(null)
 
   const navigate = useNavigate()
 
+  const handleSort = (e) => {
+    const temp = [...cards]
+
+    if (e.target.value === "Most Popular") {
+      setCards(temp.sort((a, b) => b.plays - a.plays))
+    } else if (e.target.value === "Newest") {
+      setCards(og)
+    }
+    
+  }
 
   useEffect(() => {
     const getData = async() => {
       try {
         const response = await axios.get("/mashes/getmashbycat/all")
-        setCards(response.data.sort((a, b) => b.plays - a.plays))
+        setOg(response)
+
+        const temp = [...response.data]
+        setCards(temp.sort((a, b) => b.plays - a.plays))
+      
       } catch (e) {
         console.log(e.response.data)
       }
@@ -58,7 +74,7 @@ const Search = () => {
         </div>
         <div className="search-sort">
           <p className="search-sortLabel">Sort By: </p>
-          <select className="search-select">
+          <select className="search-select" onChange={(e) => handleSort(e)}>
             <option value="Most Popular" className="search-option">Most Popular</option>
             <option value="Newest" className="search-option">Newest</option>
           </select>
