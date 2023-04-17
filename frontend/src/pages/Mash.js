@@ -134,7 +134,8 @@ const Mash = () => {
     setUserCards(userTemp)
     setTile()
 
-    if (clicks === 1) {
+    if (clicks === 0) {
+      console.log(mashPlays)
       const updatedPlays = mashPlays + 1
       await axios.put(`/mashes/update`, {plays: updatedPlays, id: id})
     }
@@ -189,7 +190,7 @@ const Mash = () => {
       // console.log("response", response)
 
       const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
-      setMashPlays(otherResponse.data.plays)
+      setMashPlays(otherResponse.data[0].plays)
 
       setCards(response.data)
       setMax(response.data.length)
