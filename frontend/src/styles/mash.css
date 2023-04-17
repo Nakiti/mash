@@ -19,6 +19,10 @@
 
 .mash-tile {
   justify-content: center;
+  align-items: center;
+  /* max-width: 18vh; */
+  display: flex;
+  flex-direction: column;
 }
 
 .mash-tile:hover{
@@ -54,6 +58,7 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 15px;
   align-self: center;
+
 }
 
 .mash-label {
@@ -138,6 +143,10 @@
     align-self: center;
   }
 
+  .mash-tile {
+    max-width: 15vh;
+  }
+
   .mash-stats {
     font-size: 1em;
   }
@@ -152,6 +161,10 @@
     justify-self: center;
   }
   
+  .mash-tile {
+    max-width: 21vh;
+  }
+
   .mash-container {
     flex-direction: row;
     grid-row: 3 / 8;
@@ -208,6 +221,11 @@
   .mash-image {
     width: 30vh;
     height: 40vh;
+  }
+
+  .mash-tile {
+    max-width: 30vh;
+    max-height: 45vh;
   }
 
   .mash-endButton {

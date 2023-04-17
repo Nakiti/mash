@@ -60,7 +60,7 @@
 
 .modal-items {
   height: 70%;
-  max-height: 60%;
+  max-height: 70%;
   overflow-y: scroll;
   width: 100%;
   padding: 20px;
@@ -81,6 +81,7 @@
   font-size: 18px;
   align-self: center;
   text-align: center;
+  margin-bottom: 0;
 }
 
 .modal-number {
@@ -91,11 +92,10 @@
 
 .modal-container {
   display: flex;
-  margin-top: 10px;
   border-bottom: solid grey .5px;
   padding: 5px;
   justify-self: center;
-  margin-right: 0;
+  /* margin-right: 0; */
   width: 100%;
   text-align: center;
 }
@@ -120,6 +120,8 @@
 @media screen and (min-width: 600px) {
    .modal-btnContainer {
     flex-direction: row;
+    margin-top: 30px;
+
   } 
   .modal-image {
     width: 9vh;
@@ -142,10 +144,14 @@
   }
   
   .modal-container {
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
   }
 
   .modal-btnContainer {
     margin-top: 30px;
+  }
+
+  .modal-text {
+    font-size: 18px;
   }
 }
