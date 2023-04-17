@@ -23,7 +23,7 @@ const Card = (props) => {
 
   const handleClick = async() => {
     const updatedPlays = props.plays + 1
-    await axios.put(`/mashes/update/`, {plays: updatedPlays, id: props.id})
+    // await axios.put(`/mashes/update/`, {plays: updatedPlays, id: props.id})
     navigate(`/mash/${props.title}/${props.id}`)
   }
 

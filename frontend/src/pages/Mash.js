@@ -21,6 +21,7 @@ const Mash = () => {
   const [total, setTotal] = useState(null)
   const [infoModal, setInfoModal] = useState(false)
   const [length, setLength] = useState(0)
+  const [mashPlays, setMashPlays] = useState(0)
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
@@ -132,6 +133,11 @@ const Mash = () => {
     setCards(temp)
     setUserCards(userTemp)
     setTile()
+
+    if (clicks === 1) {
+      const updatedPlays = mashPlays + 1
+      await axios.put(`/mashes/update`, {plays: updatedPlays, id: id})
+    }
   }
 
   const handleSubmit = () => {
@@ -181,6 +187,9 @@ const Mash = () => {
       try { 
       const response = await axios.get(`/cards/get/${id}`)
       // console.log("response", response)
+
+      const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
+      setMashPlays(otherResponse.data.plays)
 
       setCards(response.data)
       setMax(response.data.length)

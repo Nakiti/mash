@@ -7,12 +7,15 @@ import Register from "./pages/Register.js"
 import Login from "./pages/Login.js"
 import Mash from "./pages/Mash.js";
 import Results from "./pages/Results.js";
+import NotFound from "./pages/NotFound.js"
 import "./index.css"
 
 
 function App() {
   return (
     <Routes>
+      <Route path="*" element={<NotFound />}/>
+
       <Route path="/" element={<Home />}/>
       <Route path="/create" element={<Create />}/>
       <Route path="/profile/:user" element={<Profile />}/>

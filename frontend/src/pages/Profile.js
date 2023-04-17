@@ -5,6 +5,7 @@ import "../styles/profile.css"
 import {Link, useNavigate} from "react-router-dom"
 import axios from "axios";
 import { AuthContext } from "../context/authContext"
+import NotFound from "./NotFound.js";
 
 
 const Profile = () => { 
@@ -52,7 +53,6 @@ const Profile = () => {
         </div>
       </div>
     </div>
-   
   );
 }
  

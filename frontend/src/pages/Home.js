@@ -27,7 +27,7 @@ const Home = () => {
           <button className="home-button" id="login" onClick={handleClick}><i class="fa fa-plus" id="login" onClick={handleClick}></i></button>
         </div>
         <div className="home-card" id="search" onClick={handleClick}>
-          <p className="home-text" id="search" onClick={handleClick}>SEARCH</p>
+          <p className="home-text" id="search" onClick={handleClick}>PLAY</p>
           <button className="home-button" id="search" onClick={handleClick}><i class="fa fa-search" id="search" onClick={handleClick}></i></button>
         </div>
       </div>
