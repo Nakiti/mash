@@ -11,17 +11,17 @@ const Search = () => {
   const navigate = useNavigate()
 
 
-  // useEffect(() => {
-  //   const getData = async() => {
-  //     try {
-  //       const response = await axios.get("/mashes/getmashbycat/all")
-  //       setCards(response.data.sort((a, b) => b.plays - a.plays))
-  //     } catch (e) {
-  //       console.log(e.response.data)
-  //     }
-  //   }
-  //   getData()
-  // }, [])
+  useEffect(() => {
+    const getData = async() => {
+      try {
+        const response = await axios.get("/mashes/getmashbycat/all")
+        setCards(response.data.sort((a, b) => b.plays - a.plays))
+      } catch (e) {
+        console.log(e.response.data)
+      }
+    }
+    getData()
+  }, [])
 
   const handleClick = async (e) => {
     try {
