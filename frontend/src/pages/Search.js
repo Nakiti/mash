@@ -27,7 +27,7 @@ const Search = () => {
     const getData = async() => {
       try {
         const response = await axios.get("/mashes/getmashbycat/all")
-        setOg(response)
+        setOg(response.data)
 
         const temp = [...response.data]
         setCards(temp.sort((a, b) => b.plays - a.plays))
