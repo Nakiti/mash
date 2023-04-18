@@ -31,7 +31,7 @@ const Card = (props) => {
     <div className="card-content">
       
       <div className="card-top">
-        {props.show &&<button className="card-delete card-btn" onClick={handleDelete}><i class="fa fa-trash"></i></button>}
+        {/* {props.show &&<button className="card-delete card-btn" onClick={handleDelete}><i class="fa fa-trash"></i></button>} */}
       </div>
       <div className="card-middle" onClick={handleClick}>
         <p className="card-title">{props.title}</p>
