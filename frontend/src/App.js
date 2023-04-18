@@ -9,6 +9,7 @@ import Mash from "./pages/Mash.js";
 import Results from "./pages/Results.js";
 import NotFound from "./pages/NotFound.js"
 import "./index.css"
+import Contact from "./pages/Contact.js";
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
       <Route path="/login" element={<Login />}/>
       <Route path="/mash/:title/:id" element={<Mash />}/>
       <Route path="/results/:title/:id" element={<Results />}/>
-
+      <Route path="/contact" element={<Contact />}/>
     </Routes>
   );
 }

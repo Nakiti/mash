@@ -31,6 +31,7 @@ const Home = () => {
           <button className="home-button" id="search" onClick={handleClick}><i class="fa fa-search" id="search" onClick={handleClick}></i></button>
         </div>
       </div>
+      {/* <button className="home-contact" onClick={() => navigate("/contact")}>Contact</button> */}
     </div>
   );
 }

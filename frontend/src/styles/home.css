@@ -58,6 +58,18 @@
   cursor: pointer;
 }
 
+.home-contact {
+  grid-column: 9 / 11;
+  grid-row: 10 / 11;
+  height: 30%;
+  align-self: center;
+  border: 0;
+  background-color: #F4F4F4;
+  justify-self: end;
+  margin-right: 15px;
+  text-decoration: underline;
+}
+
 @media screen and (min-width: 600px){
   .home-content {
     display: grid;

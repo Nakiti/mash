@@ -21,6 +21,7 @@ app.use(cors(corsOptions))
 app.use("/auth", authRoutes)
 app.use("/mashes", mashRoutes)
 app.use("/cards", cardRoutes)
+app.use("/contact")
 
 const __dirname = path.resolve()
 
