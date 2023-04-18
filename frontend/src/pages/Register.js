@@ -24,14 +24,16 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    try {
-      await axios.post("/auth/register", inputs)
-      // console.log("click")
+    if (inputs.username.length > 0 && inputs.email.length > 0 && inputs.password.length > 0) {
+      try {
+        await axios.post("/auth/register", inputs)
+        // console.log("click")
 
-      navigate("/login")
-    } catch (e) {
-      setError(e.response.data)
-      console.log(e.response.data)
+        navigate("/login")
+      } catch (e) {
+        setError(e.response.data)
+        console.log(e.response.data)
+      }
     }
   }
 
