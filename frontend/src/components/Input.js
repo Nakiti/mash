@@ -47,7 +47,7 @@ const Input = (props) => {
   return ( 
     <div className="input-content">
       <p className="input-number">{props.number + 1}</p>
-      <button className="input-delete" onClick={() => props.handleDelete(props.id)}><i class="fa fa-trash"></i></button>
+      {/* <button className="input-delete" onClick={() => props.handleDelete(props.id)}><i class="fa fa-trash"></i></button> */}
       <div className="input-inputs">
         <input type="text" className="input-input input-name" placeholder="Enter Name" name="name" value={props.inputs.name} onChange={handleChange}/>
         <input type="text" className="input-input input-link" placeholder="Enter Image Link" name="image" value={props.inputs.image} onChange={handleChange}/>
