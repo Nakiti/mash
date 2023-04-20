@@ -23,6 +23,7 @@ const Create = () => {
   const [otherModal, setOtherModal] = useState(false)
   const [mashID, setMashID] = useState(null)
   const [pass, setPass] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   let n = 0
 
@@ -114,6 +115,7 @@ const Create = () => {
     
     try { 
       await axios.post("/mashes/post", {title: title, info: info, timestamp: date, category: category, plays: String(0), access: access, userID: String(userId)})
+
     } catch (e) {
       console.log(e)
     }
@@ -138,10 +140,12 @@ const Create = () => {
       for (var i = 0; i < inputs.length; i++) {
         if (inputs[i].name !== "" && inputs[i].image !== "") {
 
-        
+        setLoading(true)
         await axios.post("/cards/post", {title: inputs[i].name, image: inputs[i].image, mashID: String(tempMashId), eloScore: String(1200)})
-        // console.log("boom", {title: inputs[i].name, image: inputs[i].image, mashID: String(mashID), eloScore: String(1200)})
-        }
+        .then(() => {
+          setLoading(false)
+        })
+      }
       }
     } catch (e) {
       console.log(e)
@@ -168,6 +172,11 @@ const Create = () => {
             <button className="create-otherModalButton" style={{justifySelf: "center"}} onClick={handleOtherModal}>Home</button>
           </div>
         </div>}
+      {loading && <div className="create-loadingOverlay">
+        <div className="create-loading">
+          <p className="create-loadingText">Creating...</p>
+        </div>
+      </div>}
 
       {<div className="create-body">
         {showModal && <div className="create-modalOverlay">
