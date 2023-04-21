@@ -1,9 +1,9 @@
 import { db } from "../db.js";
 
 export const postContact = (req, res) => {
-  const query = "INSERT INTO contacts(`subject`, `text`, `date`) VALUES (?)"
+  const query = "INSERT INTO contacts(`text`, `date`, `userID`) VALUES (?)"
 
-  const values = [req.body.subject, req.body.text, req.body.date]
+  const values = [req.body.text, req.body.date, req.body.userID]
 
   db.query(query, [values], (err, data) => {
     if (err) {

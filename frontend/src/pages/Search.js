@@ -7,13 +7,14 @@ import { useNavigate } from "react-router-dom";
 
 const Search = () => {
   const [cards, setCards] = useState(null)
-  const [setting, setSetting] = useState("Most Popular")
   const [og, setOg] = useState(null)
+  const [filter, setFilter] = useState("Most Popular")
 
   const navigate = useNavigate()
 
   const handleSort = (e) => {
     const temp = [...cards]
+    setFilter(e.target.value)
 
     if (e.target.value === "Most Popular") {
       setCards(temp.sort((a, b) => b.plays - a.plays))
@@ -42,7 +43,13 @@ const Search = () => {
   const handleClick = async (e) => {
     try {
       const response = await axios.get(`/mashes/getmashbycat/${e.target.name}`)
-      setCards(response.data)
+
+      if (filter === "Most Popular") {
+        const [temp] = [...response.data]
+        setCards(temp.sort((a, b) => b.plays - a.plays))
+      } else if (filter === "Newest") {
+        setCards(response.data.reverse())
+      }
 
     } catch (err) {
       console.log(err)

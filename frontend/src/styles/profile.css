@@ -103,6 +103,48 @@ html {
   margin-top: 50px;
 }
 
+.profile-editModal {
+  margin-top: 30px;
+  background-color: white;
+  width: 40%;
+  height: 500px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.profile-editInput {
+  width: 90%;
+}
+
+.profile-editText {
+  font-size: 18px;
+}
+
+.profile-editButton {
+  background-color: #F4F4F4;
+  border: 0;
+  width: 100px;
+  height: 40px;
+  margin: 20px;
+}
+
+.profile-editButtons {
+  margin-top: 20px;
+  display: flex;
+}
+
+.profile-edit {
+  font-size: 24px;
+  border: 0;
+  grid-column: 8 / 9;
+  background-color: #F4F4F4;
+  padding: 0;
+  width: 50%;
+  justify-self: center;
+}
+
 @media screen and (min-width: 600px){ 
   .profile-body {
     display: grid;
