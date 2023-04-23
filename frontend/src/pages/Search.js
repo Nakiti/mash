@@ -9,17 +9,21 @@ const Search = () => {
   const [cards, setCards] = useState(null)
   const [og, setOg] = useState(null)
   const [filter, setFilter] = useState("Most Popular")
+  const [cat, setCat] = useState("all")
 
   const navigate = useNavigate()
 
   const handleSort = (e) => {
     const temp = [...cards]
+    temp.filter(item => item.category === cat)
     setFilter(e.target.value)
 
     if (e.target.value === "Most Popular") {
+
       setCards(temp.sort((a, b) => b.plays - a.plays))
+
     } else if (e.target.value === "Newest") {
-      setCards(og)
+      setCards(temp.reverse())
     }
     
   }
@@ -38,14 +42,17 @@ const Search = () => {
       }
     }
     getData()
+
   }, [])
 
   const handleClick = async (e) => {
+    setCat(e.target.name)
+
     try {
       const response = await axios.get(`/mashes/getmashbycat/${e.target.name}`)
 
       if (filter === "Most Popular") {
-        const [temp] = [...response.data]
+        const temp = [...response.data]
         setCards(temp.sort((a, b) => b.plays - a.plays))
       } else if (filter === "Newest") {
         setCards(response.data.reverse())
@@ -56,9 +63,6 @@ const Search = () => {
     }
   }
 
-  const handleSearch = async (e) => {
-
-  }
 
   return ( 
     <div className="search-content">
@@ -70,14 +74,14 @@ const Search = () => {
           <button className="search-searchBtn">Go</button> */}
         </div>
         <div className="search-cats">
-          <button className="search-btn" name="all" onClick={handleClick}>ALL</button>
-          <button className="search-btn" name="sports" onClick={handleClick}>SPORTS</button>
-          <button className="search-btn" name="people" onClick={handleClick}>PEOPLE</button>
-          <button className="search-btn" name="film" onClick={handleClick}>FILM</button>
-          <button className="search-btn" name="music" onClick={handleClick}>MUSIC</button>
-          <button className="search-btn" name="places" onClick={handleClick}>PLACES</button>
-          <button className="search-btn" name="food" onClick={handleClick}>FOOD</button>
-          <button className="search-btn" name="nature" onClick={handleClick}>NATURE</button>
+          <button className="search-btn" name="all" style={{backgroundColor: cat === "all" ? "#dcdcdc" : "white"}} onClick={handleClick}>ALL</button>
+          <button className="search-btn" name="sports" style={{backgroundColor: cat === "sports" ? "#dcdcdc" : "white"}} onClick={handleClick}>SPORTS</button>
+          <button className="search-btn" name="people" style={{backgroundColor: cat === "people" ? "#dcdcdc" : "white"}} onClick={handleClick}>PEOPLE</button>
+          <button className="search-btn" name="film" style={{backgroundColor: cat === "film" ? "#dcdcdc" : "white"}} onClick={handleClick}>FILM</button>
+          <button className="search-btn" name="music" style={{backgroundColor: cat === "music" ? "#dcdcdc" : "white"}} onClick={handleClick}>MUSIC</button>
+          <button className="search-btn" name="places" style={{backgroundColor: cat === "places" ? "#dcdcdc" : "white"}} onClick={handleClick}>PLACES</button>
+          <button className="search-btn" name="food" style={{backgroundColor: cat === "food" ? "#dcdcdc" : "white"}} onClick={handleClick}>FOOD</button>
+          <button className="search-btn" name="nature" style={{backgroundColor: cat === "nature" ? "#dcdcdc" : "white"}} onClick={handleClick}>NATURE</button>
         </div>
         <div className="search-sort">
           <p className="search-sortLabel">Sort By: </p>

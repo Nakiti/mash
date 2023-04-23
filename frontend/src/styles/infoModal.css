@@ -51,7 +51,7 @@
 
 @media screen and (min-width: 1000) {
   .infoModal-content {
-    width: 450px;
+    width: 500px;
     height: 500px;
   }
 }
