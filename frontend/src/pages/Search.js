@@ -24,7 +24,7 @@ const Search = () => {
 
     } else if (e.target.value === "Newest") {
       const response = await axios.get(`/mashes/getmashbycat/${cat}`)
-      setCards(response.reverse())
+      setCards(response.data.reverse())
     }
     
   }
