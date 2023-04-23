@@ -13,7 +13,7 @@ const Search = () => {
 
   const navigate = useNavigate()
 
-  const handleSort = (e) => {
+  const handleSort = async(e) => {
     const temp = [...cards]
     temp.filter(item => item.category === cat)
     setFilter(e.target.value)
@@ -23,7 +23,8 @@ const Search = () => {
       setCards(temp.sort((a, b) => b.plays - a.plays))
 
     } else if (e.target.value === "Newest") {
-      setCards(temp.reverse())
+      const response = await axios.get(`/mashes/getmashbycat/${cat}`)
+      setCards(response.reverse())
     }
     
   }
