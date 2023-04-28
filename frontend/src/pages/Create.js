@@ -142,7 +142,7 @@ const Create = () => {
         if (inputs[i].name !== "" && inputs[i].image !== "") {
 
         setLoading(true)
-        await axios.post("/cards/post", {title: inputs[i].name, image: inputs[i].image, mashID: String(tempMashId), eloScore: String(1200), question: ques})
+        await axios.post("/cards/post", {title: inputs[i].name, image: inputs[i].image, mashID: String(tempMashId), eloScore: String(1200)})
         .then(() => {
           setLoading(false)
         })
