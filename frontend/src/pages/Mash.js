@@ -221,7 +221,7 @@ const Mash = () => {
         {showModal && <Modal className="mash-modal" userCards={userCards} setShowModal={setShowModal} empty={empty} title={title} id={id}/>}
         {infoModal && <TheInfoModal className="mash-infoModal" length={length} id={id} setInfoModal={setInfoModal}/>}
         <p className="mash-title">{title} MASH</p>
-        <p className="mash-info">WHICH DO YOU PREFER?</p>
+        <p className="mash-info">WHICH ONE'S BETTER?</p>
         <button className="mash-infoButton" onClick={handleInfoButton}><i class="fa fa-question"></i></button>
         <div className="mash-container">
           <div className="mash-tile" alt={cards[cardOne].title} onClick={(e) => empty ? null : handleClick(e)}>
