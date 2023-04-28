@@ -52,7 +52,7 @@
 .mash-image {
   width: 18vh;
   height: 24vh;
-  padding: 2vh;
+  padding: 1vh;
   background-color: white;
   justify-self: center;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -157,7 +157,8 @@
   .mash-image {
     width: 21vh;
     height: 28vh;
-  
+    padding: 1.5vh;
+
     justify-self: center;
   }
   

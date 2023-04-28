@@ -24,6 +24,7 @@ const Create = () => {
   const [mashID, setMashID] = useState(null)
   const [pass, setPass] = useState(true)
   const [loading, setLoading] = useState(false)
+  const [ques, setQues] = useState("Which One's Better?")
 
   let n = 0
 
@@ -141,7 +142,7 @@ const Create = () => {
         if (inputs[i].name !== "" && inputs[i].image !== "") {
 
         setLoading(true)
-        await axios.post("/cards/post", {title: inputs[i].name, image: inputs[i].image, mashID: String(tempMashId), eloScore: String(1200)})
+        await axios.post("/cards/post", {title: inputs[i].name, image: inputs[i].image, mashID: String(tempMashId), eloScore: String(1200), question: ques})
         .then(() => {
           setLoading(false)
         })
@@ -215,6 +216,13 @@ const Create = () => {
           <div className="create-group create-info-group">
             <p className="create-label">Info:  </p>
             <input type="text" className="create-info create-input" placeholder="Add Some Context, Give Image Credits, etc." onChange={(e) => setInfo(e.target.value)}/>
+          </div>
+          <div className="create-group create-ques-group">
+            <p className="create-label">Question:  </p>
+            <select className="create-switch create-input" onChange={(e) => setQues(e.target.value)}>
+              <option value="Which One's Better?">Which One's Better?</option>
+              <option value="Which Do You Prefer?">Which Do You Prefer?</option>
+            </select>
           </div>
         </div>
         <div className="create-line" />

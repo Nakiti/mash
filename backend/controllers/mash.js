@@ -37,8 +37,8 @@ export const getMash = (req, res) => {
 }
 
 export const postMashes = (req, res) => {
-  const query = "INSERT INTO mashes(`title`, `info`, `date`, `category`, `plays`, `access`, `userID`) VALUES (?)"
-  const values = [req.body.title, req.body.info, req.body.timestamp, req.body.category, Number(req.body.plays), req.body.access, Number(req.body.userID)]
+  const query = "INSERT INTO mashes(`title`, `info`, `date`, `category`, `plays`, `access`, `userID`, `question`) VALUES (?)"
+  const values = [req.body.title, req.body.info, req.body.timestamp, req.body.category, Number(req.body.plays), req.body.access, Number(req.body.userID), req.body.question]
 
   console.log(values)
 

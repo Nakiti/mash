@@ -43,7 +43,8 @@ html {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   row-gap: 10px;
-  justify-content: center;
+  column-gap: 10px;
+  justify-content: space-around;
   align-items: center;
 
 }
@@ -52,10 +53,10 @@ html {
   height: 30px;
   width: 75px;
   justify-self: center;
-  margin-left: 10px;
   background-color: white;
   border: 0;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  text-align: center;
   
 }
 
