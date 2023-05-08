@@ -21,6 +21,11 @@ const Home = () => {
   return ( 
     <div className="home-content">
       <Header />
+      <div className="home-textContainer">
+        <p className="home-title">A Fast And Fun Way To Rank Anything!</p>
+        <p className="home-info">In each Mash, you'll be repeatedly shown two items and you just pick the one you prefer!</p>
+
+      </div>
       <div className="home-body">
         <div className="home-card" id="login" onClick={handleClick}>
           <p className="home-text" id="login" onClick={handleClick}>CREATE</p>

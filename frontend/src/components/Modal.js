@@ -14,8 +14,8 @@ const Modal = (props) => {
     <div className="modal-content">
       <div className="modal-body">
         {props.empty && <p className="modal-title">You've Completed This Mash!</p>}
-        <p className="modal-subtitle">Your Results:</p>
-        <div className="modal-items">
+        <p className="modal-subtitle" style={{fontSize: props.empty ? "16px" : "20px"}}>Your Results:</p>
+        <div className="modal-items" style={{height: props.empty ? "55%" : "60%"}}>
           {sorted.map((item, index) => {
             return (
               <div className="modal-container" key={item.id}>

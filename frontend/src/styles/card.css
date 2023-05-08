@@ -90,6 +90,12 @@
 @media screen and (min-width: 600px) {
   .card-content {
     height: 160px;
+    padding: 5px;
+  }
+
+  .card-title {
+    font-size: 18px;
+    margin: 0;
   }
 }
 

@@ -22,12 +22,28 @@ const Mash = () => {
   const [infoModal, setInfoModal] = useState(false)
   const [length, setLength] = useState(0)
   const [mashPlays, setMashPlays] = useState(0)
+  const [prev, setPrev] = useState([])
+  const [pairsLength, setPairsLength] = useState(0)
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
     let two = Math.floor(Math.random() * max)
     let valid = false;
     let temp = [...pairs]
+    let count = 0
+    // console.log("length", cards.length/2)
+
+    if (prev.length > cards.length/3) {
+      let tem = [...prev]
+      tem.pop()
+      tem.pop()
+      setPrev(tem)
+
+    } else if (pairs.length <= cards.length/3) {
+      setPrev([])
+    }
+    // console.log(prev)
+    // console.log(pairs)
 
     while (valid == false) {
       if (pairs.length === 0 ){
@@ -50,14 +66,26 @@ const Mash = () => {
           one = Math.floor(Math.random() * max)
           two = Math.floor(Math.random() * max)
 
-          while (one === two) {
+          if (count > pairsLength*10) {
+            // console.log(count, pairsLength)
+            setPrev([])
+            break
+          }
+
+          while (one === two || prev.includes(cards[one].title) || prev.includes(cards[two].title)) {
+            one = Math.floor(Math.random() * max)
             two = Math.floor(Math.random() * max)
           }
+
+          count++
         }
       }
     }
+    // console.log("count", count)
+
     setCardOne(one)
     setCardTwo(two)
+    setPrev(prevState => [cards[one].title, cards[two].title, ...prevState])
     // console.log(pairs)
   }
   // add code so same card doesn't show up repeatedly, seems to skew results in short sample
@@ -135,7 +163,7 @@ const Mash = () => {
     setTile()
 
     if (clicks === 0) {
-      console.log(mashPlays)
+      // console.log(mashPlays)
       const updatedPlays = mashPlays + 1
       await axios.put(`/mashes/update`, {plays: updatedPlays, id: id})
     }
@@ -166,6 +194,8 @@ const Mash = () => {
     setPairs(temp)
     setTotal(temp.length + 1)
     setLength(temp.length + 1)
+    setPairsLength(temp.length + 1)
+    // console.log(temp)
   }
 
   const handleUserCards = async() => {
