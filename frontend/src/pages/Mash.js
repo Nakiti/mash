@@ -22,26 +22,26 @@ const Mash = () => {
   const [infoModal, setInfoModal] = useState(false)
   const [length, setLength] = useState(0)
   const [mashPlays, setMashPlays] = useState(0)
-  const [prev, setPrev] = useState([])
-  const [pairsLength, setPairsLength] = useState(0)
+  // const [prev, setPrev] = useState([])
+  // const [pairsLength, setPairsLength] = useState(0)
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
     let two = Math.floor(Math.random() * max)
     let valid = false;
     let temp = [...pairs]
-    let count = 0
+    // let count = 0
     // console.log("length", cards.length/2)
 
-    if (prev.length > cards.length/3) {
-      let tem = [...prev]
-      tem.pop()
-      tem.pop()
-      setPrev(tem)
+    // if (prev.length > cards.length/3) {
+    //   let tem = [...prev]
+    //   tem.pop()
+    //   tem.pop()
+    //   setPrev(tem)
 
-    } else if (pairs.length <= cards.length/3) {
-      setPrev([])
-    }
+    // } else if (pairs.length <= cards.length/3) {
+    //   setPrev([])
+    // }
     // console.log(prev)
     // console.log(pairs)
 
@@ -66,18 +66,18 @@ const Mash = () => {
           one = Math.floor(Math.random() * max)
           two = Math.floor(Math.random() * max)
 
-          if (count > pairsLength*10) {
-            // console.log(count, pairsLength)
-            setPrev([])
-            break
-          }
+          // if (count > pairsLength*10) {
+          //   // console.log(count, pairsLength)
+          //   setPrev([])
+          //   break
+          // }
 
-          while (one === two || prev.includes(cards[one].title) || prev.includes(cards[two].title)) {
+          while (one === two) {
             one = Math.floor(Math.random() * max)
             two = Math.floor(Math.random() * max)
           }
 
-          count++
+          // count++
         }
       }
     }
@@ -85,7 +85,7 @@ const Mash = () => {
 
     setCardOne(one)
     setCardTwo(two)
-    setPrev(prevState => [cards[one].title, cards[two].title, ...prevState])
+    // setPrev(prevState => [cards[one].title, cards[two].title, ...prevState])
     // console.log(pairs)
   }
   // add code so same card doesn't show up repeatedly, seems to skew results in short sample
@@ -194,7 +194,7 @@ const Mash = () => {
     setPairs(temp)
     setTotal(temp.length + 1)
     setLength(temp.length + 1)
-    setPairsLength(temp.length + 1)
+    // setPairsLength(temp.length + 1)
     // console.log(temp)
   }
 
