@@ -92,10 +92,11 @@
 }
 
 .create-category {
-  width: 50%;
+  width: 60%;
   height: 30px;
   margin-left: 15px;
   margin-right: 15px;
+  text-align: center;
 }
 
 .create-access-group {
@@ -105,6 +106,8 @@
 
 .create-switch {
   margin-left: 15px;
+  width: 50%;
+  text-align: center;
 }
 
 .create-group {
@@ -126,7 +129,7 @@
   border-bottom: .5px solid black;
   align-self: flex-start;
   margin-bottom: 20px;
-  margin-top: 2vh;
+  margin-top: 25px;
 }
 
 .create-add {
@@ -179,8 +182,13 @@
 }
 
 .create-info-group {
-  grid-column: 1 / 4;
+  grid-column: 1 / 3;
 
+}
+
+.create-ques {
+  margin-left: 10px;
+  text-align: center;
 }
 
 .create-modalOverlay {
@@ -310,8 +318,8 @@
   align-items: center;
 }
 
-.creat-loadingText {
-  font-size: 48px;
+.create-loadingText {
+  font-size: 36px;
 }
 
 @media screen and (min-height: 715px) {
@@ -367,6 +375,7 @@
   .create-line {
     grid-column: 2 / 8;
     width: 100%;
+    margin-top: 25px;
   }
 
   .create-items {

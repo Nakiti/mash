@@ -24,6 +24,7 @@ const Mash = () => {
   const [mashPlays, setMashPlays] = useState(0)
   // const [prev, setPrev] = useState([])
   // const [pairsLength, setPairsLength] = useState(0)
+  const [ques, setQues] = useState(null)
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
@@ -221,6 +222,7 @@ const Mash = () => {
 
       const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
       setMashPlays(otherResponse.data[0].plays)
+      setQues(otherResponse.data[0].question)
 
       setCards(response.data)
       setMax(response.data.length)
@@ -247,11 +249,11 @@ const Mash = () => {
   return ( 
     <div className="mash-content">
       <Header />
-     { cards && userCards && <div className="mash-body">
+     { cards && userCards && ques && <div className="mash-body">
         {showModal && <Modal className="mash-modal" userCards={userCards} setShowModal={setShowModal} empty={empty} title={title} id={id}/>}
         {infoModal && <TheInfoModal className="mash-infoModal" length={length} id={id} setInfoModal={setInfoModal}/>}
         <p className="mash-title">{title} MASH</p>
-        <p className="mash-info">WHICH ONE'S BETTER?</p>
+        <p className="mash-info">{ques}</p>
         <button className="mash-infoButton" onClick={handleInfoButton}><i class="fa fa-question"></i></button>
         <div className="mash-container">
           <div className="mash-tile" alt={cards[cardOne].title} onClick={(e) => empty ? null : handleClick(e)}>

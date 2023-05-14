@@ -115,7 +115,7 @@ const Create = () => {
     let date = `${timestamp.getMonth() + 1}/${timestamp.getDate()}/${timestamp.getFullYear()}`
     
     try { 
-      await axios.post("/mashes/post", {title: title, info: info, timestamp: date, category: category, plays: String(0), access: access, userID: String(userId)})
+      await axios.post("/mashes/post", {title: title, info: info, timestamp: date, category: category, plays: String(0), access: access, userID: String(userId), question: ques})
 
     } catch (e) {
       console.log(e)
@@ -217,13 +217,13 @@ const Create = () => {
             <p className="create-label">Info:  </p>
             <input type="text" className="create-info create-input" placeholder="Add Some Context, Give Image Credits, etc." onChange={(e) => setInfo(e.target.value)}/>
           </div>
-          {/* <div className="create-group create-ques-group">
+          <div className="create-group create-ques-group">
             <p className="create-label">Question:  </p>
-            <select className="create-switch create-input" onChange={(e) => setQues(e.target.value)}>
+            <select className="create-ques create-input" onChange={(e) => setQues(e.target.value)}>
               <option value="Which One's Better?">Which One's Better?</option>
               <option value="Which Do You Prefer?">Which Do You Prefer?</option>
             </select>
-          </div> */}
+          </div>
         </div>
         <div className="create-line" />
         <div className="create-form">

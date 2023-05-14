@@ -14,8 +14,11 @@ export const register = (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
-    const q = "INSERT INTO users(`username`,`email`,`password`) VALUES (?)";
-    const values = [req.body.username, req.body.email, hash]
+    const timestamp = new Date()
+    const date = `${timestamp.getMonth() + 1}/${timestamp.getDate()}/${timestamp.getFullYear()}`
+
+    const q = "INSERT INTO users(`username`,`email`,`password`, `date`) VALUES (?)";
+    const values = [req.body.username, req.body.email, hash, date]
     console.log(values)
 
     db.query(q, [values], (err, data) => {

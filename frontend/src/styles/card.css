@@ -1,5 +1,5 @@
 .card-content {
-  height: 180px;
+  height: 130px;
 
   display: flex;
   flex-direction: column;
@@ -19,12 +19,11 @@
   display: flex;
   justify-content: end;
   width: 95%;
-  margin: 2.5%;
+  margin: 1%;
 }
 
 .card-middle {
   width: 95%;
-  text-align: center;
   font: 32px;
   align-items: center;
   justify-content: center;
@@ -39,6 +38,7 @@
   width: 90%;
   text-align: right;
   margin-top: 10%;
+  margin-bottom: 0;
   margin-right: 5%;
   display: flex;
   justify-content: space-between;
@@ -49,7 +49,7 @@
 }
 
 .card-title {
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
 }
 
@@ -78,7 +78,7 @@
 
 .card-p {
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
 
 }
 
@@ -96,6 +96,29 @@
   .card-title {
     font-size: 18px;
     margin: 0;
+  }
+
+  .card-middle {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: flex-start;
+
+
+    height: 70px;
+    text-align: left;
+    padding: 0;
+  }
+
+
+
+  .card-p {
+    font-size: 15px;
+  }
+
+  .card-date {
+    font-size: 12px;
   }
 }
 
