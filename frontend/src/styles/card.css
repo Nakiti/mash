@@ -1,5 +1,5 @@
 .card-content {
-  height: 130px;
+  height: 105px;
 
   display: flex;
   flex-direction: column;
@@ -24,11 +24,12 @@
 
 .card-middle {
   width: 95%;
-  font: 32px;
+  /* font-size: 32px; */
   align-items: center;
   justify-content: center;
   text-align: left;
 
+  height: 50px;
   margin-left: 5%;
   margin-top: 5%;
 
@@ -49,15 +50,16 @@
 }
 
 .card-title {
-  font-size: 16px;
+  font-size: 13px;
   margin: 0;
 }
 
 .card-button {
   background-color: white;
   border: 0;
-  font-size: 12px;
+  font-size: 11px;
   height: 80%;
+  text-align: left;
 }
 
 
@@ -72,15 +74,20 @@
   align-self: flex-end;
 }
 
-.card-date {
-  margin-right: 20px;
-}
-
 .card-p {
   margin: 0;
-  font-size: 12px;
+  font-size: 10px;
 
 }
+
+.card-date {
+  /* margin-left: 20px; */
+  font-size: 11px;
+  align-self: center;
+  margin-top: 7px;
+}
+
+
 
 .card-button:hover {
   cursor: pointer;
@@ -111,7 +118,10 @@
     padding: 0;
   }
 
-
+  .card-button {
+    text-align: center;
+    font-size: 12px;
+  }
 
   .card-p {
     font-size: 15px;

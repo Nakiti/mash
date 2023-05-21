@@ -51,12 +51,13 @@ html {
 
 .search-btn {
   height: 30px;
-  width: 75px;
+  width: 60px;
   justify-self: center;
   background-color: white;
   border: 0;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   text-align: center;
+  font-size: 12px;
   
 }
 
@@ -71,7 +72,7 @@ html {
   grid-row-start: 4;
   margin-top: 3vh;
   display: grid;
-  /* grid-template-columns: repeat(3, 1fr); */
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 

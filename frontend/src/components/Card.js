@@ -38,7 +38,7 @@ const Card = (props) => {
         <p className="card-count card-p">Plays: {props.plays}</p>
       </div>
       <div className="card-bottom">
-        <button className="card-button" onClick={() => navigate(`/results/${props.title}/${props.id}`)}>See Rankings</button>
+        <button className="card-button" onClick={() => navigate(`/results/${props.title}/${props.id}`)}>Rankings</button>
         <p className="card-date card-p">{props.date}</p>
       </div>
     </div>
