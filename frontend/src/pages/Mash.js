@@ -22,8 +22,6 @@ const Mash = () => {
   const [infoModal, setInfoModal] = useState(false)
   const [length, setLength] = useState(0)
   const [mashPlays, setMashPlays] = useState(0)
-  // const [prev, setPrev] = useState([])
-  // const [pairsLength, setPairsLength] = useState(0)
   const [ques, setQues] = useState(null)
 
   const setTile = () => {
@@ -31,20 +29,6 @@ const Mash = () => {
     let two = Math.floor(Math.random() * max)
     let valid = false;
     let temp = [...pairs]
-    // let count = 0
-    // console.log("length", cards.length/2)
-
-    // if (prev.length > cards.length/3) {
-    //   let tem = [...prev]
-    //   tem.pop()
-    //   tem.pop()
-    //   setPrev(tem)
-
-    // } else if (pairs.length <= cards.length/3) {
-    //   setPrev([])
-    // }
-    // console.log(prev)
-    // console.log(pairs)
 
     while (valid == false) {
       if (pairs.length === 0 ){
@@ -67,27 +51,16 @@ const Mash = () => {
           one = Math.floor(Math.random() * max)
           two = Math.floor(Math.random() * max)
 
-          // if (count > pairsLength*10) {
-          //   // console.log(count, pairsLength)
-          //   setPrev([])
-          //   break
-          // }
-
           while (one === two) {
             one = Math.floor(Math.random() * max)
             two = Math.floor(Math.random() * max)
           }
-
-          // count++
         }
       }
     }
-    // console.log("count", count)
 
     setCardOne(one)
     setCardTwo(two)
-    // setPrev(prevState => [cards[one].title, cards[two].title, ...prevState])
-    // console.log(pairs)
   }
   // add code so same card doesn't show up repeatedly, seems to skew results in short sample
 

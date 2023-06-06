@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import "../styles/search.css"
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Search = () => {
   const [cards, setCards] = useState(null)
@@ -12,6 +12,7 @@ const Search = () => {
   const [cat, setCat] = useState("all")
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleSort = async(e) => {
     const temp = [...cards]
@@ -30,9 +31,11 @@ const Search = () => {
   }
 
   useEffect(() => {
+    console.log(location.state)
+
     const getData = async() => {
       try {
-        const response = await axios.get("/mashes/getmashbycat/all")
+        const response = await axios.get(location.state ? `/mashes/getmashbycat/${location.state.category}` : "/mashes/getmashbycat/all")
         setOg(response.data.reverse())
 
         const temp = [...response.data]
@@ -93,7 +96,7 @@ const Search = () => {
         </div>
         <div className="search-cards">
           {cards && cards.map((item) => {
-            return <div className="search-container" key={item.id}><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} show={false}/></div>
+            return <div className="search-container" key={item.id}><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} show={false} /></div>
           })}
         </div>
       </div>
