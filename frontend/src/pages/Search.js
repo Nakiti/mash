@@ -10,6 +10,7 @@ const Search = () => {
   const [og, setOg] = useState(null)
   const [filter, setFilter] = useState("Most Popular")
   const [cat, setCat] = useState("all")
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -35,12 +36,17 @@ const Search = () => {
 
     const getData = async() => {
       try {
+        setLoading(true)
         const response = await axios.get(location.state ? `/mashes/getmashbycat/${location.state.category}` : "/mashes/getmashbycat/all")
+
+
+        setLoading(false)
+
         setOg(response.data.reverse())
 
         const temp = [...response.data]
         setCards(temp.sort((a, b) => b.plays - a.plays))
-      
+
       } catch (e) {
         console.log(e.response.data)
       }
@@ -53,7 +59,9 @@ const Search = () => {
     setCat(e.target.name)
 
     try {
+      setLoading(true)
       const response = await axios.get(`/mashes/getmashbycat/${e.target.name}`)
+      setLoading(false)
 
       if (filter === "Most Popular") {
         const temp = [...response.data]
@@ -71,6 +79,11 @@ const Search = () => {
   return ( 
     <div className="search-content">
       <Header />
+      {loading && <div className="create-loadingOverlay">
+        <div className="create-loading">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </div>
+      </div>}
       <div className="search-body">
         <div className="search-bar">
           <p className="search-label"><b>FIND MASHES</b></p>
