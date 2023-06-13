@@ -7,7 +7,7 @@ import axios from "axios";
 import { AuthContext } from "../context/authContext";
 
 const Create = () => {
-  const [inputs, setInputs] = useState([{id: 0, number: 0, tempId: 0, name: " ", image: " "}])
+  const [inputs, setInputs] = useState([{id: 0, name: " ", image: " "}])
   const [selectedId, setSelectedId] = useState(0)
   const userId = JSON.parse(sessionStorage.getItem("user")).id
   const [title, setTitle] = useState("")
@@ -29,67 +29,18 @@ const Create = () => {
   let n = 0
 
   const handleAdd = () => {
-    setInputs((prev) => [...prev, {id: prev[prev.length - 1].id + 1, number: prev[prev.length - 1].number + 1, tempId: prev[prev.length - 1].tempId + 1, name: " ", image: " "}])
+    setInputs((prev) => [...prev, {id: prev[prev.length - 1].id + 1, name: " ", image: " "}])
 
     // console.log(inputs)
   }
 
-  const handleDelete = (id) => {
-    const temp = [...inputs]
-    const superTemp = [...inputs]
-    const superDuperTemp = []
-
-    superTemp.map(item => {
-      if (item.name !== "" && item.image !== "") {
-        superDuperTemp.push(item)
-      }
-    })
-
-    // console.log("temp", superDuperTemp)
-    // if (superDuperTemp.length === 2) {
-    //   setPass(false)
-    // } else {
-    //   setPass(true)
-    // }
-
+  // const handleDelete = (id) => {
+  //   const temp = [...inputs]
+  //   const filtered = temp.filter(item => id !== item.id)
     
-    if (pass === true) {
-      const filtered = temp.map(item => {
-        if (item.id === id) {
-          // console.log("before", item)
-          item.name = ""
-          item.image = ""
-          // item.number = 999
-          // console.log("after", item)
-        }
-        return item
-      })
-
-      filtered.filter(item => item.name.length > 0 && item.image.length > 0)
-
-      // console.log(id)
-
-      filtered.map(item => {
-        if (item.id > id) {
-          item.number -= 1
-          item.tempId -= 1
-        }
-      })
-
-      // console.log(id)
-      // console.log("filtered", filtered)
-      // const updated = filtered.map(item => {
-      //   if (item.number > id) {
-      //     item.number -= 1
-      //   }
-      //   return item
-      // })
-
-      // console.log(filtered)
-
-      setInputs((prev) => {return filtered})
-    }
-  }
+  //   console.log(filtered)
+  //   setInputs(filtered)
+  // }
 
   const handleModal = () => {
     setShowModal(true)
@@ -139,7 +90,7 @@ const Create = () => {
 
     try {
       for (var i = 0; i < inputs.length; i++) {
-        if (inputs[i].name !== "" && inputs[i].image !== "") {
+        if (inputs[i].name !== " " && inputs[i].image !== " ") {
 
         setLoading(true)
         await axios.post("/cards/post", {title: inputs[i].name, image: inputs[i].image, mashID: String(tempMashId), eloScore: String(1200)})
@@ -228,8 +179,8 @@ const Create = () => {
         <div className="create-line" />
         <div className="create-form">
           <div className="create-items">
-            {inputs.map((item) => {
-              if (item.name !== "" && item.image !== "") return <div className="create-wrapper" onFocus={() => setSelectedId(item.id)}> <Input key={item.id} id={item.id} number={item.number} inputs={inputs} selectedId={selectedId} setInputs={setInputs} handleDelete={handleDelete}/> </div>
+            {inputs.map((item, index) => {
+              if (item.name !== "" && item.image !== "") return <div className="create-wrapper" onFocus={() => setSelectedId(item.id)}> <Input key={item.id} id={item.id} number={index} name={item.name} image={item.image} inputs={inputs} selectedId={selectedId} setInputs={setInputs}/> </div>
             })}
           </div>
           <button className="create-add" onClick={handleAdd}>Add Card</button>
