@@ -23,6 +23,7 @@ const Mash = () => {
   const [length, setLength] = useState(0)
   const [mashPlays, setMashPlays] = useState(0)
   const [ques, setQues] = useState(null)
+  const [blur, setBlur] = useState(false)
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
@@ -132,9 +133,19 @@ const Mash = () => {
     }
 
     // console.log("userCards:", userCards)
-    setCards(temp)
-    setUserCards(userTemp)
-    setTile()
+    setBlur(true)
+
+    setTimeout(() => {
+      setBlur(false)
+
+      setCards(temp)
+      setUserCards(userTemp)
+      setTile()
+    }, 100)
+
+    // setCards(temp)
+    // setUserCards(userTemp)
+    // setTile()
 
     if (clicks === 0) {
       // console.log(mashPlays)
@@ -230,11 +241,13 @@ const Mash = () => {
         <button className="mash-infoButton" onClick={handleInfoButton}><i class="fa fa-question"></i></button>
         <div className="mash-container">
           <div className="mash-tile" alt={cards[cardOne].title} onClick={(e) => empty ? null : handleClick(e)}>
+            {blur && <div className="mash-overlay"><div className="mash-blur"></div></div>}
             <img src={cards[cardOne].image} alt={cards[cardOne].title} className="mash-image" />
             <p className="mash-label" alt={cards[cardOne].title}><b>{cards && cards[cardOne].title}</b></p>
           </div>
           <p className="mash-text">OR</p>
           <div className="mash-tile" alt={cards[cardTwo].title} onClick={(e) => empty ? null : handleClick(e)}>
+            {blur && <div className="mash-overlay"><div className="mash-blur"></div></div>}
             <img src={cards[cardTwo].image} alt={cards[cardTwo].title} className="mash-image" />
             <p className="mash-label" alt={cards[cardTwo].title}><b>{cards && cards[cardTwo].title}</b></p>
           </div>

@@ -72,7 +72,7 @@ const Profile = () => {
             return <Card key={item.id} show={true} setMessage={setMessage} setShowModal={setShowModal} title={item.title} date={item.date} plays={item.plays} id={item.id} mashes={mashes} setMashes={setMashes}/>
           })}
         </div>
-        <button className="profile-edit" onClick={() => setShowEditModal(true)}><i class="fa fa-edit"></i></button>
+        <button className="profile-edit" onClick={() => setShowEditModal(true)}>Edit a Mash <i class="fa fa-edit"></i></button>
       </div>
     </div>
   );

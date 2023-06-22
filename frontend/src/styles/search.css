@@ -211,6 +211,19 @@ html {
   }
 }
 
+@media screen and (min-width: 600px) and (orientation: landscape) {
+  .search-label {
+    font-size: 22px;
+  }
+  .search-sort {
+    align-self: center;
+    height: 60%;
+  }
+  .search-cards {
+    grid-row-start: 4;
+  }
+}
+
 @media screen and (min-width: 1200px){
   .search-body {
     display: grid;
