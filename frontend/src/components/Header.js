@@ -22,7 +22,7 @@ const Header = () => {
   
   return ( 
     <div className="header-content">
-      <h1 className="header-text" onClick={() => navigate("/")}><i class="fa fa-home"></i>                                       MASH</h1>
+      <h1 className="header-text" onClick={() => navigate("/")}><i class="fa fa-home"></i>                                       MASH</h1><h1 style={{color: "red"}}>Too many users. Please check back later.</h1>
       {currentUser ? <button className="header-button" onClick={handleLogout}>LOGOUT</button> : <button className="header-button" onClick={() => navigate("/login")}>LOGIN</button>}
     </div>
   );
