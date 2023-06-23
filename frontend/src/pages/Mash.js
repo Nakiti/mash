@@ -141,7 +141,7 @@ const Mash = () => {
       setCards(temp)
       setUserCards(userTemp)
       setTile()
-    }, 75)
+    }, 100)
 
     // setCards(temp)
     // setUserCards(userTemp)
