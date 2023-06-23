@@ -30,20 +30,20 @@ const Card = (props) => {
   }
 
   useEffect(() => {
-    const fetchData = async() => {
-      const response = await axios.get(`/cards/get/${props.id}`)
+    // const fetchData = async() => {
+    //   // const response = await axios.get(`/cards/get/${props.id}`)
 
-      const temp = response.data.sort((a, b) => b.eloScore - a.eloScore)
-      temp.slice(0, 2)
-      // console.log(temp)
+    //   const temp = response.data.sort((a, b) => b.eloScore - a.eloScore)
+    //   temp.slice(0, 2)
+    //   // console.log(temp)
 
-      setTwo(temp)
-      console.log(two[0].image, two[1].image)
+    //   setTwo(temp)
+    //   console.log(two[0].image, two[1].image)
 
 
-    }
+    // }
 
-    fetchData()
+    // fetchData()
 
   }, [])
 
@@ -52,14 +52,14 @@ const Card = (props) => {
       {/* <div className="card-top">
         {props.show &&<button className="card-delete card-btn" onClick={handleDelete}><i class="fa fa-trash"></i></button>}
       </div> */}
-      {two && <div className="card-middle" onClick={handleClick}>
+      {<div className="card-middle" onClick={handleClick}>
         <p className="card-title">{props.title}</p>
         <p className="card-count card-p">Plays: {props.plays}</p>
-        {two[0] && two[1] && <div className="card-container">
+        {/* {two[0] && two[1] && <div className="card-container">
           <img src={two[0].image} alt="" className="card-image" />
           <p className="card-text">vs</p>
           <img src={two[1].image} alt="" className="card-image" />
-        </div>}
+        </div>} */}
       </div>}
       <div className="card-bottom">
         <button className="card-button" onClick={() => navigate(`/results/${props.title}/${props.id}`)}>Rankings</button>
