@@ -136,7 +136,7 @@ const Mash = () => {
 
     setTimeout(() => {
       // setBlur(false)
-      
+
       setClicks(prev => prev + 1)
       setCards(temp)
       setUserCards(userTemp)
@@ -185,7 +185,7 @@ const Mash = () => {
 
   const handleUserCards = async() => {
     try {
-      const response = await axios.get(`http://localhost:4000/cards/get/${id}`)
+      const response = await axios.get(`/cards/get/${id}`)
       const temp = [...response.data]
       temp.map(item => item.eloScore = 1200)
       setUserCards(temp)
@@ -201,10 +201,10 @@ const Mash = () => {
   useEffect(() => {
     const getData = async() => {
       try { 
-      const response = await axios.get(`http://localhost:4000/cards/get/${id}`)
+      const response = await axios.get(`/cards/get/${id}`)
       // console.log("response", response)
 
-      const otherResponse = await axios.get(`http://localhost:4000/mashes/getmashbyid/${id}`)
+      const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
       setMashPlays(otherResponse.data[0].plays)
       setQues(otherResponse.data[0].question)
 
