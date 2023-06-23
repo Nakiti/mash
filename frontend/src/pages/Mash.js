@@ -23,7 +23,7 @@ const Mash = () => {
   const [length, setLength] = useState(0)
   const [mashPlays, setMashPlays] = useState(0)
   const [ques, setQues] = useState(null)
-  const [blur, setBlur] = useState(true)
+  const [blur, setBlur] = useState(false)
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
