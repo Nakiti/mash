@@ -23,7 +23,7 @@ const Mash = () => {
   const [length, setLength] = useState(0)
   const [mashPlays, setMashPlays] = useState(0)
   const [ques, setQues] = useState(null)
-  const [blur, setBlur] = useState(false)
+  const [blur, setBlur] = useState(true)
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
@@ -76,7 +76,6 @@ const Mash = () => {
     let userExpectedTwo = 1/(1 + 10**((userTemp[cardOne].eloScore - userTemp[cardTwo].eloScore)/400))
 
     // console.log(expectedOne, expectedTwo)
-    setClicks(prev => prev + 1)
 
     try {
       if (e.target.alt == temp[cardOne].title) { //card one clicked
@@ -133,11 +132,12 @@ const Mash = () => {
     }
 
     // console.log("userCards:", userCards)
-    setBlur(true)
+    // setBlur(true)
 
     setTimeout(() => {
-      setBlur(false)
-
+      // setBlur(false)
+      
+      setClicks(prev => prev + 1)
       setCards(temp)
       setUserCards(userTemp)
       setTile()
@@ -185,7 +185,7 @@ const Mash = () => {
 
   const handleUserCards = async() => {
     try {
-      const response = await axios.get(`/cards/get/${id}`)
+      const response = await axios.get(`http://localhost:4000/cards/get/${id}`)
       const temp = [...response.data]
       temp.map(item => item.eloScore = 1200)
       setUserCards(temp)
@@ -201,10 +201,10 @@ const Mash = () => {
   useEffect(() => {
     const getData = async() => {
       try { 
-      const response = await axios.get(`/cards/get/${id}`)
+      const response = await axios.get(`http://localhost:4000/cards/get/${id}`)
       // console.log("response", response)
 
-      const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
+      const otherResponse = await axios.get(`http://localhost:4000/mashes/getmashbyid/${id}`)
       setMashPlays(otherResponse.data[0].plays)
       setQues(otherResponse.data[0].question)
 
