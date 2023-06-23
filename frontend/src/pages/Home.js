@@ -38,9 +38,9 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async() => {
-      const musicResponse = await axios.get("http://localhost:4000/mashes/getmashbycat/music")
-      const sportsResponse = await axios.get("http://localhost:4000/mashes/getmashbycat/sports")
-      const filmResponse = await axios.get("http://localhost:4000/mashes/getmashbycat/film")
+      const musicResponse = await axios.get("/mashes/getmashbycat/music")
+      const sportsResponse = await axios.get("/mashes/getmashbycat/sports")
+      const filmResponse = await axios.get("/mashes/getmashbycat/film")
       
       const musicTemp = musicResponse.data.sort((a, b) => b.plays - a.plays)
       const sportsTemp = sportsResponse.data.sort((a, b) => b.plays - a.plays)
