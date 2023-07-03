@@ -24,12 +24,18 @@ const Mash = () => {
   const [mashPlays, setMashPlays] = useState(0)
   const [ques, setQues] = useState(null)
   const [blur, setBlur] = useState(false)
+  const [prev, setPrev] = useState([])
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
     let two = Math.floor(Math.random() * max)
     let valid = false;
     let temp = [...pairs]
+
+    if (prev.length > 2) {
+      prev.pop()
+      prev.pop()
+    }
 
     while (valid == false) {
       if (pairs.length === 0 ){
@@ -60,8 +66,22 @@ const Mash = () => {
       }
     }
 
+
+    if (cards[one].title == prev[0]) {
+      let temp = one
+      one = two
+      two = temp
+    } else if (cards[two].title == prev[1]) {
+      let temp = two
+      two = one
+      one = temp
+    }
+
     setCardOne(one)
     setCardTwo(two)
+    setPrev(arr => [cards[one].title, cards[two].title, ...arr])
+    console.log(prev)
+
   }
   // add code so same card doesn't show up repeatedly, seems to skew results in short sample
 
@@ -141,7 +161,7 @@ const Mash = () => {
       setCards(temp)
       setUserCards(userTemp)
       setTile()
-    }, 400)
+    }, 100)
 
     // setCards(temp)
     // setUserCards(userTemp)
@@ -245,7 +265,7 @@ const Mash = () => {
             <img src={cards[cardOne].image} alt={cards[cardOne].title} className="mash-image" />
             <p className="mash-label" alt={cards[cardOne].title}><b>{cards && cards[cardOne].title}</b></p>
           </div>
-          <p className="mash-text">OR</p>
+          <p className="mash-text">VS</p>
           <div className="mash-tile" alt={cards[cardTwo].title} onClick={(e) => empty ? null : handleClick(e)}>
             {blur && <div className="mash-overlay"><div className="mash-blur"></div></div>}
             <img src={cards[cardTwo].image} alt={cards[cardTwo].title} className="mash-image" />

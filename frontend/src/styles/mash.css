@@ -26,6 +26,7 @@
   /* max-width: 18vh; */
   display: flex;
   flex-direction: column;
+  width: 16.2vh;
 }
 
 .mash-tile:hover{
@@ -295,8 +296,6 @@
   .mash-image {
     width: 30vh;
     height: 40vh;
-
-
   }
 
   .mash-tile {

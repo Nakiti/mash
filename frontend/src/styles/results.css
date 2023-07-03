@@ -21,6 +21,8 @@
   font-size: 1.5em;
   grid-row: 2 / 3;
   text-align: center;
+  /* margin: 0; */
+  height: 30px;
 }
 
 .results-plays {
@@ -40,10 +42,11 @@
   width: 100%;
   max-height: 100%;
   overflow-y: scroll;
-  border: solid gray 1px;
+  /* border: solid gray 1px; */
   padding: 10px;
   /* overflow: hidden; */
   background-color: white;
+  
 }
 
 .results-container {
@@ -54,7 +57,10 @@
   padding: 5px;
   margin: 0;
   margin-bottom: 1%;
-  border-bottom: solid grey 1px
+  border-bottom: solid grey 1px;
+
+  justify-content: center;
+  align-items: center;
 }
 
 .results-text {
@@ -75,8 +81,8 @@
 
 .results-image {
   margin-left: 2%;
-  width: 9vh;
-  height: 12vh;
+  width: 25%;
+  height: 25%;
   padding: 10px;
   background-color: white;
 }
@@ -105,6 +111,19 @@
     font-size: 3vh;
   }
 
+  .results-image {
+    /* width: 12vh;
+    height: 16vh; */
+    width: 15%;
+    height: 15%;
+  }
+
+  .results-items {
+    grid-column: 3 / 7;
+    /* width: 90%; */
+  }
+
+
   .results-text {
     font-size: 3vh;
   }
@@ -121,11 +140,18 @@
 @media screen and (min-width: 1200px) {
   .results-items {
     grid-column: 3 / 7;
+    /* width: 90%; */
   }
 
   .results-image {
-    width: 12vh;
-    height: 16vh;
+    /* width: 12vh;
+    height: 16vh; */
+    width: 15%;
+    height: 15%;
+  }
+
+  .results-name {
+    width: 50%;
   }
 
   .results-title {
@@ -136,6 +162,11 @@
   .results-subtitle {
     grid-column: 3 / 7;
     font-size: 2em;
+  }
+
+  .results-plays {
+    margin-top: 30px;
+    /* align-self: flex-end; */
   }
 
   .results-btn {

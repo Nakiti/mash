@@ -60,7 +60,7 @@ const Home = () => {
       <Header />
       <div className="home-textContainer">
         <p className="home-title">A Fast And Fun Way To Rank Anything!</p>
-        <p className="home-info">Mash.com streamlines ranking long lists by making it quick and fun. Compare and choose your preferred option from a pair, improving your ranking accuracy as you go. Contribute to collective rankings based on diverse opinions. Join Mash.com for easy and enjoyable ranking!</p>
+        <p className="home-info">Introducing Mash: the ultimate platform for engaging and effortless topic rankings! Create and share your Mash with friends or the world to discover fascinating rankings. With each click, contribute to a collective ranking that reflects everyone's opinion. Join Mash today and unlock captivating rankings that ignite conversations!</p>
 
       </div>
       {/* <div className="home-body"> */}
