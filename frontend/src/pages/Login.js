@@ -42,7 +42,7 @@ const Login = () => {
           <div action="" className="login-form">
             <p className="login-heading">LOGIN</p>
             <input type="text" className="login-input" name="username" placeholder="Enter a username" onChange={handleChange}/>
-            <input type="text" className="login-input" name="password" placeholder="Enter a password" onChange={handleChange}/>
+            <input type="password"  className="login-input" name="password" placeholder="Enter a password" onChange={handleChange}/>
             <button className="login-button" onClick={handleSubmit}>Login</button>
             <p className="login-text login-error">{error}</p>
             <p className="login-text">Don't have an account?  <Link to="/register">Register </Link></p>

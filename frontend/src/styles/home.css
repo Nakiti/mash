@@ -454,11 +454,11 @@
 
   .home-mash {
     width: 23%;
-    margin-right: 60px;
+    margin-right: 7%;
   }
 }
 
-@media screen and (min-width: 1200px) and (min-height: 700px) {
+@media screen and (min-width: 1400px) and (min-height: 700px) {
   .home-card {
     
     width: 100vw;
