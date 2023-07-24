@@ -62,7 +62,7 @@ const Mash = () => {
             // console.log(userCards[one], userCards[two])
             break
         } else {
-          if (rand > 75 && topPairs.length > 0) {
+          if (rand > 65 && topPairs.length > 0) {
             const temp= [...topPairs]
             let pair =  temp[Math.floor(Math.random() * temp.length)]
 
@@ -208,7 +208,7 @@ const Mash = () => {
     let top = [...list]
     top.sort((a, b) => b.eloScore - a.eloScore)
     
-    let secondTop = top.slice(0, 10)
+    let secondTop = top.slice(0, 15)
     console.log(secondTop)
 
     const temp = []
