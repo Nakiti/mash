@@ -208,7 +208,7 @@ const Mash = () => {
     let top = [...list]
     top.sort((a, b) => b.eloScore - a.eloScore)
     
-    let secondTop = top.slice(0, 15)
+    let secondTop = top.slice(0, 10)
     console.log(secondTop)
 
     const temp = []
