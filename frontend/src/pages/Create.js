@@ -34,13 +34,13 @@ const Create = () => {
     // console.log(inputs)
   }
 
-  // const handleDelete = (id) => {
-  //   const temp = [...inputs]
-  //   const filtered = temp.filter(item => id !== item.id)
+  const handleDelete = (id) => {
+    const temp = [...inputs]
+    const filtered = temp.filter(item => id !== item.id)
     
-  //   console.log(filtered)
-  //   setInputs(filtered)
-  // }
+    console.log(filtered)
+    setInputs(filtered)
+  }
 
   const handleModal = () => {
     setShowModal(true)
@@ -180,7 +180,7 @@ const Create = () => {
         <div className="create-form">
           <div className="create-items">
             {inputs.map((item, index) => {
-              if (item.name !== "" && item.image !== "") return <div className="create-wrapper" onFocus={() => setSelectedId(item.id)}> <Input key={item.id} id={item.id} number={index} name={item.name} image={item.image} inputs={inputs} selectedId={selectedId} setInputs={setInputs}/> </div>
+              if (item.name !== "" && item.image !== "") return <div className="create-wrapper" onFocus={() => setSelectedId(item.id)}> <Input key={item.id} id={item.id} number={index} name={item.name} image={item.image} inputs={inputs} selectedId={selectedId} setInputs={setInputs} handleDelete={handleDelete}/> </div>
             })}
           </div>
           <button className="create-add" onClick={handleAdd}>Add Card</button>

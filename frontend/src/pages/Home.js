@@ -47,9 +47,11 @@ const Home = () => {
       const filmTemp = filmResponse.data.sort((a, b) => b.plays - a.plays)
 
 
-      setMusic(musicTemp.slice(0, 5))
-      setFilm(filmTemp.slice(0, 5))
-      setSports(sportsTemp.slice(0, 5))
+      setMusic(musicTemp.slice(0, 8))
+      setFilm(filmTemp.slice(0, 8))
+      setSports(sportsTemp.slice(0, 8))
+
+      console.log(musicTemp[0].imageOne)
     }
 
     fetchData()
@@ -58,49 +60,54 @@ const Home = () => {
   return ( 
     <div className="home-content">
       <Header />
-      <div className="home-textContainer">
-        <p className="home-title">A Fast And Fun Way To Rank Anything!</p>
-        <p className="home-info">Introducing Mash: the ultimate platform for engaging and effortless topic rankings! Create and share your Mash with friends or the world to discover fascinating rankings. With each click, contribute to a collective ranking that reflects everyone's opinion. Join Mash today and unlock captivating rankings that ignite conversations!</p>
+      <div className="home-body">
+        <div className="home-textContainer">
+          <p className="home-title">A Fast And Fun Way To Rank Anything!</p>
+          <p className="home-info">Create and share your Mash to discover fascinating rankings. With each click, contribute to a collective ranking that reflects everyone's opinion. Join Mash today and voice your opinions!</p>
 
+        </div>
+        {/* <div className="home-body"> */}
+          <div className="home-card home-create" id="login" onClick={handleClick}>
+            <p className="home-text" id="login" onClick={handleClick}>CREATE</p>
+            <button className="home-button" id="login" onClick={handleClick}><i class="fa fa-plus" id="login" onClick={handleClick}></i></button>
+          </div>
+          <div className="home-card home-play" id="search" onClick={handleClick}>
+            <p className="home-text" id="search" onClick={handleClick}>EXPLORE</p>
+            <button className="home-button" id="search" onClick={handleClick}><i class="fa fa-search" id="search" onClick={handleClick}></i></button>
+          </div>
+        {/* </div> */}
+        <p className="home-heading">Popular Mashes:</p>
+        <div className="home-mashes">
+          <div className="home-row">
+            <p className="home-subheading" id="sports" onClick={handleLink}>Sports</p>
+            <div className="home-rowContent">
+              {sports && sports.map(item => {
+                return <div className="home-mash"><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} imageOne={item.imageOne} imageTwo={item.imageTwo} show={false}/></div>
+              })}
+            </div>
+          </div>
+          <div className="home-row">
+            <p className="home-subheading" id="music" onClick={handleLink}>Music</p>
+            <div className="home-rowContent">
+              {music && music.map(item => {
+                return <div className="home-mash"><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} imageOne={item.imageOne} imageTwo={item.imageTwo} show={false}/></div>
+              })}
+            </div>
+          </div>
+          <div className="home-row">
+            <p className="home-subheading" id="film" onClick={handleLink}>Film & TV</p>
+            <div className="home-rowContent">
+              {film && film.map(item => {
+                return <div className="home-mash"><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} imageOne={item.imageOne} imageTwo={item.imageTwo} show={false}/></div>
+              })}
+            </div>
+          </div>
+          <div className="home-footer">
+            <p className="home-footerText">Contact: mashrankings@gmail.com</p>
+          </div>
+        </div>
       </div>
-      {/* <div className="home-body"> */}
-        <div className="home-card home-create" id="login" onClick={handleClick}>
-          <p className="home-text" id="login" onClick={handleClick}>CREATE</p>
-          <button className="home-button" id="login" onClick={handleClick}><i class="fa fa-plus" id="login" onClick={handleClick}></i></button>
-        </div>
-        <div className="home-card home-play" id="search" onClick={handleClick}>
-          <p className="home-text" id="search" onClick={handleClick}>EXPLORE</p>
-          <button className="home-button" id="search" onClick={handleClick}><i class="fa fa-search" id="search" onClick={handleClick}></i></button>
-        </div>
-      {/* </div> */}
-      <p className="home-heading">Popular Mashes:</p>
-      <div className="home-mashes">
-        <div className="home-row">
-          <p className="home-subheading" id="sports" onClick={handleLink}>Sports</p>
-          <div className="home-rowContent">
-            {sports && sports.map(item => {
-              return <div className="home-mash"><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} show={false}/></div>
-            })}
-          </div>
-        </div>
-        <div className="home-row">
-          <p className="home-subheading" id="music" onClick={handleLink}>Music</p>
-          <div className="home-rowContent">
-            {music && music.map(item => {
-              return <div className="home-mash"><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} show={false}/></div>
-            })}
-          </div>
-        </div>
-        <div className="home-row">
-          <p className="home-subheading" id="film" onClick={handleLink}>Film & TV</p>
-          <div className="home-rowContent">
-            {film && film.map(item => {
-              return <div className="home-mash"><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} show={false}/></div>
-            })}
-          </div>
-        </div>
-      </div>
-      {/* <button className="home-contact" onClick={() => navigate("/contact")}>Contact</button> */}
+
     </div>
   );
 }

@@ -109,7 +109,7 @@ const Search = () => {
         </div>
         <div className="search-cards">
           {cards && cards.map((item) => {
-            return <div className="search-container" key={item.id}><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} show={false} /></div>
+            return <div className="search-container" key={item.id}><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} imageOne={item.imageOne} imageTwo={item.imageTwo} show={false} /></div>
           })}
         </div>
       </div>

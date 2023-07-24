@@ -25,6 +25,8 @@ const Mash = () => {
   const [ques, setQues] = useState(null)
   const [blur, setBlur] = useState(false)
   const [prev, setPrev] = useState([])
+  const [topPairs, setTopPairs] = useState([])
+  const [thing, setThing] = useState([])
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
@@ -32,17 +34,18 @@ const Mash = () => {
     let valid = false;
     let temp = [...pairs]
 
+    // console.log(topPairs)
+
     if (prev.length > 2) {
       prev.pop()
       prev.pop()
     }
-
     while (valid == false) {
+      let rand = Math.floor(Math.random() * 100)
       if (pairs.length === 0 ){
         valid = true
         setEmpty(true)
         setShowModal(true)
-
         break
       }
       for (let i = 0; i < pairs.length; i++) {
@@ -50,17 +53,36 @@ const Mash = () => {
           (pairs[i][0] == cards[one].title && pairs[i][1] == cards[two].title) || 
           (pairs[i][0] == cards[two].title && pairs[i][1] == cards[one].title)
           ) {
+            // thing.push(cards[one].title, cards[two].title)
+            // thing.map(item => console.log(item))
             temp.splice(i, 1)
             setPairs(temp)
             valid = true
+
+            // console.log(userCards[one], userCards[two])
             break
         } else {
-          one = Math.floor(Math.random() * max)
-          two = Math.floor(Math.random() * max)
+          if (rand > 75 && topPairs.length > 0) {
+            const temp= [...topPairs]
+            let pair =  temp[Math.floor(Math.random() * temp.length)]
 
-          while (one === two) {
+            one = cards.indexOf(pair[0])
+            two = cards.indexOf(pair[1])
+            console.log("ran")
+
+            const ind = temp.indexOf(pair)
+            temp.splice(ind, 1)
+            setTopPairs(temp)
+          } else {
             one = Math.floor(Math.random() * max)
             two = Math.floor(Math.random() * max)
+
+            while (one === two) {
+              one = Math.floor(Math.random() * max)
+              two = Math.floor(Math.random() * max)
+            }
+
+            console.log("not ran")
           }
         }
       }
@@ -80,8 +102,6 @@ const Mash = () => {
     setCardOne(one)
     setCardTwo(two)
     setPrev(arr => [cards[one].title, cards[two].title, ...arr])
-    console.log(prev)
-
   }
   // add code so same card doesn't show up repeatedly, seems to skew results in short sample
 
@@ -94,18 +114,10 @@ const Mash = () => {
 
     let userExpectedOne = 1/(1 + 10**((userTemp[cardTwo].eloScore - userTemp[cardOne].eloScore)/400)) //set rates
     let userExpectedTwo = 1/(1 + 10**((userTemp[cardOne].eloScore - userTemp[cardTwo].eloScore)/400))
-
-    // console.log(expectedOne, expectedTwo)
-
     try {
       if (e.target.alt == temp[cardOne].title) { //card one clicked
         let scoreOne = temp[cardOne].eloScore + k*(1-expectedOne)
         let scoreTwo = temp[cardTwo].eloScore + k*(0-expectedTwo)
-
-        // console.log("first one clicked")
-        // console.log(userTemp[cardOne].title, " before: ", userTemp[cardOne].eloScore)
-        // console.log(userTemp[cardTwo].title, " before: ", userTemp[cardTwo].eloScore)
-        // console.log("scores", scoreOne, scoreTwo)
 
         let userScoreOne = userTemp[cardOne].eloScore + k*(1-userExpectedOne)
         let userScoreTwo = userTemp[cardTwo].eloScore + k*(0-userExpectedTwo)     
@@ -118,20 +130,10 @@ const Mash = () => {
 
         userTemp[cardOne].eloScore = userScoreOne
         userTemp[cardTwo].eloScore = userScoreTwo
-
-        // console.log(userTemp[cardOne].title, " after: ", userTemp[cardOne].eloScore)
-        // console.log(userTemp[cardTwo].title, " after: ", userTemp[cardTwo].eloScore)
       } else if (e.target.alt == temp[cardTwo].title) { //card two clicked
         let scoreOne = temp[cardOne].eloScore + k*(0-expectedOne)
         let scoreTwo = temp[cardTwo].eloScore + k*(1-expectedTwo)
         
-        // console.log("second one clicked")
-
-        // console.log(userTemp[cardOne].title, " before: ", userTemp[cardOne].eloScore)
-        // console.log(userTemp[cardTwo].title, " before: ", userTemp[cardTwo].eloScore)
-        
-        // console.log("scores", scoreOne, scoreTwo)
-
         let userScoreOne = userTemp[cardOne].eloScore + k*(0-userExpectedOne)
         let userScoreTwo = userTemp[cardTwo].eloScore + k*(1-userExpectedTwo)
 
@@ -143,20 +145,11 @@ const Mash = () => {
 
         userTemp[cardOne].eloScore = userScoreOne
         userTemp[cardTwo].eloScore = userScoreTwo
-
-        // console.log(userTemp[cardOne].title, " after: ", userTemp[cardOne].eloScore)
-        // console.log(userTemp[cardTwo].title, " after: ", userTemp[cardTwo].eloScore)
       }
     } catch (err) {
       console.log(err)
     }
-
-    // console.log("userCards:", userCards)
-    // setBlur(true)
-
     setTimeout(() => {
-      // setBlur(false)
-
       setClicks(prev => prev + 1)
       setCards(temp)
       setUserCards(userTemp)
@@ -166,9 +159,7 @@ const Mash = () => {
     // setCards(temp)
     // setUserCards(userTemp)
     // setTile()
-
     if (clicks === 0) {
-      // console.log(mashPlays)
       const updatedPlays = mashPlays + 1
       await axios.put(`/mashes/update`, {plays: updatedPlays, id: id})
     }
@@ -200,7 +191,6 @@ const Mash = () => {
     setTotal(temp.length + 1)
     setLength(temp.length + 1)
     // setPairsLength(temp.length + 1)
-    // console.log(temp)
   }
 
   const handleUserCards = async() => {
@@ -214,6 +204,24 @@ const Mash = () => {
     }
   }
 
+  const handleTop = (list) => {
+    let top = [...list]
+    top.sort((a, b) => b.eloScore - a.eloScore)
+    
+    let secondTop = top.slice(0, 10)
+    console.log(secondTop)
+
+    const temp = []
+
+    for (var j = 0; j < secondTop.length; j++) {
+      for (var x = j + 1; x < secondTop.length; x++) {
+        temp.push([secondTop[x], secondTop[j]])
+      }
+    }
+
+    setTopPairs(temp)
+  }
+
   const handleInfoButton = () => {
     setInfoModal(true)
   }
@@ -222,8 +230,6 @@ const Mash = () => {
     const getData = async() => {
       try { 
       const response = await axios.get(`/cards/get/${id}`)
-      // console.log("response", response)
-
       const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
       setMashPlays(otherResponse.data[0].plays)
       setQues(otherResponse.data[0].question)
@@ -237,10 +243,11 @@ const Mash = () => {
         two = Math.floor(Math.random() * response.data.length)
       }
 
-      findPairs(response.data, one, two)
 
+      findPairs(response.data, one, two)
       setCardOne(one)
       setCardTwo(two)
+      handleTop(response.data)
       }
       catch (err) {
         console.log(err)

@@ -14,6 +14,8 @@ const Profile = () => {
   const [showModal, setShowModal] = useState(false)
   const [text, setText] = useState("")
   const [showEditModal, setShowEditModal] = useState(false)
+  const [title, setTitle] = useState("")
+  const [mashID, setMashID] = useState(0)
   const timestamp = new Date()
 
   const navigate = useNavigate()
@@ -22,7 +24,7 @@ const Profile = () => {
   const handleClick = async() => {
     let date = `${timestamp.getMonth() + 1}/${timestamp.getDate()}/${timestamp.getFullYear()}`
 
-    await axios.post("/contacts/post", {text: text, date: date, userID: currentUser.id})
+    await axios.post("/contacts/post", {title: title, text: text, date: date, mashID: mashID, userID: currentUser.id})
     setShowEditModal(false)
   }
 
@@ -69,10 +71,10 @@ const Profile = () => {
         <p className="profile-heading2">CREATED MASHES:</p>
         <div className="profile-cards">
           {mashes && mashes.map((item) => {
-            return <Card key={item.id} show={true} setMessage={setMessage} setShowModal={setShowModal} title={item.title} date={item.date} plays={item.plays} id={item.id} mashes={mashes} setMashes={setMashes}/>
+            return <Card key={item.id} show={true} setMessage={setMessage} setShowModal={setShowModal} title={item.title} date={item.date} plays={item.plays} id={item.id} imageOne={item.imageOne} imageTwo={item.imageTwo} mashes={mashes} setShowEditModal={setShowEditModal} setMashes={setMashes} setTitle={setTitle} setMashID={setMashID}/>
           })}
         </div>
-        <button className="profile-edit" onClick={() => setShowEditModal(true)}>Edit a Mash <i class="fa fa-edit"></i></button>
+        {/* <button className="profile-edit" onClick={() => setShowEditModal(true)}>Edit a Mash <i class="fa fa-edit"></i></button> */}
       </div>
     </div>
   );
