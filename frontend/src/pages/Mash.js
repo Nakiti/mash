@@ -284,7 +284,7 @@ const Mash = () => {
         </div>
         <button className="mash-endButton" onClick={handleSubmit}>Finish</button>
         <div className="mash-stats">
-          {total && <p className="mash-clicks">PLAYS: {clicks}</p>}
+          {total && <p className="mash-clicks">PLAYS: {clicks} / {length}</p>}
         </div>
       </div>}
     </div>
