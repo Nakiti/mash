@@ -62,7 +62,7 @@ const Mash = () => {
             // console.log(userCards[one], userCards[two])
             break
         } else {
-          if (rand > 90 && topPairs.length > 0 && mashPlays > 10000) {
+          if (rand > 90 && topPairs.length > 0 && mashPlays > 100000) {
             const temp= [...topPairs]
             let pair =  temp[Math.floor(Math.random() * temp.length)]
 
