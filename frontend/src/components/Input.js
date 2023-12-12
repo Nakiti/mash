@@ -1,8 +1,11 @@
+import { useState } from "react"
 import "../styles/input.css"
 
 const Input = (props) => {
+  const [temp, setTemp] = useState([...props.inputs])
+
   const handleChange = (e) => {
-    const temp = props.inputs
+    console.log(temp)
 
     temp.map((item) => {
       if (item.id === props.selectedId) {
@@ -12,6 +15,7 @@ const Input = (props) => {
       // console.log(item.id, props.id)
     })
 
+    setTemp(temp)
     props.setInputs(temp)
   }
 
@@ -47,10 +51,10 @@ const Input = (props) => {
   return ( 
     <div className="input-content">
       <p className="input-number">{props.number + 1}</p>
-      {/* <button className="input-delete" onClick={() => props.handleDelete(props.id, props.number)}><i class="fa fa-trash"></i></button> */}
+      <button className="input-delete" onClick={() => props.handleDelete(props.id, props.number)}><i class="fa fa-trash"></i></button>
       <div className="input-inputs">
-        <input type="text" className="input-input input-name" placeholder="Enter Name" name="name" onChange={handleChange}/>
-        <input type="text" className="input-input input-link" placeholder="Enter Image Link" name="image" onChange={handleChange}/>
+        <input type="text" className="input-input input-name" placeholder="Enter Name" name="name" value={temp.name} onChange={handleChange}/>
+        <input type="text" className="input-input input-link" placeholder="Enter Image Link" name="image" value={temp.image} onChange={handleChange}/>
       </div>
     </div>
   );

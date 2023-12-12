@@ -34,7 +34,7 @@ const Card = (props) => {
   const handleClick = async() => {
     const updatedPlays = props.plays + 1
     // await axios.put(`/mashes/update/`, {plays: updatedPlays, id: props.id})
-    navigate(`/mash/${props.title}/${props.id}`)
+    navigate(`/mash/${props.title.split(" ").join("")}/${props.id}`, {state: {title: props.title}})
   }
 
   const handleform = async() => {

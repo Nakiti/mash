@@ -85,11 +85,8 @@ const Search = () => {
         </div>
       </div>}
       <div className="search-body">
-        <div className="search-bar">
-          <p className="search-label"><b>FIND MASHES</b></p>
-          {/* <input type="text" className="search-input" />
-          <button className="search-searchBtn">Go</button> */}
-        </div>
+        <p className="search-label"><b>FIND MASHES</b></p>
+ 
         <div className="search-cats">
           <button className="search-btn" name="all" style={{backgroundColor: cat === "all" ? "#dcdcdc" : "white"}} onClick={handleClick}>ALL</button>
           <button className="search-btn" name="sports" style={{backgroundColor: cat === "sports" ? "#dcdcdc" : "white"}} onClick={handleClick}>SPORTS</button>

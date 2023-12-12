@@ -92,7 +92,7 @@
 }
 
 .create-category {
-  width: 70%;
+  width: 100%;
   height: 30px;
   margin-left: 15px;
   margin-right: 15px;
@@ -166,6 +166,7 @@
   align-items: center;
   border: 0;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  width: 100%;
 }
 
 .create-wrapper {

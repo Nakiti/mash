@@ -1,5 +1,5 @@
 import Header from "../components/Header.js";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/mash.css"
@@ -7,7 +7,9 @@ import Modal from "../components/Modal.js";
 import TheInfoModal from "../components/TheInfoModal.js";
 
 const Mash = () => {
-  const {title, id} = useParams()
+  const {id} = useParams()
+  const state = useLocation()
+  const {title} = state;
   const [cards, setCards] = useState(null)
   const [userCards, setUserCards] = useState(null)
   const [max, setMax] = useState(2)
@@ -62,17 +64,17 @@ const Mash = () => {
             // console.log(userCards[one], userCards[two])
             break
         } else {
-          if (rand > 90 && topPairs.length > 0 && mashPlays > 100000) {
-            const temp= [...topPairs]
-            let pair =  temp[Math.floor(Math.random() * temp.length)]
+          if (rand > 90 && topPairs.length > 0 && mashPlays > 10000000) {
+            // const temp= [...topPairs]
+            // let pair =  temp[Math.floor(Math.random() * temp.length)]
 
-            one = cards.indexOf(pair[0])
-            two = cards.indexOf(pair[1])
-            console.log("ran")
+            // one = cards.indexOf(pair[0])
+            // two = cards.indexOf(pair[1])
+            // console.log("ran")
 
-            const ind = temp.indexOf(pair)
-            temp.splice(ind, 1)
-            setTopPairs(temp)
+            // const ind = temp.indexOf(pair)
+            // temp.splice(ind, 1)
+            // setTopPairs(temp)
           } else {
             one = Math.floor(Math.random() * max)
             two = Math.floor(Math.random() * max)
@@ -195,7 +197,7 @@ const Mash = () => {
 
   const handleUserCards = async() => {
     try {
-      const response = await axios.get(`/cards/get/${id}`)
+      const response = await axios.get(`cards/get/${id}`)
       const temp = [...response.data]
       temp.map(item => item.eloScore = 1200)
       setUserCards(temp)
@@ -204,33 +206,35 @@ const Mash = () => {
     }
   }
 
-  const handleTop = (list) => {
-    let top = [...list]
-    top.sort((a, b) => b.eloScore - a.eloScore)
+  // const handleTop = (list) => {
+  //   let top = [...list]
+  //   top.sort((a, b) => b.eloScore - a.eloScore)
     
-    let secondTop = top.slice(0, 10)
-    console.log(secondTop)
+  //   let secondTop = top.slice(0, 10)
+  //   console.log(secondTop)
 
-    const temp = []
+  //   const temp = []
 
-    for (var j = 0; j < secondTop.length; j++) {
-      for (var x = j + 1; x < secondTop.length; x++) {
-        temp.push([secondTop[x], secondTop[j]])
-      }
-    }
+  //   for (var j = 0; j < secondTop.length; j++) {
+  //     for (var x = j + 1; x < secondTop.length; x++) {
+  //       temp.push([secondTop[x], secondTop[j]])
+  //     }
+  //   }
 
-    setTopPairs(temp)
-  }
+  //   setTopPairs(temp)
+  // }
 
   const handleInfoButton = () => {
     setInfoModal(true)
   }
 
   useEffect(() => {
+    console.log("state", state)
+
     const getData = async() => {
       try { 
-      const response = await axios.get(`/cards/get/${id}`)
-      const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
+      const response = await axios.get(`http://localhost:4000/cards/get/${id}`)
+      const otherResponse = await axios.get(`http://localhost:4000/mashes/getmashbyid/${id}`)
       setMashPlays(otherResponse.data[0].plays)
       setQues(otherResponse.data[0].question)
 
@@ -247,7 +251,7 @@ const Mash = () => {
       findPairs(response.data, one, two)
       setCardOne(one)
       setCardTwo(two)
-      handleTop(response.data)
+      // handleTop(response.data)
       }
       catch (err) {
         console.log(err)
@@ -263,7 +267,7 @@ const Mash = () => {
      { cards && userCards && ques && <div className="mash-body">
         {showModal && <Modal className="mash-modal" userCards={userCards} setShowModal={setShowModal} empty={empty} title={title} id={id}/>}
         {infoModal && <TheInfoModal className="mash-infoModal" length={length} id={id} setInfoModal={setInfoModal}/>}
-        <p className="mash-title">{title} MASH</p>
+        {state && <p className="mash-title">{state.state.title} MASH</p>}
         <p className="mash-info">{ques}</p>
         <button className="mash-infoButton" onClick={handleInfoButton}><i class="fa fa-question"></i></button>
         <div className="mash-container">

@@ -15,8 +15,6 @@ const Home = () => {
   const [sports, setSports] = useState(null)
   const [film, setFilm] = useState(null)
 
-
-
   const handleClick = (e) => {
     if (e.target.id === "login" && currentUser) {
       navigate(`/profile/${currentUser.id}`)
@@ -25,7 +23,6 @@ const Home = () => {
     }
     // console.log(e.target.id)
     // console.log(music, sports, film)
-
   }
 
   const handleLink = (e) => {
@@ -51,7 +48,7 @@ const Home = () => {
       setFilm(filmTemp.slice(0, 8))
       setSports(sportsTemp.slice(0, 8))
 
-      console.log(musicTemp[0].imageOne)
+      console.log(musicResponse)
     }
 
     fetchData()

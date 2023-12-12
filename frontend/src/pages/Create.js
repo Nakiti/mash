@@ -53,7 +53,6 @@ const Create = () => {
     if (title === "") {
       setError("Enter a Title")
       handleModal()
-      // console.log(title)
 
       return
     } else if (inputs.length < 2) {
@@ -75,13 +74,10 @@ const Create = () => {
     let tempMashId;
     try {
       let temp = await axios.get(`/mashes/get/${userId}`)
-      // console.log("temp: ", temp)
       temp.data.map(item => {
         if (item.title === title) {
-          // console.log(item)
           tempMashId = item.id
           setMashID(item.id)
-          // console.log("id: ", tempMashId)
         } 
       })
     } catch (e) {
@@ -120,7 +116,7 @@ const Create = () => {
       {otherModal && <div className="create-otherModalOverlay">
             <div className="create-otherModal">
             <p className="create-otherModalText">Here's the link to your mash: </p>  
-            <a href={`/mash/${title}/${mashID}`} className="create-otherModalLink">https://mash.herokuapp.com{`/mash/${title}/${mashID}`}</a>
+            <a href={`/mash/${title.split(" ").join("")}/${mashID}`} className="create-otherModalLink">https://mash.herokuapp.com{`/mash/${title.split(" ").join("")}/${mashID}`}</a>
             <button className="create-otherModalButton" style={{justifySelf: "center"}} onClick={handleOtherModal}>Home</button>
           </div>
         </div>}

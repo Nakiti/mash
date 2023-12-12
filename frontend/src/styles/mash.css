@@ -55,11 +55,11 @@
 .mash-image {
   width: 16.2vh;
   height: 21.6vh;
-  padding: 1vh;
+  /* padding: .5vh; */
   background-color: white;
   justify-self: center;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border-radius: 15px;
+  border-radius: 5px;
   align-self: center;
 
 }
@@ -150,8 +150,8 @@
 
 @media screen and (min-width: 400px) {
   .mash-image {
-    width: 15vh;
-    height: 20vh;
+    width: 17.1vh;
+    height: 22.8vh;
   
     justify-self: center;
     align-self: center;
@@ -178,7 +178,7 @@
   .mash-image {
     width: 22.8vh;
     height: 30.4vh;
-    padding: 1.5vh;
+    /* padding: 1.5vh; */
 
     justify-self: center;
   }
