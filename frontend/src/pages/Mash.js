@@ -197,7 +197,7 @@ const Mash = () => {
 
   const handleUserCards = async() => {
     try {
-      const response = await axios.get(`cards/get/${id}`)
+      const response = await axios.get(`/cards/get/${id}`)
       const temp = [...response.data]
       temp.map(item => item.eloScore = 1200)
       setUserCards(temp)
