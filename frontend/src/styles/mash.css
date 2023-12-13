@@ -55,7 +55,7 @@
 .mash-image {
   width: 16.2vh;
   height: 21.6vh;
-  /* padding: .5vh; */
+  padding: 2vh;
   background-color: white;
   justify-self: center;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

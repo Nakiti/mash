@@ -233,8 +233,8 @@ const Mash = () => {
 
     const getData = async() => {
       try { 
-      const response = await axios.get(`http://localhost:4000/cards/get/${id}`)
-      const otherResponse = await axios.get(`http://localhost:4000/mashes/getmashbyid/${id}`)
+      const response = await axios.get(`/cards/get/${id}`)
+      const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
       setMashPlays(otherResponse.data[0].plays)
       setQues(otherResponse.data[0].question)
 
