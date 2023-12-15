@@ -50,6 +50,14 @@ const Create = () => {
   }
 
   const handleSubmit = async(e) => {
+    let blank;
+
+    inputs.map((item) => {
+      if (item.image == " " || item.name == " ") {
+        blank = true;
+      }
+    })
+
     if (title === "") {
       setError("Enter a Title")
       handleModal()
@@ -59,7 +67,13 @@ const Create = () => {
       setError("Must Have at Least 2 Cards")
       handleModal()
       return
-    } 
+    } else if (blank) {
+      console.log(error)
+
+      setError("Cards Can Not Be Blank")
+      handleModal()
+      return
+    }
 
 
     let date = `${timestamp.getMonth() + 1}/${timestamp.getDate()}/${timestamp.getFullYear()}`
