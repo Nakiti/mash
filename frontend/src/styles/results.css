@@ -155,12 +155,12 @@
   }
 
   .results-title {
-    grid-column: 3 / 7;
+    grid-column: 2 / 8;
     font-size: 1.5em;
   }
 
   .results-subtitle {
-    grid-column: 3 / 7;
+    grid-column: 2 / 8;
     font-size: 2em;
   }
 

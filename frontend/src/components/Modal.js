@@ -28,7 +28,7 @@ const Modal = (props) => {
         </div>
         <div className="modal-btnContainer">
           <button className="modal-btn" onClick={() => navigate("/")} >Home</button>
-          <button className="modal-btn" onClick={() => navigate(`/results/${props.title}/${props.id}`)}>Rankings</button>
+          <button className="modal-btn" onClick={() => navigate(`/results/${props.title.split(" ").join("")}/${props.id}`)}>Rankings</button>
           {props.empty ? null : <button className="modal-btn" onClick={() => props.setShowModal(false)}>Continue</button>}
         </div>
         <div className="modal-share">
