@@ -7,9 +7,10 @@ import { useNavigate } from "react-router-dom";
 
 const Results = () => {
   const [data, setData] = useState(null)
-  const {title, id} = useParams()
+  const {id} = useParams()
   const navigate = useNavigate()
   const [plays, setPlays] = useState(null)
+  const [title, setTitle] = useState(null)
 
   useEffect(() => {
     const getData = async() => {
@@ -19,6 +20,7 @@ const Results = () => {
       const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
 
       setPlays(otherResponse.data[0].plays)
+      setTitle(otherResponse.data[0].title)
       setData(sortedData)
     }
 
@@ -30,7 +32,7 @@ const Results = () => {
       <Header />
       <div className="results-body">
         <p className="results-title">Rankings:</p>
-        <p className="results-subtitle">{title} Mash</p>
+        {title && <p className="results-subtitle">{title} Mash</p>}
         {plays && <p className="results-plays">Plays: {plays}</p>}
         <div className="results-items">
           {data && data.map((item, index) => {
