@@ -8,8 +8,9 @@ import TheInfoModal from "../components/TheInfoModal.js";
 
 const Mash = () => {
   const {id} = useParams()
-  const state = useLocation()
-  const {title} = state;
+  // const state = useLocation()
+  // const {title} = state;
+  const [title, setTitle] = useState(null)
   const [cards, setCards] = useState(null)
   const [userCards, setUserCards] = useState(null)
   const [max, setMax] = useState(2)
@@ -229,7 +230,7 @@ const Mash = () => {
   }
 
   useEffect(() => {
-    console.log("state", state)
+    // console.log("id", id)
 
     const getData = async() => {
       try { 
@@ -237,6 +238,7 @@ const Mash = () => {
       const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
       setMashPlays(otherResponse.data[0].plays)
       setQues(otherResponse.data[0].question)
+      setTitle(otherResponse.data[0].title)
 
       setCards(response.data)
       setMax(response.data.length)
@@ -267,7 +269,7 @@ const Mash = () => {
      { cards && userCards && ques && <div className="mash-body">
         {showModal && <Modal className="mash-modal" userCards={userCards} setShowModal={setShowModal} empty={empty} title={title} id={id}/>}
         {infoModal && <TheInfoModal className="mash-infoModal" length={length} id={id} setInfoModal={setInfoModal}/>}
-        {state && <p className="mash-title">{state.state.title} MASH</p>}
+        {title && <p className="mash-title">{title} MASH</p>}
         <p className="mash-info">{ques}</p>
         <button className="mash-infoButton" onClick={handleInfoButton}><i class="fa fa-question"></i></button>
         <div className="mash-container">
