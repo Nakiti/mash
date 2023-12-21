@@ -48,6 +48,9 @@ html {
   display: grid;
   /* grid-template-columns: repeat(3, 1fr); */
   gap: 20px;
+
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-create {
@@ -219,7 +222,7 @@ html {
   }
 }
 
-@media screen and (min-width: 1500px){ 
+@media screen and (min-width: 1200px){ 
   .profile-body {
     display: grid;
     grid-template-columns: repeat(8, 12.5vw);
@@ -259,6 +262,7 @@ html {
     grid-column: 2 / 8;
     grid-row-start: 5;
     margin-top: 1vh;
+
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;

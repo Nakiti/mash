@@ -14,7 +14,7 @@ const NotFound = () => {
     <div className="notFound-content">
       <Header />
       <div className="notFound-body">
-        <p className="notFound-text">Oops! You're not supposed to be here!</p>
+        <p className="notFound-text">Page Not Found. Return to Home.</p>
 
         <button className="notFound-button" onClick={handleClick}>Home</button>
       </div>
