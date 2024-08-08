@@ -36,6 +36,19 @@ export const getMash = (req, res) => {
   })
 }
 
+export const searchMash = (req, res) => {
+    const query = "SELECT * FROM mashes WHERE title LIKE ? OR info LIKE ?"
+
+    const input = req.query.q
+
+    console.log(input)
+
+    db.query(query, [`%${input}%`, `%${input}%`], (err, data) => {
+        if (err) return console.log(err)
+        return res.status(200).json(data)
+    })
+}
+
 export const postMashes = (req, res) => {
   const query = "INSERT INTO mashes(`title`, `info`, `date`, `category`, `plays`, `access`, `question`, `userID`) VALUES (?)"
   const values = [req.body.title, req.body.info, req.body.timestamp, req.body.category, Number(req.body.plays), req.body.access, req.body.question, Number(req.body.userID)]

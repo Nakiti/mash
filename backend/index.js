@@ -6,6 +6,10 @@ import mashRoutes from "./routes/mashes.js"
 import cardRoutes from "./routes/cards.js"
 import contactRoutes from "./routes/contacts.js"
 import path from "path"
+import dotenv from "dotenv"
+
+// dotenv.config({ path: '../.env'  })
+
 
 const app = express()
 

@@ -19,44 +19,30 @@ const Input = (props) => {
     props.setInputs(temp)
   }
 
-  const handleDelete = (id) => {
-    const temp = [...props.inputs]
-    console.log(id)
-
-    const index = temp.findIndex(item => item.id == id)
-
-    temp.splice(index, 1)
-    console.log(temp)
-
-    // temp.map(item => {
-    //   if (item.id > id) {
-    //     item.id -= 1
-    //   }
-    // })
-
-    // const filtered = temp.filter(item => item.id !== id)
-
-    // console.log(filtered)
-
-    // // const updated = filtered.map(item => {
-    // //   if (item.id > id) {
-    // //     item.id -= 1
-    // //   }
-    // //   return item
-    // // })
-
-    props.setInputs(temp)
-  }
-
+  
   return ( 
-    <div className="input-content">
-      <p className="input-number">{props.number + 1}</p>
-      {/* <button className="input-delete" onClick={() => props.handleDelete(props.id, props.number)}><i class="fa fa-trash"></i></button> */}
-      <div className="input-inputs">
-        <input type="text" className="input-input input-name" placeholder="Enter Name" name="name"  onChange={handleChange}/>
-        <input type="text" className="input-input input-link" placeholder="Enter Image Link" name="image" onChange={handleChange}/>
-      </div>
-    </div>
+<div className="input-content relative p-4 bg-white rounded-md shadow-lg">
+  <p className="input-number absolute top-0 left-0 m-2 text-sm font-bold">{props.number}</p>
+  {/* <button className="input-delete" onClick={() => props.handleDelete(props.id)}><i class="fa fa-trash"></i></button> */}
+  <div className="input-inputs flex space-x-4">
+    <input 
+      type="text" 
+      className="input-input input-name w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+      placeholder="Enter Name" 
+      name="name" 
+      value={props.name} 
+      onChange={handleChange}
+    />
+    <input 
+      type="text" 
+      className="input-input input-link w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+      placeholder="Enter Image Link" 
+      name="image" 
+      value={props.image}
+      onChange={handleChange}
+    />
+  </div>
+</div>
   );
 }
  

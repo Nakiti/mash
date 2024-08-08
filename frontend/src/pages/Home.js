@@ -55,57 +55,92 @@ const Home = () => {
   }, [])
   
   return ( 
-    <div className="home-content">
-      <Header />
-      <div className="home-body">
-        <div className="home-textContainer">
-          <p className="home-title">A Fast And Fun Way To Rank Anything!</p>
-          <p className="home-info">Create and share your Mash to discover fascinating rankings. With each click, contribute to a collective ranking that reflects everyone's opinion. Join Mash today and voice your opinions!</p>
-
+<div className="">
+  <Header />
+  <div className="flex flex-col justify-center w-full">
+    <div className="flex flex-col md:flex-row w-full max-w-7xl mx-auto justify-between items-center p-4">
+      <div className="flex flex-col w-full md:w-1/2 p-4">
+        <p className="text-2xl font-bold mb-4">A Fast And Fun Way To Rank Anything!</p>
+        <p className="text-lg">
+          Create and share your Mash to discover fascinating rankings. With each click, contribute to a collective ranking that reflects everyone's opinion. Join Mash today and voice your opinions!
+        </p>
+      </div>
+      <div className="flex cursor-pointer flex-col w-full md:w-1/2 items-center space-y-6 p-4">
+        <div className="flex flex-col items-center justify-center p-6 border rounded-md shadow-lg bg-white w-full sm:w-72 md:w-80 lg:w-[400px] h-[150px]" id="login" onClick={handleClick}>
+          <p className="text-lg font-semibold mb-2" id="login" onClick={handleClick}>CREATE</p>
+          {/* <button className="p-3 bg-blue-500 text-white rounded-full" id="login" onClick={handleClick}>
+            <i className="fa fa-plus text-xl" onClick={handleClick}></i>
+          </button> */}
         </div>
-        {/* <div className="home-body"> */}
-          <div className="home-card home-create" id="login" onClick={handleClick}>
-            <p className="home-text" id="login" onClick={handleClick}>CREATE</p>
-            <button className="home-button" id="login" onClick={handleClick}><i class="fa fa-plus" id="login" onClick={handleClick}></i></button>
-          </div>
-          <div className="home-card home-play" id="search" onClick={handleClick}>
-            <p className="home-text" id="search" onClick={handleClick}>EXPLORE</p>
-            <button className="home-button" id="search" onClick={handleClick}><i class="fa fa-search" id="search" onClick={handleClick}></i></button>
-          </div>
-        {/* </div> */}
-        <p className="home-heading">Popular Mashes:</p>
-        <div className="home-mashes">
-          <div className="home-row">
-            <p className="home-subheading" id="sports" onClick={handleLink}>Sports</p>
-            <div className="home-rowContent">
-              {sports && sports.map(item => {
-                return <div className="home-mash"><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} imageOne={item.imageOne} imageTwo={item.imageTwo} show={false}/></div>
-              })}
-            </div>
-          </div>
-          <div className="home-row">
-            <p className="home-subheading" id="music" onClick={handleLink}>Music</p>
-            <div className="home-rowContent">
-              {music && music.map(item => {
-                return <div className="home-mash"><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} imageOne={item.imageOne} imageTwo={item.imageTwo} show={false}/></div>
-              })}
-            </div>
-          </div>
-          <div className="home-row">
-            <p className="home-subheading" id="film" onClick={handleLink}>Film & TV</p>
-            <div className="home-rowContent">
-              {film && film.map(item => {
-                return <div className="home-mash"><Card key={item.id} id={item.id} title={item.title} plays={item.plays} date={item.date} imageOne={item.imageOne} imageTwo={item.imageTwo} show={false}/></div>
-              })}
-            </div>
-          </div>
-          <div className="home-footer">
-            <p className="home-footerText">Contact: mashrankings@gmail.com</p>
-          </div>
+        <div className="flex cursor-pointer flex-col items-center justify-center p-6 border rounded-md shadow-lg bg-white w-full sm:w-72 md:w-80 lg:w-[400px] h-[150px]" id="search" onClick={handleClick}>
+          <p className="text-lg font-semibold mb-2" id="search" onClick={handleClick}>EXPLORE</p>
+          {/* <button className="p-3 bg-blue-500 text-white rounded-full" id="search" onClick={handleClick}>
+            <i className="fa fa-search text-xl" onClick={handleClick}></i>
+          </button> */}
         </div>
       </div>
-
     </div>
+
+    <h1 className="text-2xl font-bold ml-4 md:ml-14 mb-6">Popular Mashes:</h1>
+    <div className="flex flex-col w-[90vw] max-w-7xl mx-auto">
+      <div className="mb-6">
+        <p className="text-lg font-semibold cursor-pointer mb-2" id="sports" onClick={handleLink}>Sports</p>
+        <div className="flex overflow-x-auto space-x-20 p-2 bg-gray-100 rounded-lg">
+          {sports && sports.map(item => (
+            <div className="min-w-[256px]" key={item.id}>
+              <Card
+                id={item.id}
+                title={item.title}
+                plays={item.plays}
+                date={item.date}
+                imageOne={item.imageOne}
+                imageTwo={item.imageTwo}
+                show={false}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mb-6">
+        <p className="text-lg font-semibold cursor-pointer mb-2" id="music" onClick={handleLink}>Music</p>
+        <div className="flex overflow-x-auto space-x-20 p-2 bg-gray-100 rounded-lg">
+          {music && music.map(item => (
+            <div className="min-w-[256px]" key={item.id}>
+              <Card
+                id={item.id}
+                title={item.title}
+                plays={item.plays}
+                date={item.date}
+                imageOne={item.imageOne}
+                imageTwo={item.imageTwo}
+                show={false}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mb-6">
+        <p className="text-lg font-semibold cursor-pointer mb-2" id="film-tv" onClick={handleLink}>Film & TV</p>
+        <div className="flex overflow-x-auto space-x-20 p-2 bg-gray-100 rounded-lg">
+          {film && film.map(item => (
+            <div className="min-w-[256px]" key={item.id}>
+              <Card
+                id={item.id}
+                title={item.title}
+                plays={item.plays}
+                date={item.date}
+                imageOne={item.imageOne}
+                imageTwo={item.imageTwo}
+                show={false}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   );
 }
  

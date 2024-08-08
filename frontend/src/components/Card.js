@@ -33,7 +33,7 @@ const Card = (props) => {
 
   const handleClick = async() => {
     const updatedPlays = props.plays + 1
-    // await axios.put(`/mashes/update/`, {plays: updatedPlays, id: props.id})
+    // await axios.put(`http://localhost:4000/mashes/update/`, {plays: updatedPlays, id: props.id})
     navigate(`/mash/${props.title.split(" ").join("")}/${props.id}`, {state: {title: props.title}})
   }
 
@@ -43,56 +43,69 @@ const Card = (props) => {
     props.setMashID(props.id)
   }
 
-  // useEffect(() => {
-  //   // const fetchData = async() => {
-  //   //   // const response = await axios.get(`/cards/get/${props.id}`)
 
-  //   //   const temp = response.data.sort((a, b) => b.eloScore - a.eloScore)
-  //   //   temp.slice(0, 2)
-  //   //   // console.log(temp)
-
-  //   //   setTwo(temp)
-  //   //   console.log(two[0].image, two[1].image)
-
-
-  //   // }
-
-  //   // fetchData()
-
-  // }, [])
 
   return ( 
-    <div className="card-content">
-      {/* <div className="card-top">
-        {props.show &&<button className="card-delete card-btn" onClick={handleDelete}><i class="fa fa-trash"></i></button>}
-      </div> */}
-      {/* {showEditModal && <div className="profile-modalOverlay">
-          <div className="profile-editModal">
-            <p className="profile-editText">Please Include All Details for the Edit You Would Like to Make</p>
-            <textarea name="" id="" cols="30" rows="10" placeHolder="Type in mash name, new image/name, old image/name, etc" className="profile-editInput" value={text} onChange={(e) => setText(e.target.value)}></textarea>
-            <div className="profile-editButtons">
-              <button className="profile-editButton" onClick={() => setShowEditModal(false)}>Cancel</button>
-              <button className="profile-editButton" onClick={handleform}>Submit</button>
+    <div className="p-4 mx-4 border cursor-pointer rounded-md shadow-lg bg-white w-80 hover:transform hover:-translate-y-1 hover:shadow-lg transition-transform duration-300">
+      <div className="flex justify-end">
+        {props.show && (
+          <button className="text-red-500" onClick={handleDelete}>
+            <i className="fa fa-trash"></i>
+          </button>
+        )}
+      </div>
+      {showEditModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg">
+            <p className="mb-4">Please Include All Details for the Edit You Would Like to Make</p>
+            <textarea
+              cols="30"
+              rows="10"
+              placeholder="Type in mash name, new image/name, old image/name, etc"
+              className="w-full p-2 border rounded"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            ></textarea>
+            <div className="flex justify-end mt-4">
+              <button
+                className="mr-2 px-4 py-2 bg-gray-300 rounded"
+                onClick={() => setShowEditModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded"
+                onClick={handleform}
+              >
+                Submit
+              </button>
             </div>
           </div>
-        </div>} */}
-      {<div className="card-middle" >
-        {props.show &&<button className="card-delete card-btn" onClick={handleform}><i class="fa fa-edit"></i></button>}
-        <p className="card-title" onClick={handleClick} style={props.show ? {gridColumn: "1 / 3"} : {gridColumn: "1 / 4"}}>{props.title}</p>
-        <p className="card-count card-p" onClick={handleClick}>Plays: {props.plays}</p>
-        <div className="card-empty" onClick={handleClick}></div>
-        <div className="card-container" onClick={handleClick}>
-          <img src={props.imageOne} alt="" className="card-image" />
-          <p className="card-text">vs</p>
-          <img src={props.imageTwo} alt="" className="card-image" />
         </div>
-      </div>}
-      <div className="card-bottom">
-        <button className="card-button" onClick={() => navigate(`/results/${props.title}/${props.id}`)}>Rankings</button>
-        <p className="card-date card-p">{props.date}</p>
+      )}
+      <div className="text-start">
+        <p className="text-sm font-bold cursor-pointer" onClick={handleClick}>
+          {props.title}
+        </p>
+        <p className="text-gray-500 text-xs" onClick={handleClick}>Plays: {props.plays}</p>
+      </div>
+      <div className="mt-4 flex justify-center items-center space-x-4" onClick={handleClick}>
+        <img src={props.imageOne} alt="" className="w-16 h-16 object-contain rounded" />
+        <p className="text-xl font-bold">vs</p>
+        <img src={props.imageTwo} alt="" className="w-16 h-16 object-contain rounded" />
+      </div>
+      <hr className="mt-4" />
+      <div className="flex justify-between items-center">
+        <button
+          className="text-blue-500 h-4"
+          onClick={() => navigate(`/results/${props.title}/${props.id}`)}
+        >
+          Rankings
+        </button>
+        <p className="text-gray-500" onClick={handleClick}>{props.date}</p>
       </div>
     </div>
   );
-}
- 
+};
+
 export default Card;

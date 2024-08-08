@@ -2,14 +2,12 @@ import Header from "../components/Header.js";
 import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "../styles/mash.css"
+// import "../styles/mash.css"
 import Modal from "../components/Modal.js";
 import TheInfoModal from "../components/TheInfoModal.js";
 
 const Mash = () => {
   const {id} = useParams()
-  // const state = useLocation()
-  // const {title} = state;
   const [title, setTitle] = useState(null)
   const [cards, setCards] = useState(null)
   const [userCards, setUserCards] = useState(null)
@@ -125,8 +123,7 @@ const Mash = () => {
         let userScoreOne = userTemp[cardOne].eloScore + k*(1-userExpectedOne)
         let userScoreTwo = userTemp[cardTwo].eloScore + k*(0-userExpectedTwo)     
 
-        await axios.put("/cards/update", {eloScore: scoreOne, id: cards[cardOne].id}) // update score one
-        await axios.put("/cards/update", {eloScore: scoreTwo, id: cards[cardTwo].id}) //update second 
+        await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo].id}) // update score one
 
         temp[cardOne].eloScore = scoreOne
         temp[cardTwo].eloScore = scoreTwo
@@ -140,8 +137,7 @@ const Mash = () => {
         let userScoreOne = userTemp[cardOne].eloScore + k*(0-userExpectedOne)
         let userScoreTwo = userTemp[cardTwo].eloScore + k*(1-userExpectedTwo)
 
-        await axios.put("/cards/update", {eloScore: scoreOne, id: cards[cardOne].id}) // update score one
-        await axios.put("/cards/update", {eloScore: scoreTwo, id: cards[cardTwo].id}) //update second 
+        await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo.id]}) // update score one
 
         temp[cardOne].eloScore = scoreOne
         temp[cardTwo].eloScore = scoreTwo
@@ -207,23 +203,6 @@ const Mash = () => {
     }
   }
 
-  // const handleTop = (list) => {
-  //   let top = [...list]
-  //   top.sort((a, b) => b.eloScore - a.eloScore)
-    
-  //   let secondTop = top.slice(0, 10)
-  //   console.log(secondTop)
-
-  //   const temp = []
-
-  //   for (var j = 0; j < secondTop.length; j++) {
-  //     for (var x = j + 1; x < secondTop.length; x++) {
-  //       temp.push([secondTop[x], secondTop[j]])
-  //     }
-  //   }
-
-  //   setTopPairs(temp)
-  // }
 
   const handleInfoButton = () => {
     setInfoModal(true)
@@ -253,7 +232,6 @@ const Mash = () => {
       findPairs(response.data, one, two)
       setCardOne(one)
       setCardTwo(two)
-      // handleTop(response.data)
       }
       catch (err) {
         console.log(err)
@@ -263,38 +241,113 @@ const Mash = () => {
     handleUserCards()
   }, [])
 
-  return ( 
-    <div className="mash-content">
+  return (
+    <div className="">
       <Header />
-     { cards && userCards && ques && <div className="mash-body">
-        {showModal && <Modal className="mash-modal" userCards={userCards} setShowModal={setShowModal} empty={empty} title={title} id={id}/>}
-        {infoModal && <TheInfoModal className="mash-infoModal" length={length} id={id} setInfoModal={setInfoModal}/>}
-        {title && <p className="mash-title">{title} MASH</p>}
-        <p className="mash-info">{ques}</p>
-        <button className="mash-infoButton" onClick={handleInfoButton}><i class="fa fa-question"></i></button>
-        <div className="mash-container">
-          <div className="mash-tile" alt={cards[cardOne].title} onClick={(e) => empty ? null : handleClick(e)}>
-            {blur && <div className="mash-overlay"><div className="mash-blur"></div></div>}
-            <img src={cards[cardOne].image} alt={cards[cardOne].title} className="mash-image" />
-            <p className="mash-label" alt={cards[cardOne].title}><b>{cards && cards[cardOne].title}</b></p>
+      <div className="flex flex-col justify-center items-center">
+        {cards && userCards && ques && (
+          <div className="mash-body px-4 lg:px-0">
+            {showModal && (
+              <Modal
+                className="mash-modal"
+                userCards={userCards}
+                setShowModal={setShowModal}
+                empty={empty}
+                title={title}
+                id={id}
+              />
+            )}
+            {infoModal && (
+              <TheInfoModal
+                className="mash-infoModal"
+                length={length}
+                id={id}
+                setInfoModal={setInfoModal}
+              />
+            )}
+            {title && (
+              <p className="text-center text-2xl md:text-3xl mt-8 font-bold">
+                {title} MASH
+              </p>
+            )}
+            <p className="text-center text-lg md:text-xl mt-2">{ques}</p>
+            <div className="flex items-center justify-center mt-2">
+              <button
+                className="p-2 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-600 transition-all duration-300"
+                onClick={handleInfoButton}
+              >
+                <i className="fa fa-question text-sm"></i>
+              </button>
+            </div>
+            <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-x-4 md:space-y-0 p-4">
+              <div
+                className="relative flex flex-col items-center cursor-pointer"
+                alt={cards[cardOne].title}
+                onClick={(e) => (empty ? null : handleClick(e))}
+              >
+                {blur && (
+                  <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                    <div className="w-full h-full bg-gray-800 opacity-60"></div>
+                  </div>
+                )}
+                <img
+                  src={cards[cardOne].image}
+                  alt={cards[cardOne].title}
+                  className="w-36 h-52 md:w-48 md:h-64 object-contain rounded-md hover:transform hover:-translate-y-1 hover:shadow-lg transition-transform duration-300"
+                />
+                <p className="mt-2 text-center font-semibold text-base md:text-lg">
+                  {cards && cards[cardOne].title}
+                </p>
+              </div>
+  
+              <p className="text-xl md:text-2xl font-bold">VS</p>
+  
+              <div
+                className="relative flex flex-col items-center cursor-pointer"
+                alt={cards[cardTwo].title}
+                onClick={(e) => (empty ? null : handleClick(e))}
+              >
+                {blur && (
+                  <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                    <div className="w-full h-full bg-gray-800 opacity-60"></div>
+                  </div>
+                )}
+                <img
+                  src={cards[cardTwo].image}
+                  alt={cards[cardTwo].title}
+                  className="w-36 h-52 md:w-48 md:h-64 object-contain rounded-md hover:transform hover:-translate-y-1 hover:shadow-lg transition-transform duration-300"
+                />
+                <p className="mt-2 text-center font-semibold text-base md:text-lg">
+                  {cards && cards[cardTwo].title}
+                </p>
+              </div>
+            </div>
+  
+            <div className="mash-progressBarContainer mt-4">
+              <div className="mash-progressBar"></div>
+            </div>
+            <div className="flex items-center justify-center mt-4">
+              <button
+                className="px-4 py-2 md:px-6 md:py-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 transition-all duration-300"
+                onClick={handleSubmit}
+              >
+                Finish
+              </button>
+            </div>
+            <div className="flex items-center justify-center mt-4">
+              <div className="mash-stats text-center p-2">
+                {total && (
+                  <p className="mash-clicks text-sm md:text-base font-semibold text-gray-700">
+                    PLAYS: {clicks} / {length}
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
-          <p className="mash-text">VS</p>
-          <div className="mash-tile" alt={cards[cardTwo].title} onClick={(e) => empty ? null : handleClick(e)}>
-            {blur && <div className="mash-overlay"><div className="mash-blur"></div></div>}
-            <img src={cards[cardTwo].image} alt={cards[cardTwo].title} className="mash-image" />
-            <p className="mash-label" alt={cards[cardTwo].title}><b>{cards && cards[cardTwo].title}</b></p>
-          </div>
-        </div>
-        <div className="mash-progressBarContainer">
-          <div className="mash-progressBar"></div>
-        </div>
-        <button className="mash-endButton" onClick={handleSubmit}>Finish</button>
-        <div className="mash-stats">
-          {total && <p className="mash-clicks">PLAYS: {clicks} / {length}</p>}
-        </div>
-      </div>}
+        )}
+      </div>
     </div>
   );
-}
+}  
  
 export default Mash;

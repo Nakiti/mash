@@ -33,16 +33,35 @@ export const getCard = (req, res) => {
 
 }
 
-export const updateCard = (req, res) => {
-  const query = `UPDATE cards SET eloScore = ? WHERE id = ?`
-
-  console.log(req.body.eloScore)
-
-  db.query(query, [req.body.eloScore, req.body.id], (err, data) => {
-    if (err) {
-      console.log(err)
-      return res.json(err)
+export const updateCard = async (req, res) => {
+    const query = `UPDATE cards SET eloScore = ? WHERE id = ?`
+  
+    const scoreOne = req.body.eloScoreOne
+    const scoreTwo = req.body.eloScoreTwo
+    const idOne = req.body.idOne
+    const idTwo = req.body.idTwo
+  
+    try {
+      // Perform the first update
+      await new Promise((resolve, reject) => {
+        db.query(query, [scoreOne, idOne], (err, data) => {
+          if (err) return reject(err);
+          resolve(data);
+        });
+      });
+  
+      // Perform the second update
+      const result = await new Promise((resolve, reject) => {
+        db.query(query, [scoreTwo, idTwo], (err, data) => {
+          if (err) return reject(err);
+          resolve(data);
+        });
+      });
+  
+      // Send response after both updates
+      res.json(result);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
     }
-    return res.json(data)
-  })
-}
+  }

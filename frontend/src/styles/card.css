@@ -137,6 +137,16 @@
   height: 100%;
 }
 
+.card-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(99, 99, 99, 0.3);
+  }
+  
+  /* Card top and middle hover effects */
+  .card-top:hover, .card-middle:hover {
+    cursor: pointer;
+  }
+
 @media screen and (min-width: 600px) {
   .card-content {
     height: 160px;
