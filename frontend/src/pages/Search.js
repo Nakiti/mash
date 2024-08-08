@@ -39,7 +39,7 @@ const Search = () => {
     const getData = async() => {
       try {
         setLoading(true)
-        const response = await axios.get(location.state ? `/mashes/getmashbycat/${location.state.category}` : "/mashes/getmashbycat/all")
+        const response = await axios.get(location.state ? `/mashes/getmashbycat/${location.state.category}` :"/mashes/getmashbycat/all")
 
         setLoading(false)
 
