@@ -41,7 +41,6 @@ const Search = () => {
         setLoading(true)
         const response = await axios.get(location.state ? `/mashes/getmashbycat/${location.state.category}` : "/mashes/getmashbycat/all")
 
-
         setLoading(false)
 
         setOg(response.data.reverse())
@@ -50,7 +49,7 @@ const Search = () => {
         setCards(temp.sort((a, b) => b.plays - a.plays))
 
       } catch (e) {
-        console.log(e.response.data)
+        console.log(e)
       }
     }
     getData()
@@ -83,7 +82,7 @@ const Search = () => {
         console.log()
 
         try {
-            const response = await axios.get(`/mashes/search?q=${searchQuery}`) 
+            const response = await axios.get(`/mashes/search?q=${searchQuery}`)
             setCards(response.data)
             setLoading(false)
         } catch (e) {
