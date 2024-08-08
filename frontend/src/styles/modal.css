@@ -1,5 +1,5 @@
 .modal-content {
-  grid-column: 2 / 8;
+  grid-column: 1 / 9;
   grid-row: 2 / 9;
 
   position: fixed;
@@ -59,8 +59,8 @@
 }
 
 .modal-items {
-  height: 70%;
-  max-height: 60%;
+  height: 60%;
+  max-height: 70%;
   overflow-y: scroll;
   width: 100%;
   padding: 20px;
@@ -69,9 +69,9 @@
 }
 
 .modal-image {
-  width: 6vh;
-  height: 8vh;
-  margin-left: 50px;
+  width: 25%;
+  height: 25%;
+  margin-left: 20px;
   padding: 5px;
 }
 
@@ -81,6 +81,7 @@
   font-size: 18px;
   align-self: center;
   text-align: center;
+  margin-bottom: 0;
 }
 
 .modal-number {
@@ -91,11 +92,10 @@
 
 .modal-container {
   display: flex;
-  margin-top: 10px;
   border-bottom: solid grey .5px;
   padding: 5px;
   justify-self: center;
-  margin-right: 0;
+  /* margin-right: 0; */
   width: 100%;
   text-align: center;
 }
@@ -104,22 +104,38 @@
 .modal-btnContainer {
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  margin-top: 30px;
 }
 
 .modal-btn {
-  width: 100px;
+  width: 80px;
   height: 40px;
   border: 0;
-  margin: 5px;
-  
+  margin-top: 5px;  
 }
+
+.modal-share {
+  align-self: center;
+  justify-self: center;
+
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-icon {
+  margin: 7px;
+}
+
 
 @media screen and (min-width: 600px) {
    .modal-btnContainer {
     flex-direction: row;
+    margin-top: 30px;
+
   } 
   .modal-image {
     width: 9vh;
@@ -134,18 +150,62 @@
     align-self: center;
     text-align: center;
   }
+  .modal-items {
+    height: 70%;
+    max-height: 70%;
+    overflow-y: scroll;
+    width: 100%;
+    padding: 20px;
+    margin: 0;
+    margin-right: 0;
+  }
+
+  .modal-share {
+    align-self: center;
+    justify-self: center;
+  
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .modal-icon {
+    margin: 10px;
+  }
+
+  .modal-btn {
+    width: 100px;
+  }
 }
 
 @media screen and (min-width: 1200px) {
   .modal-content {
     grid-column: 3 / 7;
+    grid-row: 1 / 9;
   }
   
   .modal-container {
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
   }
 
   .modal-btnContainer {
-    margin-top: 30px;
+    margin-top: 20px;
+  }
+
+  .modal-text {
+    font-size: 18px;
+  }
+
+  .modal-items {
+    height: 75%;
+  }
+
+  .modal-image {
+    height: 12%;
+    width: 12%;
+  }
+
+  .modal-share {
+    margin-top: 10px;
   }
 }

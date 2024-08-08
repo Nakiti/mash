@@ -48,6 +48,9 @@ html {
   display: grid;
   /* grid-template-columns: repeat(3, 1fr); */
   gap: 20px;
+
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-create {
@@ -103,6 +106,48 @@ html {
   margin-top: 50px;
 }
 
+.profile-editModal {
+  margin-top: 30px;
+  background-color: white;
+  width: 40%;
+  height: 500px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.profile-editInput {
+  width: 90%;
+}
+
+.profile-editText {
+  font-size: 18px;
+}
+
+.profile-editButton {
+  background-color: #F4F4F4;
+  border: 0;
+  width: 100px;
+  height: 40px;
+  margin: 20px;
+}
+
+.profile-editButtons {
+  margin-top: 20px;
+  display: flex;
+}
+
+.profile-edit {
+  font-size: 24px;
+  border: 0;
+  grid-column: 8 / 9;
+  background-color: #F4F4F4;
+  padding: 0;
+  width: 50%;
+  justify-self: center;
+}
+
 @media screen and (min-width: 600px){ 
   .profile-body {
     display: grid;
@@ -123,27 +168,28 @@ html {
   
   .profile-heading1 {
     grid-column: 3 / 7;
-    grid-row: 3 / 4;
-    font-size: 2em;
+    grid-row: 2 / 4;
+    font-size: 1.5em;
     text-align: center;
     margin-top: 0;
+    align-self: center;
   }
   
   .profile-heading2 {
     grid-column: 3 / 7;
-    grid-row: 4 / 5;
-    font-size: 2em;
+    grid-row: 4 / 6;
+    font-size: 1.5em;
     text-align: center;
     margin-top: 1vh;
-    align-self: flex-end;
+    align-self: center;
   }
   
   .profile-cards {
     grid-column: 2 / 8;
     grid-row-start: 5;
-    margin-top: 1vh;
+    margin-top: 5vh;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 10px;
   }
@@ -151,7 +197,7 @@ html {
   .profile-create {
     grid-column: 4 / 6;
     grid-row: 3 / 5;
-    width: 50%;
+    width: 40%;
   
     justify-content: center;
     align-items: center;
@@ -160,7 +206,7 @@ html {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;  
     border: 0;
   
-    font-size: 36px;
+    font-size: 30px;
   }
   
   .profile-create:hover {
@@ -169,6 +215,10 @@ html {
 
   .profile-modal {
     height: 200px;
+  }
+
+  .profile-edit {
+    font-size: 18px;
   }
 }
 
@@ -192,7 +242,7 @@ html {
   
   .profile-heading1 {
     grid-column: 3 / 7;
-    grid-row: 3 / 4;
+    grid-row: 2 / 4;
     font-size: 1.5em;
     text-align: center;
     margin-top: 0;
@@ -203,7 +253,7 @@ html {
     grid-row: 4 / 5;
     font-size: 1.5em;
     text-align: center;
-    align-self: end;
+    align-self: flex-end;
     margin-bottom: 0;
     padding: 10px;
   }
@@ -212,6 +262,7 @@ html {
     grid-column: 2 / 8;
     grid-row-start: 5;
     margin-top: 1vh;
+
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;

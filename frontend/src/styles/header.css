@@ -1,6 +1,5 @@
 .header-content {
-  background-color: #1F2C4C;
-  grid-column: 1 / 11;
+  background-color: #000;
   grid-row: 1 / 2;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   margin: 0;
@@ -31,7 +30,7 @@
   border: none;
   color: white;
 
-  background-color: #1F2C4C;
+  background-color: #000;
   border-bottom: solid 1px white;
 }
 

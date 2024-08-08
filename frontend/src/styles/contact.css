@@ -1,0 +1,45 @@
+.contact-body {
+  display: grid;
+  grid-template-columns: repeat(8, 12.5vw);
+  grid-template-rows: repeat(8, calc((100vh - 71.35px)/8));
+  background-color: #F4F4F4;
+  
+
+}
+
+.contact-header {
+  grid-column: 4 / 6;
+  grid-row: 2 / 3;
+
+  align-self: center;
+
+  font-size: 36px;
+  text-align: center;
+}
+
+.contact-input {
+  grid-column: 4 / 6;
+  grid-row: 3/ 4;
+  height: 50%;
+}
+
+.contact-text {
+  grid-row: 4 / 7;
+  grid-column: 3 / 7;
+  width: 75%;
+  align-self: center;
+  justify-self: center;
+}
+
+.contact-submit {
+  grid-column: 4 / 6;
+  grid-row: 7 / 8;
+  justify-self: center;
+  align-self: center;
+  background-color: white;
+  width: 50%;
+  height: 50%;
+  border: 0;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+}

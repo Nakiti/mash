@@ -9,7 +9,7 @@ export const AuthContextProvider = ({children}) => {
   const navigate = useNavigate()
 
   const login = async (inputs) => {
-    const response = await axios.post("http://localhost:4000/auth/login", inputs)
+    const response = await axios.post("/auth/login", inputs)
     setCurrentUser(response.data)
     navigate(`/profile/${response.data.id}`)
 

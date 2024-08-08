@@ -1,5 +1,4 @@
 import Header from "../components/Header.js";
-import "../styles/login.css"
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom"
@@ -16,7 +15,7 @@ const Login = () => {
   const handleChange = (e) => {
     setInputs(prev => ({...prev, [e.target.name]: e.target.value}))
   }
-
+ 
   const handleSubmit = async(e) => {
     // e.preventDefault()
 
@@ -35,22 +34,40 @@ const Login = () => {
 
 
   return ( 
-    <div className="login-content">
+    <div className="login-content flex flex-col min-h-screen bg-gray-100">
       <Header />
-      <div className="login-body">
-        <div className="login-stupid">
-          <div action="" className="login-form">
-            <p className="login-heading">LOGIN</p>
-            <input type="text" className="login-input" name="username" placeholder="Enter a username" onChange={handleChange}/>
-            <input type="text" className="login-input" name="password" placeholder="Enter a password" onChange={handleChange}/>
-            <button className="login-button" onClick={handleSubmit}>Login</button>
-            <p className="login-text login-error">{error}</p>
-            <p className="login-text">Don't have an account?  <Link to="/register">Register </Link></p>
-          </div>
+      <div className="flex-grow flex items-center justify-center p-4">
+        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
+          <p className="text-2xl font-bold mb-6 text-center">LOGIN</p>
+          <input 
+            type="text" 
+            className="w-full p-3 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+            name="username" 
+            placeholder="Enter a username" 
+            onChange={handleChange}
+          />
+          <input 
+            type="password" 
+            className="w-full p-3 mb-6 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+            name="password" 
+            placeholder="Enter a password" 
+            onChange={handleChange}
+          />
+          <button 
+            className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition-all duration-300" 
+            onClick={handleSubmit}
+          >
+            Login
+          </button>
+          {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+          <p className="mt-6 text-center">
+            Don't have an account? <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
+          </p>
         </div>
       </div>
     </div>
   );
-}
+  
+}  
  
 export default Login;

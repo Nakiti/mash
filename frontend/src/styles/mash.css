@@ -7,13 +7,26 @@
 }
 
 .mash-title {
-  grid-column: 2 / 8;
+  grid-column: 1 / 9;
+  width: 90%;
+  align-self: center;
+  justify-self: center;
   text-align: center;
   grid-row: 1 / 2;
-  font-size: 1.3em;
+  font-size: 1.5em;
   align-self: center;
   margin: 0;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.mash-tile {
+  justify-content: center;
+  align-items: center;
+  /* max-width: 18vh; */
+  display: flex;
+  flex-direction: column;
+  width: 16.2vh;
 }
 
 .mash-tile:hover{
@@ -30,30 +43,32 @@
 }
 
 .mash-container {
-  grid-column: 2 / 8;
+  grid-column: 4 / 6;
   grid-row: 3 / 7;
   display: flex;
   justify-content: space-around;
-  margin-top: 1%;
   flex-direction: column;
   align-items: center;
-  margin-top: 3vh;
+  margin-top: 1vh;
 }
 
 .mash-image {
-  width: 18vh;
-  height: 24vh;
+  width: 16.2vh;
+  height: 21.6vh;
   padding: 2vh;
   background-color: white;
   justify-self: center;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  border-radius: 15px;
+  border-radius: 5px;
+  align-self: center;
+
 }
 
 .mash-label {
   text-align: center;
   font-size: 18px;
   margin-top: 5px;
+  width: 300px;
 }
 
 .mash-text {
@@ -72,7 +87,7 @@
   grid-row: 7 / 9;
   justify-self: center;
   background-color: white;
-  margin-top: 30px;
+  margin-top: 40px;
 
   border: 0;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -111,76 +126,159 @@
   align-items: center;
 
   grid-column: 4 / 6;
-  grid-row: 2 / 3;
+  grid-row: 1 / 3;
 
-  align-self: flex-start;
+  align-self: center;
   justify-self: center;
 
-  margin-top: 4px;
+  margin-top: 40px;
 
   border: solid grey 2px;
+  background-color: white;
 }
 
+.mash-overlay {
+  position: fixed;
+
+  background-color: rgba(128, 128, 128, 0.2); 
+  width: 16.2vh;
+  height: 21.6vh;
+  margin-bottom: 48px;
+  border-radius: 15px;
+}
 
 
 @media screen and (min-width: 400px) {
   .mash-image {
-    width: 15vh;
-    height: 20vh;
+    width: 17.1vh;
+    height: 22.8vh;
   
     justify-self: center;
+    align-self: center;
+  }
+
+  .mash-tile {
+    max-width: 15vh;
   }
 
   .mash-stats {
     font-size: 1em;
   }
   
+  .mash-overlay {
+    width: 15vh;
+    height: 20vh;
+    margin-bottom: 48px;
+  }
 }
+
+
 
 @media screen and (min-width: 600px) {
   .mash-image {
-    width: 18vh;
-    height: 24vh;
-  
+    width: 22.8vh;
+    height: 30.4vh;
+    /* padding: 1.5vh; */
+
     justify-self: center;
   }
+
+  .mash-overlay {
+    width: 22.8vh;
+    height: 30.4vh;
+    margin-bottom: 57px;
+  }
   
+  .mash-tile {
+    max-width: 21vh;
+  }
+
   .mash-container {
     flex-direction: row;
-    grid-row: 1 / 7;
+    grid-row: 3 / 8;
+    grid-column: 2 / 8;
 
   }
 
   .mash-title {
-    font-size: 2.5em;
+    font-size: 3em;
+    grid-row: 1 / 3;
   }
 
   .mash-info {
-    font-size: 1.75em;
+    font-size: 2em;
+    grid-row: 2 / 3;
+    align-self: center;
   }
 
   .mash-endButton {
     width: 50%;
-    font-size: 1.5vh;
-    grid-row: 6 / 7;
+    height: 60%;
+    font-size: 2vh;
+    grid-row: 7 / 8;
   }
 
   .mash-infoButton {
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 40px;
     font-size: 16px;
     align-self: center;
     text-decoration: none;
     font-weight: none;
+    grid-row: 2 / 4;
   }
 
   .mash-stats {
     font-size: 2vh;
-    grid-row: 7 / 8;
+    grid-row: 8 / 9;
     align-self: center;
+    margin-top: 20px;
   }
   .mash-clicks {
     padding: 10px;
+  }
+
+  .mash-label {
+    font-size: 24px;
+  }
+  
+}
+
+@media screen and (min-width: 800px) and (orientation:landscape) {
+  .mash-title {
+    font-size: 30px;
+  }
+  .mash-info {
+    font-size: 20px;
+  }
+  .mash-infoButton {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+  .mash-label {
+    font-size: 16px;
+  }
+  .mash-overlay {
+    width: 22.8vh;
+    height: 30.4vh;
+    margin-bottom: 44.5px;
+  }
+  .mash-container {
+    flex-direction: row;
+    grid-row: 3 / 8;
+    grid-column: 3 / 7;
+
+  }
+  .mash-stats {
+    font-size: 10px;
+
+  }
+  .mash-endButton {
+    width: 20%;
+    height: 60%;
+    font-size: 12px;
+    grid-row: 7 / 8;
   }
 }
 
@@ -198,6 +296,11 @@
   .mash-image {
     width: 30vh;
     height: 40vh;
+  }
+
+  .mash-tile {
+    max-width: 30vh;
+    max-height: 45vh;
   }
 
   .mash-endButton {
@@ -230,10 +333,18 @@
     font-size: 2.5em;
     align-self: center;
     margin: 0;
+    grid-row: 1 / 2;
   }
 
   .mash-infoButton {
     align-self: end;
+    grid-row: 2 / 3;
+  }
+
+  .mash-overlay {  
+    width: 30vh;
+    height: 38.35vh;
+    margin-bottom: 49px;
   }
 }
 

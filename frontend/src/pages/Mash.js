@@ -1,13 +1,14 @@
 import Header from "../components/Header.js";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "../styles/mash.css"
+// import "../styles/mash.css"
 import Modal from "../components/Modal.js";
 import TheInfoModal from "../components/TheInfoModal.js";
 
 const Mash = () => {
-  const {title, id} = useParams()
+  const {id} = useParams()
+  const [title, setTitle] = useState(null)
   const [cards, setCards] = useState(null)
   const [userCards, setUserCards] = useState(null)
   const [max, setMax] = useState(2)
@@ -20,6 +21,13 @@ const Mash = () => {
   const [clicks, setClicks] = useState(0)
   const [total, setTotal] = useState(null)
   const [infoModal, setInfoModal] = useState(false)
+  const [length, setLength] = useState(0)
+  const [mashPlays, setMashPlays] = useState(0)
+  const [ques, setQues] = useState(null)
+  const [blur, setBlur] = useState(false)
+  const [prev, setPrev] = useState([])
+  const [topPairs, setTopPairs] = useState([])
+  const [thing, setThing] = useState([])
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
@@ -27,12 +35,18 @@ const Mash = () => {
     let valid = false;
     let temp = [...pairs]
 
+    // console.log(topPairs)
+
+    if (prev.length > 2) {
+      prev.pop()
+      prev.pop()
+    }
     while (valid == false) {
+      let rand = Math.floor(Math.random() * 100)
       if (pairs.length === 0 ){
         valid = true
         setEmpty(true)
         setShowModal(true)
-
         break
       }
       for (let i = 0; i < pairs.length; i++) {
@@ -40,23 +54,55 @@ const Mash = () => {
           (pairs[i][0] == cards[one].title && pairs[i][1] == cards[two].title) || 
           (pairs[i][0] == cards[two].title && pairs[i][1] == cards[one].title)
           ) {
+            // thing.push(cards[one].title, cards[two].title)
+            // thing.map(item => console.log(item))
             temp.splice(i, 1)
             setPairs(temp)
             valid = true
+
+            // console.log(userCards[one], userCards[two])
             break
         } else {
-          one = Math.floor(Math.random() * max)
-          two = Math.floor(Math.random() * max)
+          if (rand > 90 && topPairs.length > 0 && mashPlays > 10000000) {
+            // const temp= [...topPairs]
+            // let pair =  temp[Math.floor(Math.random() * temp.length)]
 
-          while (one === two) {
+            // one = cards.indexOf(pair[0])
+            // two = cards.indexOf(pair[1])
+            // console.log("ran")
+
+            // const ind = temp.indexOf(pair)
+            // temp.splice(ind, 1)
+            // setTopPairs(temp)
+          } else {
+            one = Math.floor(Math.random() * max)
             two = Math.floor(Math.random() * max)
+
+            while (one === two) {
+              one = Math.floor(Math.random() * max)
+              two = Math.floor(Math.random() * max)
+            }
+
+            console.log("not ran")
           }
         }
       }
     }
+
+
+    if (cards[one].title == prev[0]) {
+      let temp = one
+      one = two
+      two = temp
+    } else if (cards[two].title == prev[1]) {
+      let temp = two
+      two = one
+      one = temp
+    }
+
     setCardOne(one)
     setCardTwo(two)
-    console.log(pairs)
+    setPrev(arr => [cards[one].title, cards[two].title, ...arr])
   }
   // add code so same card doesn't show up repeatedly, seems to skew results in short sample
 
@@ -69,68 +115,53 @@ const Mash = () => {
 
     let userExpectedOne = 1/(1 + 10**((userTemp[cardTwo].eloScore - userTemp[cardOne].eloScore)/400)) //set rates
     let userExpectedTwo = 1/(1 + 10**((userTemp[cardOne].eloScore - userTemp[cardTwo].eloScore)/400))
-
-    console.log(expectedOne, expectedTwo)
-    setClicks(prev => prev + 1)
-
     try {
       if (e.target.alt == temp[cardOne].title) { //card one clicked
         let scoreOne = temp[cardOne].eloScore + k*(1-expectedOne)
         let scoreTwo = temp[cardTwo].eloScore + k*(0-expectedTwo)
 
-        console.log("first one clicked")
-        console.log(userTemp[cardOne].title, " before: ", userTemp[cardOne].eloScore)
-        console.log(userTemp[cardTwo].title, " before: ", userTemp[cardTwo].eloScore)
-        // console.log("scores", scoreOne, scoreTwo)
-
         let userScoreOne = userTemp[cardOne].eloScore + k*(1-userExpectedOne)
         let userScoreTwo = userTemp[cardTwo].eloScore + k*(0-userExpectedTwo)     
 
-        await axios.put("/cards/update", {eloScore: scoreOne, id: cards[cardOne].id}) // update score one
-        await axios.put("/cards/update", {eloScore: scoreTwo, id: cards[cardTwo].id}) //update second 
+        await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo].id}) // update score one
 
         temp[cardOne].eloScore = scoreOne
         temp[cardTwo].eloScore = scoreTwo
 
         userTemp[cardOne].eloScore = userScoreOne
         userTemp[cardTwo].eloScore = userScoreTwo
-
-        console.log(userTemp[cardOne].title, " after: ", userTemp[cardOne].eloScore)
-        console.log(userTemp[cardTwo].title, " after: ", userTemp[cardTwo].eloScore)
       } else if (e.target.alt == temp[cardTwo].title) { //card two clicked
         let scoreOne = temp[cardOne].eloScore + k*(0-expectedOne)
         let scoreTwo = temp[cardTwo].eloScore + k*(1-expectedTwo)
         
-        console.log("second one clicked")
-
-        console.log(userTemp[cardOne].title, " before: ", userTemp[cardOne].eloScore)
-        console.log(userTemp[cardTwo].title, " before: ", userTemp[cardTwo].eloScore)
-        
-        // console.log("scores", scoreOne, scoreTwo)
-
         let userScoreOne = userTemp[cardOne].eloScore + k*(0-userExpectedOne)
         let userScoreTwo = userTemp[cardTwo].eloScore + k*(1-userExpectedTwo)
 
-        await axios.put("/cards/update", {eloScore: scoreOne, id: cards[cardOne].id}) // update score one
-        await axios.put("/cards/update", {eloScore: scoreTwo, id: cards[cardTwo].id}) //update second 
+        await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo.id]}) // update score one
 
         temp[cardOne].eloScore = scoreOne
         temp[cardTwo].eloScore = scoreTwo
 
         userTemp[cardOne].eloScore = userScoreOne
         userTemp[cardTwo].eloScore = userScoreTwo
-
-        console.log(userTemp[cardOne].title, " after: ", userTemp[cardOne].eloScore)
-        console.log(userTemp[cardTwo].title, " after: ", userTemp[cardTwo].eloScore)
       }
     } catch (err) {
       console.log(err)
     }
+    setTimeout(() => {
+      setClicks(prev => prev + 1)
+      setCards(temp)
+      setUserCards(userTemp)
+      setTile()
+    }, 100)
 
-    console.log("userCards:", userCards)
-    setCards(temp)
-    setUserCards(userTemp)
-    setTile()
+    // setCards(temp)
+    // setUserCards(userTemp)
+    // setTile()
+    if (clicks === 0) {
+      const updatedPlays = mashPlays + 1
+      await axios.put(`/mashes/update`, {plays: updatedPlays, id: id})
+    }
   }
 
   const handleSubmit = () => {
@@ -157,7 +188,8 @@ const Mash = () => {
     temp.splice(pos, 1)
     setPairs(temp)
     setTotal(temp.length + 1)
-    console.log(temp)
+    setLength(temp.length + 1)
+    // setPairsLength(temp.length + 1)
   }
 
   const handleUserCards = async() => {
@@ -171,15 +203,21 @@ const Mash = () => {
     }
   }
 
+
   const handleInfoButton = () => {
     setInfoModal(true)
   }
 
   useEffect(() => {
+    // console.log("id", id)
+
     const getData = async() => {
       try { 
       const response = await axios.get(`/cards/get/${id}`)
-      console.log("response", response)
+      const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
+      setMashPlays(otherResponse.data[0].plays)
+      setQues(otherResponse.data[0].question)
+      setTitle(otherResponse.data[0].title)
 
       setCards(response.data)
       setMax(response.data.length)
@@ -190,8 +228,8 @@ const Mash = () => {
         two = Math.floor(Math.random() * response.data.length)
       }
 
-      findPairs(response.data, one, two)
 
+      findPairs(response.data, one, two)
       setCardOne(one)
       setCardTwo(two)
       }
@@ -203,36 +241,113 @@ const Mash = () => {
     handleUserCards()
   }, [])
 
-  return ( 
-    <div className="mash-content">
+  return (
+    <div className="">
       <Header />
-     { cards && userCards && <div className="mash-body">
-        {showModal && <Modal className="mash-modal" userCards={userCards} setShowModal={setShowModal} empty={empty} title={title} id={id}/>}
-        {infoModal && <TheInfoModal className="mash-infoModal" length={pairs.length} id={id} setInfoModal={setInfoModal}/>}
-        <p className="mash-title">{title} MASH</p>
-        <p className="mash-info">WHICH ONE'S BETTER?</p>
-        <button className="mash-infoButton" onClick={handleInfoButton}><i class="fa fa-question"></i></button>
-        <div className="mash-container">
-          <div className="mash-tile" alt={cards[cardOne].title} onClick={(e) => empty ? null : handleClick(e)}>
-            <img src={cards[cardOne].image} alt={cards[cardOne].title} className="mash-image" />
-            <p className="mash-label" alt={cards[cardOne].title}><b>{cards && cards[cardOne].title}</b></p>
+      <div className="flex flex-col justify-center items-center">
+        {cards && userCards && ques && (
+          <div className="mash-body px-4 lg:px-0">
+            {showModal && (
+              <Modal
+                className="mash-modal"
+                userCards={userCards}
+                setShowModal={setShowModal}
+                empty={empty}
+                title={title}
+                id={id}
+              />
+            )}
+            {infoModal && (
+              <TheInfoModal
+                className="mash-infoModal"
+                length={length}
+                id={id}
+                setInfoModal={setInfoModal}
+              />
+            )}
+            {title && (
+              <p className="text-center text-2xl md:text-3xl mt-8 font-bold">
+                {title} MASH
+              </p>
+            )}
+            <p className="text-center text-lg md:text-xl mt-2">{ques}</p>
+            <div className="flex items-center justify-center mt-2">
+              <button
+                className="p-2 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-600 transition-all duration-300"
+                onClick={handleInfoButton}
+              >
+                <i className="fa fa-question text-sm"></i>
+              </button>
+            </div>
+            <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-x-4 md:space-y-0 p-4">
+              <div
+                className="relative flex flex-col items-center cursor-pointer"
+                alt={cards[cardOne].title}
+                onClick={(e) => (empty ? null : handleClick(e))}
+              >
+                {blur && (
+                  <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                    <div className="w-full h-full bg-gray-800 opacity-60"></div>
+                  </div>
+                )}
+                <img
+                  src={cards[cardOne].image}
+                  alt={cards[cardOne].title}
+                  className="w-36 h-52 md:w-48 md:h-64 object-contain rounded-md hover:transform hover:-translate-y-1 hover:shadow-lg transition-transform duration-300"
+                />
+                <p className="mt-2 text-center font-semibold text-base md:text-lg">
+                  {cards && cards[cardOne].title}
+                </p>
+              </div>
+  
+              <p className="text-xl md:text-2xl font-bold">VS</p>
+  
+              <div
+                className="relative flex flex-col items-center cursor-pointer"
+                alt={cards[cardTwo].title}
+                onClick={(e) => (empty ? null : handleClick(e))}
+              >
+                {blur && (
+                  <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                    <div className="w-full h-full bg-gray-800 opacity-60"></div>
+                  </div>
+                )}
+                <img
+                  src={cards[cardTwo].image}
+                  alt={cards[cardTwo].title}
+                  className="w-36 h-52 md:w-48 md:h-64 object-contain rounded-md hover:transform hover:-translate-y-1 hover:shadow-lg transition-transform duration-300"
+                />
+                <p className="mt-2 text-center font-semibold text-base md:text-lg">
+                  {cards && cards[cardTwo].title}
+                </p>
+              </div>
+            </div>
+  
+            <div className="mash-progressBarContainer mt-4">
+              <div className="mash-progressBar"></div>
+            </div>
+            <div className="flex items-center justify-center mt-4">
+              <button
+                className="px-4 py-2 md:px-6 md:py-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 transition-all duration-300"
+                onClick={handleSubmit}
+              >
+                Finish
+              </button>
+            </div>
+            <div className="flex items-center justify-center mt-4">
+              <div className="mash-stats text-center p-2">
+                {total && (
+                  <p className="mash-clicks text-sm md:text-base font-semibold text-gray-700">
+                    PLAYS: {clicks} / {length}
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
-          <p className="mash-text">OR</p>
-          <div className="mash-tile" alt={cards[cardTwo].title} onClick={(e) => empty ? null : handleClick(e)}>
-            <img src={cards[cardTwo].image} alt={cards[cardTwo].title} className="mash-image" />
-            <p className="mash-label" alt={cards[cardTwo].title}><b>{cards && cards[cardTwo].title}</b></p>
-          </div>
-        </div>
-        <div className="mash-progressBarContainer">
-          <div className="mash-progressBar"></div>
-        </div>
-        <button className="mash-endButton" onClick={handleSubmit}>Finish</button>
-        <div className="mash-stats">
-          {total && <p className="mash-clicks">PLAYS: {clicks}</p>}
-        </div>
-      </div>}
+        )}
+      </div>
     </div>
   );
-}
+}  
  
 export default Mash;
