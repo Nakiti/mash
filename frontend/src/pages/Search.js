@@ -83,7 +83,7 @@ const Search = () => {
         console.log()
 
         try {
-            const response = await axios.get(`/mashes/search?q=${searchQuery}`)
+            const response = await axios.get(`/mashes/search?q=${searchQuery}`) 
             setCards(response.data)
             setLoading(false)
         } catch (e) {
