@@ -22,7 +22,7 @@ const Input = (props) => {
   
   return ( 
 <div className="input-content relative p-4 bg-white rounded-md shadow-lg">
-  <p className="input-number absolute top-0 left-0 m-2 text-sm font-bold">{props.number}</p>
+  <p className="input-number absolute top-0 left-0 m-2 text-sm font-bold">{props.number + 1}</p>
   {/* <button className="input-delete" onClick={() => props.handleDelete(props.id)}><i class="fa fa-trash"></i></button> */}
   <div className="input-inputs flex space-x-4">
     <input 

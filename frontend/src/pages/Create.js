@@ -216,9 +216,9 @@ const Create = () => {
                     {inputs.map((item, index) => {
                         if (item.name !== "" && item.image !== "") {
                             return (
-                                <div className="create-wrapper mb-4" onFocus={() => setSelectedId(item.id)}>
-                                    <Input key={item.id} id={item.id} number={item.number} name={item.name} image={item.image} inputs={inputs} selectedId={selectedId} setInputs={setInputs} handleDelete={handleDelete} />
-                                </div>
+                                 <div className="create-wrapper" onFocus={() => setSelectedId(item.id)}> 
+                                    <Input key={item.id} id={item.id} number={index} name={item.name} image={item.image} inputs={inputs} selectedId={selectedId} setInputs={setInputs} handleDelete={handleDelete}/> 
+                                 </div>
                             );
                         }
                     })}
