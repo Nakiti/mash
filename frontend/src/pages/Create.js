@@ -214,13 +214,13 @@ const Create = () => {
                 <div className="create-form flex flex-col items-center space-y-4">
                     <div className="create-items w-4/5">
                     {inputs.map((item, index) => {
-                        if (item.name !== "" && item.image !== "") {
+                        // if (item.name !== "" && item.image !== "") 
                             return (
                                  <div className="create-wrapper" onFocus={() => setSelectedId(item.id)}> 
                                     <Input key={item.id} id={item.id} number={index} name={item.name} image={item.image} inputs={inputs} selectedId={selectedId} setInputs={setInputs} handleDelete={handleDelete}/> 
                                  </div>
                             );
-                        }
+                        
                     })}
                 </div>
                 <div className="flex space-x-4">
