@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const Suggested = (props) => {
 
    const [data, setData] = useState(null)
-
+   const navigate = useNavigate()
 
    useEffect(() => {
       const fetchData = async () => {
@@ -37,7 +39,9 @@ const Suggested = (props) => {
          <div className="space-y-4 h-96 overflow-y-scroll overflow-x-hidden">
             {props.suggestedOpen && data && data.map((item) => {
                return (
-                  <div key={item.title} className="flex flex-col cursor-pointer items-center h-16 w-16 group hover:transform hover:-translate-y-1 hover:shadow-lg transition-transform duration-300">
+                  <div onClick={() => {
+                     navigate(`/mash/${item.title.split(" ").join("")}/${item.id}`, {state: {title: item.title}})
+                  }} key={item.id} className="flex flex-col cursor-pointer items-center h-16 w-16 group hover:transform hover:-translate-y-1 hover:shadow-lg transition-transform duration-300">
                      <img src={item.imageOne} alt={item.title} className="w-16 h-16 object-contain rounded-md" />
                      <p className="text-sm bg-gray-50 text-center shadow-md rounded-b-md text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{item.title}</p>
                   </div>

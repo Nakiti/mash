@@ -31,6 +31,7 @@ const Mash = () => {
   const [thing, setThing] = useState([])
   const [suggestedOpen, setSuggestedOpen] = useState(true)
   const [category, setCategory] = useState("")
+  const location = useLocation()
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
@@ -243,7 +244,7 @@ const Mash = () => {
     }
     getData()
     handleUserCards()
-  }, [])
+  }, [id])
 
   const handleSuggested = () => {
    setSuggestedOpen(!suggestedOpen)
