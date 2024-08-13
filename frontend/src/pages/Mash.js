@@ -5,6 +5,7 @@ import axios from "axios";
 // import "../styles/mash.css"
 import Modal from "../components/Modal.js";
 import TheInfoModal from "../components/TheInfoModal.js";
+import Suggested from "../components/Suggested.js";
 
 const Mash = () => {
   const {id} = useParams()
@@ -28,6 +29,8 @@ const Mash = () => {
   const [prev, setPrev] = useState([])
   const [topPairs, setTopPairs] = useState([])
   const [thing, setThing] = useState([])
+  const [suggestedOpen, setSuggestedOpen] = useState(true)
+  const [category, setCategory] = useState("")
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
@@ -213,25 +216,26 @@ const Mash = () => {
 
     const getData = async() => {
       try { 
-      const response = await axios.get(`/cards/get/${id}`)
-      const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
-      setMashPlays(otherResponse.data[0].plays)
-      setQues(otherResponse.data[0].question)
-      setTitle(otherResponse.data[0].title)
+         const response = await axios.get(`/cards/get/${id}`)
+         const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
+         setMashPlays(otherResponse.data[0].plays)
+         setQues(otherResponse.data[0].question)
+         setTitle(otherResponse.data[0].title)
+         setCategory(otherResponse.data[0].category)
 
-      setCards(response.data)
-      setMax(response.data.length)
+         setCards(response.data)
+         setMax(response.data.length)
 
-      let one = Math.floor(Math.random() * response.data.length)
-      let two = Math.floor(Math.random() * response.data.length)
-      while (one === two) {
-        two = Math.floor(Math.random() * response.data.length)
-      }
+         let one = Math.floor(Math.random() * response.data.length)
+         let two = Math.floor(Math.random() * response.data.length)
+         while (one === two) {
+         two = Math.floor(Math.random() * response.data.length)
+         }
 
 
-      findPairs(response.data, one, two)
-      setCardOne(one)
-      setCardTwo(two)
+         findPairs(response.data, one, two)
+         setCardOne(one)
+         setCardTwo(two)
       }
       catch (err) {
         console.log(err)
@@ -241,113 +245,130 @@ const Mash = () => {
     handleUserCards()
   }, [])
 
+  const handleSuggested = () => {
+   setSuggestedOpen(!suggestedOpen)
+  }
+
   return (
-    <div className="">
-      <Header />
-      <div className="flex flex-col justify-center items-center">
-        {cards && userCards && ques && (
-          <div className="mash-body px-4 lg:px-0">
-            {showModal && (
-              <Modal
-                className="mash-modal"
-                userCards={userCards}
-                setShowModal={setShowModal}
-                empty={empty}
-                title={title}
-                id={id}
-              />
-            )}
-            {infoModal && (
-              <TheInfoModal
-                className="mash-infoModal"
-                length={length}
-                id={id}
-                setInfoModal={setInfoModal}
-              />
-            )}
-            {title && (
-              <p className="text-center text-2xl md:text-3xl mt-8 font-bold">
-                {title} MASH
-              </p>
-            )}
-            <p className="text-center text-lg md:text-xl mt-2">{ques}</p>
-            <div className="flex items-center justify-center mt-2">
-              <button
-                className="p-2 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-600 transition-all duration-300"
-                onClick={handleInfoButton}
-              >
-                <i className="fa fa-question text-sm"></i>
-              </button>
-            </div>
-            <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-x-4 md:space-y-0 p-4">
-              <div
-                className="relative flex flex-col items-center cursor-pointer"
-                alt={cards[cardOne].title}
-                onClick={(e) => (empty ? null : handleClick(e))}
-              >
-                {blur && (
-                  <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                    <div className="w-full h-full bg-gray-800 opacity-60"></div>
+   <div className="">
+     <Header />
+     <div className="flex flex-col items-center w-full px-4 lg:px-0">
+       {cards && userCards && ques && (
+         <div className="relative w-full">
+           {showModal && (
+             <Modal
+               className="mash-modal"
+               userCards={userCards}
+               setShowModal={setShowModal}
+               empty={empty}
+               title={title}
+               id={id}
+             />
+           )}
+           {infoModal && (
+             <TheInfoModal
+               className="mash-infoModal"
+               length={length}
+               id={id}
+               setInfoModal={setInfoModal}
+             />
+           )}
+ 
+           {/* Flex container for content and suggested tab */}
+           <div className="flex items-center justify-center w-full">
+             {/* Main content */}
+             <div className="flex flex-col items-center w-full max-w-4xl">
+               {title && (
+                 <p className="text-center text-2xl md:text-3xl mt-8 font-bold">
+                   {title} MASH
+                 </p>
+               )}
+               <p className="text-center text-lg md:text-xl mt-2">{ques}</p>
+               <div className="flex items-center justify-center mt-2">
+                 <button
+                   className="p-2 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-600 transition-all duration-300"
+                   onClick={handleInfoButton}
+                 >
+                   <i className="fa fa-question text-sm"></i>
+                 </button>
+               </div>
+               <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-x-4 md:space-y-0 p-4">
+                  <div 
+                     className="relative flex flex-col items-center cursor-pointer"
+                     alt={cards[cardOne].title}
+                     onClick={(e) => (empty ? null : handleClick(e))}
+                  >
+                     {blur && (
+                        <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                           <div className="w-full h-full bg-gray-800 opacity-60"></div>
+                        </div>
+                     )}
+                     <img
+                        src={cards[cardOne].image}
+                        alt={cards[cardOne].title}
+                        className="w-36 h-36 md:w-56 md:h-56 object-contain rounded-md hover:transform hover:-translate-y-1 hover:shadow-lg transition-transform duration-300"
+                     />
+                     <p className="mt-2 text-center font-semibold text-base md:text-lg">
+                        {cards && cards[cardOne].title}
+                     </p>
                   </div>
-                )}
-                <img
-                  src={cards[cardOne].image}
-                  alt={cards[cardOne].title}
-                  className="w-36 h-52 md:w-48 md:h-64 object-contain rounded-md hover:transform hover:-translate-y-1 hover:shadow-lg transition-transform duration-300"
-                />
-                <p className="mt-2 text-center font-semibold text-base md:text-lg">
-                  {cards && cards[cardOne].title}
-                </p>
-              </div>
-  
-              <p className="text-xl md:text-2xl font-bold">VS</p>
-  
-              <div
-                className="relative flex flex-col items-center cursor-pointer"
-                alt={cards[cardTwo].title}
-                onClick={(e) => (empty ? null : handleClick(e))}
-              >
-                {blur && (
-                  <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                    <div className="w-full h-full bg-gray-800 opacity-60"></div>
-                  </div>
-                )}
-                <img
-                  src={cards[cardTwo].image}
-                  alt={cards[cardTwo].title}
-                  className="w-36 h-52 md:w-48 md:h-64 object-contain rounded-md hover:transform hover:-translate-y-1 hover:shadow-lg transition-transform duration-300"
-                />
-                <p className="mt-2 text-center font-semibold text-base md:text-lg">
-                  {cards && cards[cardTwo].title}
-                </p>
-              </div>
-            </div>
-  
-            <div className="mash-progressBarContainer mt-4">
-              <div className="mash-progressBar"></div>
-            </div>
-            <div className="flex items-center justify-center mt-4">
-              <button
-                className="px-4 py-2 md:px-6 md:py-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 transition-all duration-300"
-                onClick={handleSubmit}
-              >
-                Finish
-              </button>
-            </div>
-            <div className="flex items-center justify-center mt-4">
-              <div className="mash-stats text-center p-2">
-                {total && (
-                  <p className="mash-clicks text-sm md:text-base font-semibold text-gray-700">
-                    PLAYS: {clicks} / {length}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+         
+                  <p className="text-xl md:text-2xl font-bold">VS</p>
+         
+                  <div
+                     className="relative flex flex-col items-center cursor-pointer"
+                     alt={cards[cardTwo].title}
+                     onClick={(e) => (empty ? null : handleClick(e))}
+                  >
+                     {blur && (
+                     <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                        <div className="w-full h-full bg-gray-800 opacity-60"></div>
+                     </div>
+                     )}
+                     <img
+                        src={cards[cardTwo].image}
+                        alt={cards[cardTwo].title}
+                        className="w-36 h-36 md:w-56 md:h-56 object-contain rounded-md hover:transform hover:-translate-y-1 hover:shadow-lg transition-transform duration-300"
+                     />
+                     <p className="mt-2 text-center font-semibold text-base md:text-lg">
+                        {cards && cards[cardTwo].title}
+                     </p>
+                 </div>
+               </div>
+         
+               <div className="mash-progressBarContainer mt-4">
+                 <div className="mash-progressBar"></div>
+               </div>
+               <div className="flex items-center justify-center mt-0">
+                 <button
+                   className="px-4 py-2 md:px-6 md:py-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 transition-all duration-300"
+                   onClick={handleSubmit}
+                 >
+                   Finish
+                 </button>
+               </div>
+               <div className="flex items-center justify-center mt-2">
+                 <div className="mash-stats text-center p-2">
+                   {total && (
+                     <p className="mash-clicks text-sm md:text-base font-semibold text-gray-700">
+                       PLAYS: {clicks} / {length}
+                     </p>
+                   )}
+                 </div>
+               </div>
+             </div>
+ 
+             {/* Suggested tab */}
+               <div className="hidden lg:absolute lg:right-10 lg:top-12 lg:block">
+                  <Suggested category={category} suggestedOpen={suggestedOpen} handleSuggested={handleSuggested} />
+               </div>
+           </div>
+         </div>
+       )}
+     </div>
+   </div>
+ );
+ 
 }  
  
 export default Mash;

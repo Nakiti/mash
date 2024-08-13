@@ -17,6 +17,22 @@ export const postCard = (req, res) => {
   })
 }
 
+export const postCardBatch = (req, res) => {
+   const query = "INSERT INTO cards(`title`, `image`, `mashID`, `eloScore`) VALUES ?";
+
+   const values = req.body.map(card => [
+      card.title,
+      card.image,
+      Number(card.mashID),
+      Number(card.eloScore)
+   ]);
+
+   db.query(query, [values], (err, data) => {
+      if (err) return res.json(err)
+      return res.json(data)
+   })
+}
+
 export const getCard = (req, res) => {
   const query = `SELECT * FROM cards WHERE mashID = ?`
 

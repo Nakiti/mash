@@ -107,18 +107,30 @@ const Create = () => {
     } 
 
     try {
-      for (var i = 0; i < inputs.length; i++) {
-        if (inputs[i].name !== " " && inputs[i].image !== " ") {
+      
+      const validInputs = inputs
+         .filter((input) => input.name.trim() !== "" && input.image.trim() !== "")
+         .map((input) => ({
+         title: input.name,
+         image: input.image,
+         mashID: String(tempMashId),
+         eloScore: String(1200),
+         })
+      )
 
-        setLoading(true)
-        await axios.post("/cards/post", {title: inputs[i].name, image: inputs[i].image, mashID: String(tempMashId), eloScore: String(1200)})
-        .then(() => {
-          setLoading(false)
-        })
+      if (validInputs.length > 0) {
+         setLoading(true);
+      
+         // Make a single request with the entire list of valid inputs
+         await axios.post("/cards/postBatch", validInputs);
+      
+         setLoading(false);
       }
-      }
+
+  
     } catch (e) {
       console.log(e)
+      setLoading(false)
     }
 
     setOtherModal(true)

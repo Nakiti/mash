@@ -1,5 +1,5 @@
 import Header from "../components/Header";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Card from "../components/Card";
 import "../styles/search.css"
 import axios from "axios";
@@ -9,104 +9,145 @@ import debounce from 'lodash/debounce';
 
 
 const Search = () => {
-  const [cards, setCards] = useState(null)
+  const [cards, setCards] = useState([])
+  const [displayedCards, setDisplayedCards] = useState([])
   const [og, setOg] = useState(null)
   const [filter, setFilter] = useState("Most Popular")
   const [cat, setCat] = useState("all")
   const [loading, setLoading] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
+  const [page, setPage] = useState(1);
+  const perPage = 32;
 
   const navigate = useNavigate()
   const location = useLocation()
+  const loader = useRef(null)
 
   const handleSort = async(e) => {
-    const temp = [...cards]
+    let temp = [...cards]
     temp.filter(item => item.category === cat)
     setFilter(e.target.value)
 
     if (e.target.value === "Most Popular") {
-      setCards(temp.sort((a, b) => b.plays - a.plays))
+      temp = temp.sort((a, b) => b.plays - a.plays)
 
     } else if (e.target.value === "Newest") {
-      setCards(temp.reverse())
+      temp = temp.reverse()
     }
     
+    setCards(temp)
+    setDisplayedCards(temp.slice(0, page * perPage))
   }
 
-  useEffect(() => {
-    console.log(location.state)
+   const loadMoreCards = () => {
+      const newPage = page + 1;
+      const moreCards = cards.slice(0, newPage * perPage);
+      setDisplayedCards(moreCards);
+      setPage(newPage);
+   };
 
-    const getData = async() => {
+   const handleObserver = useCallback(
+      (entries) => {
+        const target = entries[0];
+        if (target.isIntersecting && !loading && displayedCards.length < cards.length) {
+          loadMoreCards();
+        }
+      },
+      [loading, displayedCards.length, cards.length, loadMoreCards]
+    );
+
+   useEffect(() => {
+      const observer = new IntersectionObserver(handleObserver, {
+         root: null,
+         rootMargin: '20px',
+         threshold: 1.0
+      });
+      if (loader.current) observer.observe(loader.current);
+
+      return () => {
+         if (loader.current) observer.unobserve(loader.current);
+      };
+   }, [handleObserver]);
+
+   useEffect(() => {
+      console.log(location.state)
+
+      const getData = async() => {
+         try {
+            setLoading(true)
+            const response = await axios.get(location.state ? `/mashes/getmashbycat/${location.state.category}` :"/mashes/getmashbycat/all")
+
+            setLoading(false)
+
+            setOg(response.data.reverse())
+
+            const temp = [...response.data]
+            setCards(temp.sort((a, b) => b.plays - a.plays))
+            setDisplayedCards(temp.slice(0, perPage))
+         } catch (e) {
+            console.log(e)
+         }
+      }
+
+      getData()
+
+   }, [])
+
+   const handleClick = async (e) => {
+      setCat(e.target.name)
+
       try {
-        setLoading(true)
-        const response = await axios.get(location.state ? `/mashes/getmashbycat/${location.state.category}` :"/mashes/getmashbycat/all")
+         setLoading(true)
+         const response = await axios.get(`/mashes/getmashbycat/${e.target.name}`)
+         setLoading(false)
 
-        setLoading(false)
+         let temp = [...response.data]
 
-        setOg(response.data.reverse())
+         if (filter === "Most Popular") {
+            temp = temp.sort((a, b) => b.plays - a.plays)
+         } else if (filter === "Newest") {
+            temp = response.data.reverse()
+         }
 
-        const temp = [...response.data]
-        setCards(temp.sort((a, b) => b.plays - a.plays))
+         setCards(temp)
+         setDisplayedCards(temp)
 
-      } catch (e) {
-        console.log(e)
+      } catch (err) {
+         console.log(err)
       }
-    }
-    getData()
-
-  }, [])
-
-  const handleClick = async (e) => {
-    setCat(e.target.name)
-
-    try {
-      setLoading(true)
-      const response = await axios.get(`/mashes/getmashbycat/${e.target.name}`)
-      setLoading(false)
-
-      if (filter === "Most Popular") {
-        const temp = [...response.data]
-        setCards(temp.sort((a, b) => b.plays - a.plays))
-      } else if (filter === "Newest") {
-        setCards(response.data.reverse())
-      }
-
-    } catch (err) {
-      console.log(err)
-    }
-  }
+   }
 
     const handleSearch = async (e) => {
         e.preventDefault()
         setLoading(true)
-        console.log()
 
         try {
             const response = await axios.get(`/mashes/search?q=${searchQuery}`)
             setCards(response.data)
-            setLoading(false)
+            setDisplayedCards(response.data.slice(0, perPage))
         } catch (e) {
             console.log(e)
+        } finally {
+            setLoading(false)
         }
 
     }
 
     const handleChange = async (e) => {
-        console.log(e.target.value)
         setSearchQuery(e.target.value)
         debouncedSearch(e.target.value)
     }
 
-    const debouncedSearch = debounce(async (query) => {
-        try {
-          const response = await axios.get(`/mashes/search?q=${query}`);
-          console.log(response)
-          setCards(response.data);
-        } catch (err) {
-          setLoading(false);
-          console.error(err);
-        }
-      }, 300);
+   const debouncedSearch = debounce(async (query) => {
+      try {
+         const response = await axios.get(`/mashes/search?q=${query}`);
+         setCards(response.data);
+         setDisplayedCards(response.data)
+      } catch (err) {
+         setLoading(false);
+         console.error(err);
+      }
+   }, 300);
 
 
   return (
@@ -201,7 +242,7 @@ const Search = () => {
         <div className="p-2">
           <div className="w-full p-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-x-6 lg:gap-y-2">
-              {cards && cards.map((item) => (
+              {cards && displayedCards.map((item) => (
                 <div key={item.id} className="flex justify-center lg:w-[330px] lg:h-[180px]">
                   <Card 
                     id={item.id}
@@ -217,6 +258,7 @@ const Search = () => {
             </div>
           </div>
         </div>
+        <div ref={loader}></div>
       </div>
     </div>
   );

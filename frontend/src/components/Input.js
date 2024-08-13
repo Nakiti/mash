@@ -3,6 +3,7 @@ import "../styles/input.css"
 
 const Input = (props) => {
   // const [temp, setTemp] = useState([...props.inputs])
+  const [image, setImage] = useState("")
 
   const handleChange = (e) => {
     const temp = [...props.inputs]
@@ -14,6 +15,10 @@ const Input = (props) => {
 
       // console.log(item.id, props.id)
     })
+
+    if (e.target.name == "image") {
+      setImage(e.target.value)
+    }
 
     // setTemp(temp)
     props.setInputs(temp)
@@ -41,7 +46,17 @@ const Input = (props) => {
       value={props.image}
       onChange={handleChange}
     />
+      {image && (
+        <div className="image-preview">
+          <img
+            src={image}
+            alt="Invalid Image"
+            className="w-full h-12 w-12 object-contain rounded-md"
+          />
+        </div>
+      )}
   </div>
+
 </div>
   );
 }
