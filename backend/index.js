@@ -7,7 +7,8 @@ import cardRoutes from "./routes/cards.js"
 import contactRoutes from "./routes/contacts.js"
 import path from "path"
 import http from "http"
-import { Server } from "socket.io"
+// import { Server } from "socket.io"
+const {Server} = require("socket.io")
 import { handleUpdatePlays, handleUpdateScore } from "./sockets.js"
 
 // dotenv.config({ path: '../.env'  })
