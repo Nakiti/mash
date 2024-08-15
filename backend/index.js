@@ -17,7 +17,7 @@ const app = express()
 const server = http.createServer(app)
 export const io = new Server(server, {
    cors: {
-     origin: "http://localhost:3000", // Your frontend origin
+     origin: "http://mash.herokuapp.com", // Your frontend origin
      methods: ["GET", "POST"],
      credentials: true
    }}
@@ -53,7 +53,7 @@ app.listen(port, (req, res) => {
   console.log(port)
 })
 
-server.listen(port, () => {
+server.listen(8000, () => {
    console.log("server in da house")
 })
 
