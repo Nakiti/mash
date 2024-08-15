@@ -7,21 +7,21 @@ import cardRoutes from "./routes/cards.js"
 import contactRoutes from "./routes/contacts.js"
 import path from "path"
 import http from "http"
-import { Server } from "socket.io"
+// import { Server } from "socket.io"
 import { handleUpdatePlays, handleUpdateScore } from "./sockets.js"
 
 // dotenv.config({ path: '../.env'  })
 
 
 const app = express()
-const server = http.createServer(app)
-export const io = new Server(server, {
-   cors: {
-     origin: "http://mash.herokuapp.com", // Your frontend origin
-     methods: ["GET", "POST"],
-     credentials: true
-   }}
-)
+// const server = http.createServer(app)
+// export const io = new Server(server, {
+//    cors: {
+//      origin: "http://mash.herokuapp.com", // Your frontend origin
+//      methods: ["GET", "POST"],
+//      credentials: true
+//    }}
+// )
 
 
 const corsOptions ={
@@ -53,22 +53,22 @@ app.listen(port, (req, res) => {
   console.log(port)
 })
 
-server.listen(process.env.PORT, () => {
-   console.log("server in da house")
-})
+// server.listen(process.env.PORT, () => {
+//    console.log("server in da house")
+// })
 
-io.on("connection", (socket) => {
-   console.log('a user connected');
-   socket.on("message", async(message) => {
+// io.on("connection", (socket) => {
+//    console.log('a user connected');
+//    socket.on("message", async(message) => {
 
-      console.log(message)
-      const data = JSON.parse(message);
+//       console.log(message)
+//       const data = JSON.parse(message);
 
-      if (data.type === "UPDATE_SCORES") {
-         await handleUpdateScore(socket, data.data);
-      } else if (data.type == "UPDATE_PLAYS") {
-         handleUpdatePlays(socket, data.data)
-      } 
-   })
-})
+//       if (data.type === "UPDATE_SCORES") {
+//          await handleUpdateScore(socket, data.data);
+//       } else if (data.type == "UPDATE_PLAYS") {
+//          handleUpdatePlays(socket, data.data)
+//       } 
+//    })
+// })
 
