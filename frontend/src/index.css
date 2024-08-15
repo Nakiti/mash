@@ -2,6 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer utilities {
+   .results-items-wrapper {
+     position: relative;
+     overflow: hidden;
+   }
+ 
+   .results-items {
+     transition: transform 0.5s ease;
+   }
+ 
+   .move-up {
+     animation: moveUp 0.5s ease;
+   }
+ 
+   .move-down {
+     animation: moveDown 0.5s ease;
+   }
+ 
+   @keyframes moveUp {
+     from {
+       transform: translateY(1rem); /* Adjust this value based on your card height */
+       opacity: 0;
+     }
+     to {
+       transform: translateY(0);
+       opacity: 1;
+     }
+   }
+ 
+   @keyframes moveDown {
+     from {
+       transform: translateY(-1rem); /* Adjust this value based on your card height */
+       opacity: 0;
+     }
+     to {
+       transform: translateY(0);
+       opacity: 1;
+     }
+   }
+ }
+
+
 body {
   margin: 0;
 

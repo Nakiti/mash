@@ -14,19 +14,18 @@ import Contact from "./pages/Contact.js";
 
 function App() {
   return (
-    <Routes>
-      <Route path="*" element={<NotFound />}/>
-
-      <Route path="/" element={<Home />}/>
-      <Route path="/create" element={<Create />}/>
-      <Route path="/profile/:user" element={<Profile />}/>
-      <Route path="/search" element={<Search />}/>
-      <Route path="/register" element={<Register />}/>
-      <Route path="/login" element={<Login />}/>
-      <Route path="/mash/:title/:id" element={<Mash />}/>
-      <Route path="/results/:title/:id" element={<Results />}/>
-      <Route path="/contact" element={<Contact />}/>
-    </Routes>
+      <Routes>
+         <Route path="*" element={<NotFound />}/>
+         <Route path="/" element={<Home />}/>
+         <Route path="/create" element={<Create />}/>
+         <Route path="/profile/:user" element={<Profile />}/>
+         <Route path="/search" element={<Search />}/>
+         <Route path="/register" element={<Register />}/>
+         <Route path="/login" element={<Login />}/>
+         <Route path="/mash/:title/:id" element={<Mash />}/>
+         <Route path="/results/:title/:id" element={<Results />}/>
+         <Route path="/contact" element={<Contact />}/>
+      </Routes>
   );
 }
 

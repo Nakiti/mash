@@ -1,11 +1,11 @@
 import mysql from "mysql2"
 
 let config = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB,
-    port: process.env.DB_PORT,
+    host: "127.0.0.1",
+    user: "root",
+    password: "password",
+    database: "mash-local",
+    port: 3306,
   // ssl: {ca: fs.readFileSync(path.resolve("../DigiCertGlobalRootCA.crt.pem"))}
 }
 

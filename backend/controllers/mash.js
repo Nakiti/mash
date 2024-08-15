@@ -13,27 +13,36 @@ export const getMashes = (req, res) => {
 }
 
 export const getMashById = (req, res) => {
-  let query = "SELECT * FROM mashes WHERE id = ?"
-  const value = req.params.id
+   let query = "SELECT * FROM mashes WHERE id = ?"
+   const value = req.params.id
 
-  db.query(query, [value], (err, data) => {
-    if (err) return res.json(err)
-    return res.json(data)
-  })
+   db.query(query, [value], (err, data) => {
+      if (err) return res.json(err)
+      return res.json(data)
+   })
 }
+
+export const getMashByIdLocal = (id) => {
+   let query = "SELECT * FROM mashes WHERE id = ?"
+ 
+   db.query(query, [id], (err, data) => {
+      if (err) return res.json(err)
+      return res.json(data)
+   })
+ }
 
 export const getMash = (req, res) => {
   let query = `SELECT * FROM mashes WHERE access = "public" AND category = ?`
   const value = req.params.id
 
-  if (value == "all") {
-    query = `SELECT * FROM mashes WHERE access = "public"`
-  }
+   if (value == "all") {
+      query = `SELECT * FROM mashes WHERE access = "public"`
+   }
   
-  db.query(query, [value], (err, data) => {
-    if (err) console.log(err)
-    return res.json(data)
-  })
+   db.query(query, [value], (err, data) => {
+      if (err) console.log(err)
+      return res.json(data)
+   })
 }
 
 export const searchMash = (req, res) => {

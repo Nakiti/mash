@@ -6,6 +6,7 @@ import axios from "axios";
 import Modal from "../components/Modal.js";
 import TheInfoModal from "../components/TheInfoModal.js";
 import Suggested from "../components/Suggested.js";
+import io from "socket.io-client"
 
 const Mash = () => {
   const {id} = useParams()
@@ -32,6 +33,8 @@ const Mash = () => {
   const [suggestedOpen, setSuggestedOpen] = useState(true)
   const [category, setCategory] = useState("")
   const location = useLocation()
+  const [socket, setSocket] = useState(null)
+  const [mash, setMash] = useState(null)
 
   const setTile = () => {
     let one = Math.floor(Math.random() * max)
@@ -120,135 +123,200 @@ const Mash = () => {
     let userExpectedOne = 1/(1 + 10**((userTemp[cardTwo].eloScore - userTemp[cardOne].eloScore)/400)) //set rates
     let userExpectedTwo = 1/(1 + 10**((userTemp[cardOne].eloScore - userTemp[cardTwo].eloScore)/400))
     try {
+      let scoreOne, scoreTwo, userScoreOne, userScoreTwo;
+
       if (e.target.alt == temp[cardOne].title) { //card one clicked
-        let scoreOne = temp[cardOne].eloScore + k*(1-expectedOne)
-        let scoreTwo = temp[cardTwo].eloScore + k*(0-expectedTwo)
+        scoreOne = Math.floor(temp[cardOne].eloScore + k*(1-expectedOne))
+        scoreTwo = Math.floor(temp[cardTwo].eloScore + k*(0-expectedTwo))
 
-        let userScoreOne = userTemp[cardOne].eloScore + k*(1-userExpectedOne)
-        let userScoreTwo = userTemp[cardTwo].eloScore + k*(0-userExpectedTwo)     
+        userScoreOne = userTemp[cardOne].eloScore + k*(1-userExpectedOne)
+        userScoreTwo = userTemp[cardTwo].eloScore + k*(0-userExpectedTwo)     
 
-        await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo].id}) // update score one
-
-        temp[cardOne].eloScore = scoreOne
-        temp[cardTwo].eloScore = scoreTwo
-
-        userTemp[cardOne].eloScore = userScoreOne
-        userTemp[cardTwo].eloScore = userScoreTwo
+        //await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo].id, clicked: cards[cardOne].id}) // update score one
       } else if (e.target.alt == temp[cardTwo].title) { //card two clicked
-        let scoreOne = temp[cardOne].eloScore + k*(0-expectedOne)
-        let scoreTwo = temp[cardTwo].eloScore + k*(1-expectedTwo)
+        scoreOne = Math.floor(temp[cardOne].eloScore + k*(0-expectedOne))
+        scoreTwo = Math.floor(temp[cardTwo].eloScore + k*(1-expectedTwo))
         
-        let userScoreOne = userTemp[cardOne].eloScore + k*(0-userExpectedOne)
-        let userScoreTwo = userTemp[cardTwo].eloScore + k*(1-userExpectedTwo)
+        userScoreOne = userTemp[cardOne].eloScore + k*(0-userExpectedOne)
+        userScoreTwo = userTemp[cardTwo].eloScore + k*(1-userExpectedTwo)
 
-        await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo.id]}) // update score one
-
-        temp[cardOne].eloScore = scoreOne
-        temp[cardTwo].eloScore = scoreTwo
-
-        userTemp[cardOne].eloScore = userScoreOne
-        userTemp[cardTwo].eloScore = userScoreTwo
+        //await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo].id, clicked: cards[cardTwo].id}) // update score one
       }
-    } catch (err) {
-      console.log(err)
-    }
-    setTimeout(() => {
-      setClicks(prev => prev + 1)
-      setCards(temp)
-      setUserCards(userTemp)
-      setTile()
-    }, 100)
 
-    // setCards(temp)
-    // setUserCards(userTemp)
-    // setTile()
-    if (clicks === 0) {
-      const updatedPlays = mashPlays + 1
-      await axios.put(`/mashes/update`, {plays: updatedPlays, id: id})
-    }
-  }
+      console.log("card1: ", cards[cardOne].title)
+      console.log("card1: ", cards[cardOne].eloScore)
+      console.log("card1: ", scoreOne)
+      console.log("card2: ", cards[cardTwo].title)
+      console.log("card2: ", cards[cardTwo].eloScore)
+      console.log("card2: ", scoreTwo)
 
-  const handleSubmit = () => {
-    setShowModal(true)
-  }
-
-  const findPairs = (list, one, two) => {
-    const temp = []
-    for (let i = 0; i < list.length; i++) {
-      for (let x = i + 1; x < list.length; x++) {
-        temp.push([list[i].title, list[x].title])
+      if (socket) {
+         socket.send(JSON.stringify({
+            type: "UPDATE_SCORES",
+            data: {
+               scoreOne,
+               scoreTwo,
+               cardOne: cards[cardOne],
+               cardTwo: cards[cardTwo],
+               clicked: e.target.alt === temp[cardOne].title ? cards[cardOne].id : cards[cardTwo].id,
+            }
+         }))
       }
-    }
-    let pos;
+      
+      temp[cardOne].eloScore = scoreOne
+      temp[cardTwo].eloScore = scoreTwo
 
-    for (var i = 0; i < temp.length; i++) {
-      for (var x = 0; x < 2; x++) {
-        if ((temp[i][0] == list[one].title && temp[i][1] == list[two].title) || (temp[i][0] == list[two].title && temp[i][1] == list[one].title)) {
-          pos = i
-        }
+      userTemp[cardOne].eloScore = userScoreOne
+      userTemp[cardTwo].eloScore = userScoreTwo
+
+      } catch (err) {
+         console.log(err)
       }
-    }
+      setTimeout(() => {
+         setClicks(prev => prev + 1)
+         setCards(temp)
+         setUserCards(userTemp)
+         setTile()
+      }, 100)
 
-    temp.splice(pos, 1)
-    setPairs(temp)
-    setTotal(temp.length + 1)
-    setLength(temp.length + 1)
-    // setPairsLength(temp.length + 1)
-  }
+      // setCards(temp)
+      // setUserCards(userTemp)
+      // setTile()
+      if (clicks === 0) {
+         const updatedPlays = mashPlays + 1
+         // await axios.put(`/mashes/update`, {plays: updatedPlays, id: id})
 
-  const handleUserCards = async() => {
-    try {
-      const response = await axios.get(`/cards/get/${id}`)
-      const temp = [...response.data]
-      temp.map(item => item.eloScore = 1200)
-      setUserCards(temp)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+         if (socket && mash) {
 
-
-  const handleInfoButton = () => {
-    setInfoModal(true)
-  }
-
-  useEffect(() => {
-    // console.log("id", id)
-
-    const getData = async() => {
-      try { 
-         const response = await axios.get(`/cards/get/${id}`)
-         const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
-         setMashPlays(otherResponse.data[0].plays)
-         setQues(otherResponse.data[0].question)
-         setTitle(otherResponse.data[0].title)
-         setCategory(otherResponse.data[0].category)
-
-         setCards(response.data)
-         setMax(response.data.length)
-
-         let one = Math.floor(Math.random() * response.data.length)
-         let two = Math.floor(Math.random() * response.data.length)
-         while (one === two) {
-         two = Math.floor(Math.random() * response.data.length)
+            socket.send(JSON.stringify({
+               type: "UPDATE_PLAYS",
+               data: {
+                  ...mash,
+                  plays: updatedPlays
+               }
+            }))
          }
-
-
-         findPairs(response.data, one, two)
-         setCardOne(one)
-         setCardTwo(two)
       }
-      catch (err) {
-        console.log(err)
-      }
-    }
-    getData()
-    handleUserCards()
-  }, [id])
+   }
 
-  const handleSuggested = () => {
-   setSuggestedOpen(!suggestedOpen)
-  }
+   const handleSubmit = () => {
+      setShowModal(true)
+   }
+
+   const findPairs = (list, one, two) => {
+      const temp = []
+      for (let i = 0; i < list.length; i++) {
+         for (let x = i + 1; x < list.length; x++) {
+         temp.push([list[i].title, list[x].title])
+         }
+      }
+      let pos;
+
+      for (var i = 0; i < temp.length; i++) {
+         for (var x = 0; x < 2; x++) {
+            if ((temp[i][0] == list[one].title && temp[i][1] == list[two].title) || (temp[i][0] == list[two].title && temp[i][1] == list[one].title)) {
+               pos = i
+            }
+         }
+      }
+
+      temp.splice(pos, 1)
+      setPairs(temp)
+      setTotal(temp.length + 1)
+      setLength(temp.length + 1)
+      // setPairsLength(temp.length + 1)
+   }
+
+   const handleUserCards = async() => {
+      try {
+         const response = await axios.get(`/cards/get/${id}`)
+         const temp = [...response.data]
+         temp.map(item => item.eloScore = 1200)
+         setUserCards(temp)
+      } catch (err) {
+         console.log(err)
+      }
+   }
+
+
+   const handleInfoButton = () => {
+      setInfoModal(true)
+   }
+
+   useEffect(() => {
+      // console.log("id", id)
+
+      const ws = io()
+      setSocket(ws)
+
+      ws.on("connect", () => {
+         console.log("Connected to WebSocket server");
+      });
+
+      ws.open = () => {
+         // console.log("yoooo")
+      }
+
+      ws.on("updateCards", (data) => {
+         // console.log("yoppp")
+
+         if (data.type === 'UPDATE_CARDS') {
+            // console.log("hi", data.cards)
+            setCards(prevCards => 
+               prevCards.map(item => {
+                  const updatedCard = data.cards.find(card => card.id === item.id);
+                  return updatedCard ? { ...item, ...updatedCard } : item;
+               })
+            );
+         }
+      });
+
+      ws.on("updatePlays", (input) => {
+         const data = JSON.parse(input)
+         // console.log(data)
+         setMashPlays(data.mash.plays)
+      })
+      
+
+      const getData = async() => {
+         try { 
+            const response = await axios.get(`/cards/get/${id}`)
+            const otherResponse = await axios.get(`/mashes/getmashbyid/${id}`)
+            setMashPlays(otherResponse.data[0].plays)
+            setQues(otherResponse.data[0].question)
+            setTitle(otherResponse.data[0].title)
+            setCategory(otherResponse.data[0].category)
+            setMash(otherResponse.data[0])
+
+            setCards(response.data)
+            setMax(response.data.length)
+
+            let one = Math.floor(Math.random() * response.data.length)
+            let two = Math.floor(Math.random() * response.data.length)
+            while (one === two) {
+               two = Math.floor(Math.random() * response.data.length)
+            }
+
+
+            findPairs(response.data, one, two)
+            setCardOne(one)
+            setCardTwo(two)
+         }
+         catch (err) {
+         console.log(err)
+         }
+      }
+      getData()
+      handleUserCards()
+
+      return () => {
+         ws.close();
+      };
+   }, [id])
+
+   const handleSuggested = () => {
+      setSuggestedOpen(!suggestedOpen)
+   }
 
   return (
    <div className="">

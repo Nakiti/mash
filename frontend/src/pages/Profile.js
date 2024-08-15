@@ -9,39 +9,39 @@ import NotFound from "./NotFound.js";
 
 
 const Profile = () => { 
-  const [mashes, setMashes] = useState(null)
-  const [message, setMessage] = useState("")
-  const [showModal, setShowModal] = useState(false)
-  const [text, setText] = useState("")
-  const [showEditModal, setShowEditModal] = useState(false)
-  const [title, setTitle] = useState("")
-  const [mashID, setMashID] = useState(0)
-  const timestamp = new Date()
+   const [mashes, setMashes] = useState(null)
+   const [message, setMessage] = useState("")
+   const [showModal, setShowModal] = useState(false)
+   const [text, setText] = useState("")
+   const [showEditModal, setShowEditModal] = useState(false)
+   const [title, setTitle] = useState("")
+   const [mashID, setMashID] = useState(0)
+   const timestamp = new Date()
 
-  const navigate = useNavigate()
-  const {currentUser} = useContext(AuthContext)
+   const navigate = useNavigate()
+   const {currentUser} = useContext(AuthContext)
 
-  const handleClick = async() => {
-    let date = `${timestamp.getMonth() + 1}/${timestamp.getDate()}/${timestamp.getFullYear()}`
+   const handleClick = async() => {
+      let date = `${timestamp.getMonth() + 1}/${timestamp.getDate()}/${timestamp.getFullYear()}`
 
-    await axios.post("/contacts/post", {title: title, text: text, date: date, mashID: mashID, userID: currentUser.id})
-    setShowEditModal(false)
-  }
+      await axios.post("/contacts/post", {title: title, text: text, date: date, mashID: mashID, userID: currentUser.id})
+      setShowEditModal(false)
+   }
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(`/mashes/get/${currentUser.id}`)
-        setMashes(response.data)
+   useEffect(() => {
+      const getData = async () => {
+         try {
+         const response = await axios.get(`/mashes/get/${currentUser.id}`)
+         setMashes(response.data)
 
-        // console.log("response", response.data)
-      } catch (err) {
-        console.log(err)
+         // console.log("response", response.data)
+         } catch (err) {
+         console.log(err)
+         }
       }
-    }
 
-    getData()
-  }, [])
+      getData()
+   }, [])
   
 
    return ( 
