@@ -8,7 +8,7 @@ import contactRoutes from "./routes/contacts.js"
 import path from "path"
 import http from "http"
 // import { Server } from "socket.io"
-import { handleUpdatePlays, handleUpdateScore } from "./sockets.js"
+// import { handleUpdatePlays, handleUpdateScore } from "./sockets.js"
 
 // dotenv.config({ path: '../.env'  })
 
