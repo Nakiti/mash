@@ -53,7 +53,7 @@ app.listen(port, (req, res) => {
   console.log(port)
 })
 
-server.listen(8000, () => {
+server.listen(process.env.PORT, () => {
    console.log("server in da house")
 })
 
