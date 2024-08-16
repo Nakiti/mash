@@ -283,6 +283,7 @@ const Mash = () => {
 
             setCards(response.data)
             setMax(response.data.length)
+            setClicks(0)
 
             let one = Math.floor(Math.random() * response.data.length)
             let two = Math.floor(Math.random() * response.data.length)

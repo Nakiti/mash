@@ -124,7 +124,7 @@ const Search = () => {
 
       try {
          setLoading(true)
-         const response = await axios.get(`http://localhost:4000/mashes/getmashbycat/${e.target.name}`)
+         const response = await axios.get(`/mashes/getmashbycat/${e.target.name}`)
          setLoading(false)
 
          let temp = [...response.data]
@@ -147,7 +147,7 @@ const Search = () => {
       setLoading(true)
 
       try {
-         const response = await axios.get(`http://localhost:4000/mashes/search?q=${searchQuery}`)
+         const response = await axios.get(`/mashes/search?q=${searchQuery}`)
          setCards(response.data)
          setDisplayedCards(response.data.slice(0, perPage))
       } catch (e) {
@@ -164,7 +164,7 @@ const Search = () => {
 
    const debouncedSearch = debounce(async (query) => {
       try {
-         const response = await axios.get(`http://localhost:4000/mashes/search?q=${query}`);
+         const response = await axios.get(`/mashes/search?q=${query}`);
          setCards(response.data);
          setDisplayedCards(response.data)
       } catch (err) {
