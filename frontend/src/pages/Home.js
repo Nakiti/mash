@@ -37,20 +37,20 @@ const Home = () => {
 
    useEffect(() => {
       const fetchData = async() => {
-         const musicResponse = await axios.get("/mashes/getmashbycat/music")
-         const sportsResponse = await axios.get("/mashes/getmashbycat/sports")
-         const filmResponse = await axios.get("/mashes/getmashbycat/film")
+         const response = await axios.get("/mashes/getmashbycat/all")
+
+         const musicResponse = response.data.filter((item) => item.category == "music")
+         const sportsResponse = response.data.filter((item) => item.category == "sports")
+         const filmResponse = response.data.filter((item) => item.category == "film")
          
-         const musicTemp = musicResponse.data.sort((a, b) => b.plays - a.plays)
-         const sportsTemp = sportsResponse.data.sort((a, b) => b.plays - a.plays)
-         const filmTemp = filmResponse.data.sort((a, b) => b.plays - a.plays)
+         const musicTemp = musicResponse.sort((a, b) => b.plays - a.plays)
+         const sportsTemp = sportsResponse.sort((a, b) => b.plays - a.plays)
+         const filmTemp = filmResponse.sort((a, b) => b.plays - a.plays)
 
 
          setMusic(musicTemp.slice(0, 8))
          setFilm(filmTemp.slice(0, 8))
          setSports(sportsTemp.slice(0, 8))
-
-         console.log(musicResponse)
       }
 
       fetchData()

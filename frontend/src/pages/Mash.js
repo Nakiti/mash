@@ -143,12 +143,12 @@ const Mash = () => {
         //await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo].id, clicked: cards[cardTwo].id}) // update score one
       }
 
-      console.log("card1: ", cards[cardOne].title)
-      console.log("card1: ", cards[cardOne].eloScore)
-      console.log("card1: ", scoreOne)
-      console.log("card2: ", cards[cardTwo].title)
-      console.log("card2: ", cards[cardTwo].eloScore)
-      console.log("card2: ", scoreTwo)
+      // console.log("card1: ", cards[cardOne].title)
+      // console.log("card1: ", cards[cardOne].eloScore)
+      // console.log("card1: ", scoreOne)
+      // console.log("card2: ", cards[cardTwo].title)
+      // console.log("card2: ", cards[cardTwo].eloScore)
+      // console.log("card2: ", scoreTwo)
 
       if (socket) {
          socket.send(JSON.stringify({
@@ -244,8 +244,6 @@ const Mash = () => {
    }
 
    useEffect(() => {
-      // console.log("id", id)
-
       const ws = io()
       setSocket(ws)
 
@@ -253,13 +251,8 @@ const Mash = () => {
          console.log("Connected to WebSocket server");
       });
 
-      ws.open = () => {
-         // console.log("yoooo")
-      }
-
       ws.on("updateCards", (data) => {
          // console.log("yoppp")
-
          if (data.type === 'UPDATE_CARDS') {
             // console.log("hi", data.cards)
             setCards(prevCards => 
@@ -343,9 +336,7 @@ const Mash = () => {
              />
            )}
  
-           {/* Flex container for content and suggested tab */}
            <div className="flex items-center justify-center w-full">
-             {/* Main content */}
              <div className="flex flex-col items-center w-full max-w-4xl">
                {title && (
                  <p className="text-center text-2xl md:text-3xl mt-8 font-bold">
