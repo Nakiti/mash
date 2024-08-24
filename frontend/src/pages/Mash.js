@@ -126,16 +126,16 @@ const Mash = () => {
       let scoreOne, scoreTwo, userScoreOne, userScoreTwo;
 
       if (e.target.alt == temp[cardOne].title) { //card one clicked
-        scoreOne = Math.floor(temp[cardOne].eloScore + k*(1-expectedOne))
-        scoreTwo = Math.floor(temp[cardTwo].eloScore + k*(0-expectedTwo))
+        scoreOne = temp[cardOne].eloScore + k*(1-expectedOne)
+        scoreTwo = temp[cardTwo].eloScore + k*(0-expectedTwo)
 
         userScoreOne = userTemp[cardOne].eloScore + k*(1-userExpectedOne)
         userScoreTwo = userTemp[cardTwo].eloScore + k*(0-userExpectedTwo)     
 
         //await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo].id, clicked: cards[cardOne].id}) // update score one
       } else if (e.target.alt == temp[cardTwo].title) { //card two clicked
-        scoreOne = Math.floor(temp[cardOne].eloScore + k*(0-expectedOne))
-        scoreTwo = Math.floor(temp[cardTwo].eloScore + k*(1-expectedTwo))
+        scoreOne = temp[cardOne].eloScore + k*(0-expectedOne)
+        scoreTwo = temp[cardTwo].eloScore + k*(1-expectedTwo)
         
         userScoreOne = userTemp[cardOne].eloScore + k*(0-userExpectedOne)
         userScoreTwo = userTemp[cardTwo].eloScore + k*(1-userExpectedTwo)

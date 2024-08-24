@@ -130,15 +130,15 @@ export const updateCardScores = async (cardOne, cardTwo, scoreOne, scoreTwo, cli
          let newScoreOne = one.eloScore;
          let newScoreTwo = two.eloScore;
 
-         let expectedOne = 1 / (1 + 10 ** ((newScoreTwo - newScoreOne) / 400)); // Calculate expected score
-         let expectedTwo = 1 / (1 + 10 ** ((newScoreOne - newScoreTwo) / 400));
+         let expectedOne = 1 / (1 + 10**((newScoreTwo - newScoreOne) / 400)); // Calculate expected score
+         let expectedTwo = 1 / (1 + 10**((newScoreOne - newScoreTwo) / 400));
 
          if (clicked == cardOne.id) {
-            newScoreOne = Math.floor(one.eloScore + 16 * (1 - expectedOne))
-            newScoreTwo = Math.floor(two.eloScore + 16 * (0 - expectedTwo))
+            newScoreOne = one.eloScore + 16 * (1 - expectedOne)
+            newScoreTwo = two.eloScore + 16 * (0 - expectedTwo)
          } else {
-            newScoreOne = Math.floor(one.eloScore + 16 * (0 - expectedOne))
-            newScoreTwo = Math.floor(two.eloScore + 16 * (1 - expectedTwo))
+            newScoreOne = one.eloScore + 16 * (0 - expectedOne)
+            newScoreTwo = two.eloScore + 16 * (1 - expectedTwo)
          }
 
          if (retryCount < maxRetries) {
