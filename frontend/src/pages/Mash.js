@@ -114,28 +114,34 @@ const Mash = () => {
   // add code so same card doesn't show up repeatedly, seems to skew results in short sample
 
   const handleClick = async (e) => {
-    const temp = [...cards]
+   //  const temp = [...cards]
     const userTemp = [...userCards]
 
-    let expectedOne = 1/(1 + 10**((temp[cardTwo].eloScore - temp[cardOne].eloScore)/400)) //set rates
-    let expectedTwo = 1/(1 + 10**((temp[cardOne].eloScore - temp[cardTwo].eloScore)/400))
+    const { data: latestCards } = await axios.get(`/cards/get/${id}`) 
+        
+    // Find the cards based on the latest data
+    const updatedCardOne = latestCards.find(card => card.id === cards[cardOne].id);
+    const updatedCardTwo = latestCards.find(card => card.id === cards[cardTwo].id);
+
+    let expectedOne = 1/(1 + 10**((updatedCardTwo.eloScore - updatedCardOne.eloScore)/400)) //set rates
+    let expectedTwo = 1/(1 + 10**((updatedCardOne.eloScore - updatedCardTwo.eloScore)/400))
 
     let userExpectedOne = 1/(1 + 10**((userTemp[cardTwo].eloScore - userTemp[cardOne].eloScore)/400)) //set rates
     let userExpectedTwo = 1/(1 + 10**((userTemp[cardOne].eloScore - userTemp[cardTwo].eloScore)/400))
     try {
       let scoreOne, scoreTwo, userScoreOne, userScoreTwo;
 
-      if (e.target.alt == temp[cardOne].title) { //card one clicked
-        scoreOne = temp[cardOne].eloScore + k*(1-expectedOne)
-        scoreTwo = temp[cardTwo].eloScore + k*(0-expectedTwo)
+      if (e.target.alt == updatedCardOne.title) { //card one clicked
+        scoreOne = updatedCardOne.eloScore + k*(1-expectedOne)
+        scoreTwo = updatedCardTwo.eloScore + k*(0-expectedTwo)
 
         userScoreOne = userTemp[cardOne].eloScore + k*(1-userExpectedOne)
         userScoreTwo = userTemp[cardTwo].eloScore + k*(0-userExpectedTwo)     
 
         //await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo].id, clicked: cards[cardOne].id}) // update score one
-      } else if (e.target.alt == temp[cardTwo].title) { //card two clicked
-        scoreOne = temp[cardOne].eloScore + k*(0-expectedOne)
-        scoreTwo = temp[cardTwo].eloScore + k*(1-expectedTwo)
+      } else if (e.target.alt == updatedCardTwo.title) { //card two clicked
+        scoreOne = updatedCardOne.eloScore + k*(0-expectedOne)
+        scoreTwo = updatedCardTwo.eloScore + k*(1-expectedTwo)
         
         userScoreOne = userTemp[cardOne].eloScore + k*(0-userExpectedOne)
         userScoreTwo = userTemp[cardTwo].eloScore + k*(1-userExpectedTwo)
@@ -143,28 +149,28 @@ const Mash = () => {
         //await axios.put("/cards/update", {eloScoreOne: scoreOne, idOne: cards[cardOne].id, eloScoreTwo: scoreTwo, idTwo: cards[cardTwo].id, clicked: cards[cardTwo].id}) // update score one
       }
 
-      // console.log("card1: ", cards[cardOne].title)
-      // console.log("card1: ", cards[cardOne].eloScore)
-      // console.log("card1: ", scoreOne)
-      // console.log("card2: ", cards[cardTwo].title)
-      // console.log("card2: ", cards[cardTwo].eloScore)
-      // console.log("card2: ", scoreTwo)
+      await axios.put("/cards/update", {
+         eloScoreOne: scoreOne,
+         idOne: updatedCardOne.id,
+         eloScoreTwo: scoreTwo,
+         idTwo: updatedCardTwo.id,
+      });
 
-      if (socket) {
-         socket.send(JSON.stringify({
-            type: "UPDATE_SCORES",
-            data: {
-               scoreOne,
-               scoreTwo,
-               cardOne: cards[cardOne],
-               cardTwo: cards[cardTwo],
-               clicked: e.target.alt === temp[cardOne].title ? cards[cardOne].id : cards[cardTwo].id,
-            }
-         }))
-      }
+      // if (socket) {
+      //    socket.send(JSON.stringify({
+      //       type: "UPDATE_SCORES",
+      //       data: {
+      //          scoreOne,
+      //          scoreTwo,
+      //          cardOne: cards[cardOne],
+      //          cardTwo: cards[cardTwo],
+      //          clicked: e.target.alt === temp[cardOne].title ? cards[cardOne].id : cards[cardTwo].id,
+      //       }
+      //    }))
+      // }
       
-      temp[cardOne].eloScore = scoreOne
-      temp[cardTwo].eloScore = scoreTwo
+      // temp[cardOne].eloScore = scoreOne
+      // temp[cardTwo].eloScore = scoreTwo
 
       userTemp[cardOne].eloScore = userScoreOne
       userTemp[cardTwo].eloScore = userScoreTwo
@@ -174,10 +180,9 @@ const Mash = () => {
       }
       setTimeout(() => {
          setClicks(prev => prev + 1)
-         setCards(temp)
          setUserCards(userTemp)
          setTile()
-      }, 100)
+      }, 300)
 
       // setCards(temp)
       // setUserCards(userTemp)
@@ -191,9 +196,7 @@ const Mash = () => {
             socket.send(JSON.stringify({
                type: "UPDATE_PLAYS",
                data: {
-                  ...mash,
-                  plays: updatedPlays
-               }
+                  ...mash               }
             }))
          }
       }
@@ -251,18 +254,18 @@ const Mash = () => {
          console.log("Connected to WebSocket server");
       });
 
-      ws.on("updateCards", (data) => {
-         // console.log("yoppp")
-         if (data.type === 'UPDATE_CARDS') {
-            // console.log("hi", data.cards)
-            setCards(prevCards => 
-               prevCards.map(item => {
-                  const updatedCard = data.cards.find(card => card.id === item.id);
-                  return updatedCard ? { ...item, ...updatedCard } : item;
-               })
-            );
-         }
-      });
+      // ws.on("updateCards", (data) => {
+      //    // console.log("yoppp")
+      //    if (data.type === 'UPDATE_CARDS') {
+      //       // console.log("hi", data.cards)
+      //       setCards(prevCards => 
+      //          prevCards.map(item => {
+      //             const updatedCard = data.cards.find(card => card.id === item.id);
+      //             return updatedCard ? { ...item, ...updatedCard } : item;
+      //          })
+      //       );
+      //    }
+      // });
 
       ws.on("updatePlays", (input) => {
          const data = JSON.parse(input)

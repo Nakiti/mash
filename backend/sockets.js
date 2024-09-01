@@ -29,22 +29,12 @@ export const handleUpdatePlays = async (socket, data, retryCount = 0) => {
    const { plays, id, version } = data;
    let maxRetries = 3
 
-   console.log("stuff", plays, id, version)
  
-   const query = `UPDATE mashes SET plays = ?, version = version + 1 WHERE id = ? AND version = ?`;
+   const query = `UPDATE mashes SET plays = plays + 1 WHERE id = ?`;
  
-   db.query(query, [plays, id, version], (err, result) => {
+   db.query(query, [id], (err, result) => {
       if (err) {
          console.error("Error updating mash plays:", err);
-         const mash = getMashByIdLocal(id)
-
-         // console.log(mash)
-
-         if (retryCount < maxRetries) {
-            return updateCardScores(socket, {...data, plays: mash.plays + 1}, retryCount + 1);
-         } else {
-            return { success: false, error: 'Maximum retry attempts reached' };
-         }
       } else {
          // Fetch the updated mash data to send to clients
          // console.log(id)
