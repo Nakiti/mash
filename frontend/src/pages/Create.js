@@ -108,7 +108,6 @@ const Create = () => {
                image: input.image,
                mashID: String(tempMashId),
                eloScore: String(1200),
-               version: String(1)
             })
          )
 

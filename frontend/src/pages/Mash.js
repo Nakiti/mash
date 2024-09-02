@@ -90,7 +90,7 @@ const Mash = () => {
               two = Math.floor(Math.random() * max)
             }
 
-            console.log("not ran")
+            // console.log("not ran")
           }
         }
       }

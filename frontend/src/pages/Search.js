@@ -33,7 +33,12 @@ const Search = () => {
          temp = temp.sort((a, b) => b.plays - a.plays)
 
       } else if (e.target.value === "Newest") {
-         temp = temp.reverse()
+         temp = temp.sort((a, b) => {
+            let aDate = new Date(a.date).getTime()
+            let bDate = new Date(b.date).getTime()
+
+            return bDate - aDate
+         })
       }
       
       setCards(temp)

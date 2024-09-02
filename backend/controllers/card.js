@@ -18,14 +18,15 @@ export const postCard = (req, res) => {
 }
 
 export const postCardBatch = (req, res) => {
-   const query = "INSERT INTO cards(`title`, `image`, `mashID`, `eloScore`, `version`) VALUES ?";
+   const query = "INSERT INTO cards(`title`, `image`, `mashID`, `eloScore`) VALUES ?";
+
+   console.log(req.body)
 
    const values = req.body.map(card => [
       card.title,
       card.image,
       Number(card.mashID),
       Number(card.eloScore),
-      Number(card.version)
    ]);
 
    db.query(query, [values], (err, data) => {
